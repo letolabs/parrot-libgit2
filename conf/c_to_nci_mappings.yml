@@ -23,13 +23,7 @@ git_odb *: p
 git_repository *repo: p
 const char *system_config_path: p
 const char *user_config_path: p
-# custom types
-mpz_t: p
-mpz_ptr: p
-mpz_srcptr: p
 signed long int *: p
-gmp_randstate_t: p
-__gmp_randstate_struct *: p
 
 # FIXME: both mp_size_t and mp_exp_t are ints if _CRAY and _CRAYMPP are
 # not defined.  This should be the normal case, but in the future we should
@@ -40,10 +34,6 @@ mp_exp_t: i
 
 # FIXME: size_t is platform dependent, not sure it will always fit
 # inside an 'i' type
+# NOTE: It definitely won't. This is borked.
 size_t: i
-
-# FIXME: mp_limb_t is dependent on __GMP_SHORT_LIMB and _LONG_LONG_LIMB
-mp_limb_t: i
-
-mp_bitcnt_t: l
 
