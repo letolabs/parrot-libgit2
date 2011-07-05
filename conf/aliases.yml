@@ -1,0 +1,4 @@
+---
+mpz_mod_ui: mpz_fdiv_r_ui
+mpz_kronecker: mpz_jacobi
+mpz_legendre: mpz_jacobi
