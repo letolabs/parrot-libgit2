@@ -10,7 +10,7 @@ use YAML qw(LoadFile);
 # Description: reads a local gmp.h and outputs an NCI definition file
 
 if (scalar @ARGV != 1 || ! -e $ARGV[0]) {
-  die "Usage: perl gmph2ncidef.pl /path/to/gmp.h\n";
+  die "Usage: perl $0 /path/to/gmp.h\n";
 }
 
 my $filename = $ARGV[0];
