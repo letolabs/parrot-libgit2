@@ -36,12 +36,25 @@ sub process_gmph {
     # and not just mpz types
     my $prefix = '(?:_?GIT)';
     # does the line match a C-style declare?
-    if ($_ =~ m/^($prefix\S+\((\S+)\))\s+(\S+)\(/) {
+    if ($_ =~ m/^($prefix\S+\((.*?)\))\s+(\S+)\((\S+)(\);;?)?/) {
       # $1 is the convenient name used everywhere else
       my $convenient_name  = $3;
       my $internal_name    = $3;
       my $return_type      = $2;
-      my $method_signature = "foo";
+
+      my $definition = '';
+      while ((my $following_line = <$header>) !~ m/^$/) {
+        chomp $following_line;
+
+        next if $following_line =~ m/^(#if|#endif)/;
+
+        # remove inline comments from the definition
+        $following_line =~ s!/\*.*\*/!!;
+        $definition .= $following_line;
+      }
+      my $method_signature = $definition;
+      $method_signature =~ s/\);;?$//;
+
 
       # skip if it's on our blacklist
       next if any { $convenient_name eq $_ } @blacklist;
@@ -65,16 +78,12 @@ sub process_gmph {
 
 sub process_types {
   my $type = shift;
-  # GMP uses the __gmp_const macro as a placeholder to handle compilers that
-  # don't support const - we'll ignore this macro as the burden is on the
-  # developer (not the bindings) to ensure no const data structures get
-  # modified
-  $type =~ s/__gmp_const//g;
   # trim any extra space
   $type =~ s/^\s+//g;
   $type =~ s/\s+$//g;
+  warn "looking up $type" if $ENV{DEBUG};
   return $mappings{$type} if exists $mappings{$type};
-  warn "No extant mapping for $type; setting as void";
+  warn "No extant mapping for '$type'; setting as void";
   return 'v';
 }
 
