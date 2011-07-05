@@ -10,6 +10,7 @@ signed long int: l
 long int: l
 # 'd' types
 double: d
+char: p
 # 'p' types
 # since 't' is deprecated
 char *: p
@@ -20,6 +21,9 @@ const char *git_work_tree: p
 const char *git_object_directory: p
 git_odb *object_database: p
 git_odb *: p
+git_config: p
+git_index: p
+git_repository: p
 git_repository *repo: p
 const char *system_config_path: p
 const char *user_config_path: p

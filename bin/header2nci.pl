@@ -42,7 +42,7 @@ sub process_gmph {
       my $internal_name    = $3;
       my $return_type      = $2;
 
-      my $definition = '';
+      my $definition = "$4,";
       while ((my $following_line = <$header>) !~ m/^$/) {
         chomp $following_line;
 
@@ -66,6 +66,8 @@ sub process_gmph {
       $functions{$convenient_name}{'return_type'}      = $converted_return_type;
       my $converted_method_signature = join '', map { process_types($_) } split /,/, $method_signature;
       $functions{$convenient_name}{'method_signature'} = $converted_method_signature;
+
+      #use Data::Dumper; warn Dumper [ $functions{$convenient_name} ];
     } else {
         warn "Line does not match function definition: $_";
     }
