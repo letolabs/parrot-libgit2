@@ -7,10 +7,10 @@ use File::Slurp;
 use List::MoreUtils qw(any);
 use YAML qw(LoadFile);
 
-# Description: reads a local gmp.h and outputs an NCI definition file
+# Description: reads a C header file and outputs an NCI definition file
 
 if (scalar @ARGV != 1 || ! -e $ARGV[0]) {
-  die "Usage: perl $0 /path/to/gmp.h\n";
+  die "Usage: perl $0 /path/to/header.h\n";
 }
 
 my $filename = $ARGV[0];
@@ -27,54 +27,38 @@ sub process_gmph {
   my $filename = shift;
   my %functions;
 
-  open my $gmp_header, '<', $filename;
+  open my $header, '<', $filename;
 
-  while(<$gmp_header>) {
+  while(<$header>) {
     chomp;
-    next if $_ !~ m/^#/;
+    next unless m/^GIT_EXTERN/;
     # note: in the future, we will look for more functions
     # and not just mpz types
-    my $prefix = '(?:_?mpz|gmp_u?rand)';
+    my $prefix = '(?:_?GIT)';
     # does the line match a C-style declare?
-    if ($_ =~ m/#define ($prefix\S+) (__\S+)/) {
+    if ($_ =~ m/^($prefix\S+\((\S+)\))\s+(\S+)\(/) {
       # $1 is the convenient name used everywhere else
-      my $convenient_name = $1;
-      # $2 is the name we must use in the NCI def
-      my $internal_name = $2;
+      my $convenient_name  = $3;
+      my $internal_name    = $3;
+      my $return_type      = $2;
+      my $method_signature = "foo";
+
       # skip if it's on our blacklist
       next if any { $convenient_name eq $_ } @blacklist;
       $functions{$convenient_name}{'internal_name'} = $internal_name;
-      # read until the next blank line into a definition
-      my $definition;
-      while ((my $following_line = <$gmp_header>) !~ m/^$/) {
-        chomp $following_line;
-        # some functions have complex conditions to check if
-        # __GMP_DECLSPEC should be called ...
-        # let's get these functions signatures regardless of those conditions
-        next if $following_line =~ m/^(#if|#endif)/;
 
-        # remove inline comments from the definition
-        $following_line =~ s!/\*.*\*/!!;
-        $definition .= $following_line;
-      }
-      # process the definition into a return type and a method signature
-      if ($definition =~ m/__GMP_DECLSPEC\s+(.+)$convenient_name __GMP_PROTO \(\((.+)\)\)/) {
-        my $return_type      = $1;
-        my $method_signature = $2;
-
-        # process return_type and method_signature - we need to convert
-        # it from a valid C type to an NCI def - ie. void -> v
-        my $converted_return_type = process_types($return_type);
-        $functions{$convenient_name}{'return_type'}      = $converted_return_type;
-        my $converted_method_signature = join '', map { process_types($_) } split /,/, $method_signature;
-        $functions{$convenient_name}{'method_signature'} = $converted_method_signature;
-      } else {
-        warn "Line does not match function definition: $definition";
-      }
+      # process return_type and method_signature - we need to convert
+      # it from a valid C type to an NCI def - ie. void -> v
+      my $converted_return_type = process_types($return_type);
+      $functions{$convenient_name}{'return_type'}      = $converted_return_type;
+      my $converted_method_signature = join '', map { process_types($_) } split /,/, $method_signature;
+      $functions{$convenient_name}{'method_signature'} = $converted_method_signature;
+    } else {
+        warn "Line does not match function definition: $_";
     }
   }
 
-  close $gmp_header;
+  close $header;
 
   return \%functions;
 }
