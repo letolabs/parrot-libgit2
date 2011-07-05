@@ -2,6 +2,7 @@
 void: v
 # 'i' types
 int: i
+unsigned int: i
 # 'l' types
 unsigned long: l
 long: l
@@ -21,10 +22,34 @@ const char *git_work_tree: p
 const char *git_object_directory: p
 git_odb *object_database: p
 git_odb *: p
+git_tree: p
+git_signature: p
 git_config: p
 git_index: p
 git_repository: p
+git_treebuilder: p
+git_reference: p
+git_oid: p
+git_odb: p
+git_revwalk: p
+git_object: p
+git_otype: p
+git_commit: p
+git_tag: p
+git_blob: p
+git_tree_entry: p
+git_odb_object: p
+git_repository *: p
 git_repository *repo: p
+git_index_entry *: p
+const git_index_entry_unmerged *: p
+const git_tree_entry *: p
+const git_oid *: p
+git_signature *: p
+git_time_t: p
+git_odb_backend: p
+git_odb_stream: p
+const git_signature *: p
 const char *system_config_path: p
 const char *user_config_path: p
 signed long int *: p
