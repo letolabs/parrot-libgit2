@@ -24,7 +24,7 @@ p git_commit_committer p # git_commit_committer
 i git_commit_time_offset p # git_commit_time_offset
 p git_commit_tree_oid p # git_commit_tree_oid
 p git_commit_author p # git_commit_author
-v git_strarray_free v # git_strarray_free
+v git_strarray_free p # git_strarray_free
 v git_libgit2_version i # git_libgit2_version
 i git_config_get_bool p # git_config_get_bool
 i git_config_add_file_ondisk p # git_config_add_file_ondisk
@@ -101,7 +101,7 @@ v git_oid_pathfmt p # git_oid_pathfmt
 i git_reference_create_oid_f p # git_reference_create_oid_f
 i git_reference_rename_f p # git_reference_rename_f
 i git_reference_set_target p # git_reference_set_target
-v git_reference_type p # git_reference_type
+p git_reference_type p # git_reference_type
 i git_reference_delete p # git_reference_delete
 i git_reference_set_oid p # git_reference_set_oid
 p git_reference_oid p # git_reference_oid
@@ -116,7 +116,7 @@ p git_reference_owner p # git_reference_owner
 i git_reference_create_symbolic p # git_reference_create_symbolic
 i git_reference_create_oid p # git_reference_create_oid
 p git_reference_name p # git_reference_name
-i git_reference_listall v # git_reference_listall
+i git_reference_listall p # git_reference_listall
 i git_repository_is_empty p # git_repository_is_empty
 i git_repository_open3 ppppp # git_repository_open3
 i git_repository_open p # git_repository_open

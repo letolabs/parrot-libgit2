@@ -40,6 +40,8 @@ git_tag: p
 git_blob: p
 git_tree_entry: p
 git_odb_object: p
+git_strarray: p
+git_rtype: p
 git_repository *: p
 git_repository *repo: p
 git_index_entry *: p
