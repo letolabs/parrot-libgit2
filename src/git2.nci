@@ -1,4 +1,13 @@
 # THIS FILE IS GENERATED, edit ./bin/header2nci.pl to make changes here
+[package]
+Git
+
+[lib]
+
+libgit2.so
+
+[defs]
+
 p git_blob_rawcontent p # git_blob_rawcontent
 i git_blob_create_fromfile p # git_blob_create_fromfile
 i git_blob_create_frombuffer p # git_blob_create_frombuffer
