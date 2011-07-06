@@ -15,6 +15,7 @@ char: p
 # 'p' types
 # since 't' is deprecated
 char *: p
+const void *: p
 const char *: p
 const char *git_dir: p
 const char *git_index_file: p
@@ -45,6 +46,7 @@ git_index_entry *: p
 const git_index_entry_unmerged *: p
 const git_tree_entry *: p
 const git_oid *: p
+const char objects_dir*: p
 git_signature *: p
 git_time_t: p
 git_odb_backend: p

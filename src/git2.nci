@@ -1,5 +1,5 @@
 # THIS FILE IS GENERATED, edit ./bin/header2nci.pl to make changes here
-v git_blob_rawcontent p # git_blob_rawcontent
+p git_blob_rawcontent p # git_blob_rawcontent
 i git_blob_create_fromfile p # git_blob_create_fromfile
 i git_blob_create_frombuffer p # git_blob_create_frombuffer
 i git_blob_rawsize p # git_blob_rawsize
@@ -62,7 +62,7 @@ v git_object_close p # git_object_close
 p git_object_type v # git_object_type
 p git_object_id v # git_object_id
 i git_odb_exists p # git_odb_exists
-v git_odb_object_data p # git_odb_object_data
+p git_odb_object_data p # git_odb_object_data
 i git_odb_read_prefix p # git_odb_read_prefix
 i git_odb_read p # git_odb_read
 i git_odb_object_size p # git_odb_object_size

@@ -69,7 +69,7 @@ sub process_gmph {
 
       #use Data::Dumper; warn Dumper [ $functions{$convenient_name} ];
     } else {
-        warn "Line does not match function definition: $_";
+        warn "Line $. in $filename does not match function definition: $_";
     }
   }
 
