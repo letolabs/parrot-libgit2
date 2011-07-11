@@ -17,7 +17,7 @@
     .param pmc lib
     .local pmc nci, repo
     repo = new ['UnManagedStruct']
-    dlfunc nci, lib, 'git_repository_open', 'ip'
+    dlfunc nci, lib, 'git_repository_open', 'ips'
     isa_ok(nci, 'NCI')
     $P1 = nci(repo, "foo.git")
     isa_ok($P1, 'Integer')
