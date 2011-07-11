@@ -6,7 +6,9 @@ nci:
 	for i in /usr/local/include/git2/*; do  perl ./bin/header2nci.pl $$i >> src/git2.nci ; done
 
 pbc:
-	parrot -o src/git2.pbc src/git2.pir
+	parrot -o src/git2.pbc src/git2.pir; \
+	winxed -c -o src/Git2/Common.pbc src/Git2/Common.winxed
+
 
 clean:
 	-rm src/*.pbc src/git2.nci

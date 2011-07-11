@@ -3,6 +3,8 @@ $include_const 'datatypes.pasm';
 namespace Git2 {
     function git_repository() {
       var git_repository = new 'StructView'([
+        DATATYPE_STRUCT,
+        9,              /* Number of elements */
         DATATYPE_PTR,
         DATATYPE_STRUCT,
         DATATYPE_STRUCT,
