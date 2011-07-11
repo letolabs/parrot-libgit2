@@ -19,7 +19,7 @@
     repo = new ['UnManagedStruct']
     dlfunc nci, lib, 'git_repository_open', 'ip'
     isa_ok(nci, 'NCI')
-    $P1 = nci(repo)
+    $P1 = nci(repo, "foo.git")
     isa_ok($P1, 'Integer')
 .end
 

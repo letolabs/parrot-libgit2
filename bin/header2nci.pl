@@ -36,13 +36,13 @@ sub process_gmph {
     # and not just mpz types
     my $prefix = '(?:_?GIT)';
     # does the line match a C-style declare?
-    if ($_ =~ m/^($prefix\S+\((.*?)\))\s+(\S+)\((\S+)(\);;?)?/) {
+    if ($_ =~ m/^($prefix\S+\((.*?)\))\s+(\S+)\(((\S+)(\);;?)?)?/) {
       # $1 is the convenient name used everywhere else
       my $convenient_name  = $3;
       my $internal_name    = $3;
       my $return_type      = $2;
 
-      my $definition = "$4,";
+      my $definition = $5 ? "$5," : '';
       while ((my $following_line = <$header>) !~ m/^$/) {
         chomp $following_line;
 
