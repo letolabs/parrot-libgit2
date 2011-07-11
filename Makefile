@@ -7,3 +7,6 @@ nci:
 
 pbc:
 	parrot -o src/git2.pbc src/git2.pir
+
+clean:
+	-rm src/*.pbc src/git2.nci
