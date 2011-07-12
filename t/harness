@@ -1,7 +1,8 @@
 #! parrot-nqp
 INIT { pir::load_bytecode('rosella/harness.pbc'); }
 my $factory := Rosella::construct(Rosella::Harness::TestRun::Factory);
-$factory.add_test_dirs("Winxed", "t/", :recurse(1));
+$factory.add_test_dirs("PIR", "t/pir", :recurse(1));
+$factory.add_test_dirs("Winxed", "t/winxed", :recurse(1));
 my $testrun := $factory.create();
 my $harness := Rosella::construct(Rosella::Harness);
 my $testview := $harness.default_view();
