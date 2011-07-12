@@ -1,6 +1,5 @@
 =pod
 
-
 Following in the steps of other open source projects that eventually take over
 the world, here is the partial list of people who have contributed to
 parrot-libgit2 and its supporting works.  It is sorted by name and formatted to
@@ -13,7 +12,6 @@ email (E), web-address (W), description (D), main username (U), alias usernames
     The parrot-libgit2 Team
     PS: Yes, this looks remarkably like the Linux CREDITS format
     PPS: This file is encoded in UTF-8
-    PPPS: To turn this file into a author map for git-svn, see tools/dev/mk_author_map.pl
 
 ----------
 
