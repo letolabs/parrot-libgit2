@@ -8,7 +8,7 @@ languages running on Parrot Virtual Machine.
 You need Parrot VM 3.5.0 or higher to compile parrot-libgit2 . 3.6.0 (when it
 is released) or higher is recommended.
 
-The language Winxed is included in Parrot 3.5.0, and the build system of parrot-libgit2
+The language Winxed is included in Parrot >= 3.5.0, and the build system of parrot-libgit2
 uses it. To build parrot-libgit2:
 
     winxed setup.winxed build
@@ -35,6 +35,9 @@ will need sudo:
 We read in libgit2 header files and generate an NCI binding file. This file is read
 in by $PARROT/tools/dev/ncidef2pir.pl and a PIR file is generated which allows Parrot
 to call libgit2 C functions from PIR.
+
+This only understands function signature API changes, not datastructure API changes.
+Those are still manually decribed to the StructView PMC in src/Git2/Common.winxed .
 
 This makes it trivial to release a new version of parrot-libgit2 when the
 libgit2 API changes, which it will for the forseable future. Currently, the
