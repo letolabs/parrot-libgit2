@@ -3,11 +3,29 @@ $include_const 'datatypes.pasm';
 namespace Git2 {
     function git_repository() {
       var git_repository = new 'StructView'([
+        DATATYPE_STRUCT, /* git_repository */
+        9,               /* Number of elements in git_repository */
+        /* Yay for nested structs! */
+            DATATYPE_STRUCT, /* git_odb */
+            3,               /* Number of elements in git_odb */
+            DATATYPE_PTR,    /* void *_internal;
+                /* Yay for nested structs! */
+                DATATYPE_STRUCT,     /* git_vector struct */
+                5,
+                DATATYPE_UINT,       /* _alloc_size */
+                DATATYPE_STRUCT,     /* git_vector_cmp struct */
+                DATATYPE_PTR,        /* void **contents */
+                DATATYPE_UINT,       /* length */
+                DATATYPE_INT,        /* sorted */
+                DATATYPE_STRUCT, /* git_cache struct */
+                42,
+                XXX,
         DATATYPE_STRUCT,
-        9,              /* Number of elements */
-        DATATYPE_PTR,
+        42,
+        XXX,
         DATATYPE_STRUCT,
-        DATATYPE_STRUCT,
+        42,
+        XXX,
         DATATYPE_PTR,
         DATATYPE_PTR,
         DATATYPE_PTR,
