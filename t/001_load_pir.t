@@ -8,7 +8,8 @@
     load_bytecode "./src/git2.pbc"
     .local pmc lib
 
-    loadlib lib, '/usr/lib/libgit2.so'
+    # TODO: don't hardcode this
+    loadlib lib, '/usr/local/lib/libgit2.so'
     isa_ok(lib, 'ParrotLibrary')
     ok(1,"Loaded git2.pbc")
 
