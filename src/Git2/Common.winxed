@@ -1,39 +1,280 @@
 $include_const 'datatypes.pasm';
 
-namespace Git2 {
-    function git_repository() {
-      var git_repository = new 'StructView'([
-        DATATYPE_STRUCT, /* git_repository */
-        9,               /* Number of elements in git_repository */
-        /* Yay for nested structs! */
-            DATATYPE_STRUCT, /* git_odb */
-            3,               /* Number of elements in git_odb */
-            DATATYPE_PTR,    /* void *_internal;
-                /* Yay for nested structs! */
-                DATATYPE_STRUCT,     /* git_vector struct */
-                5,
-                DATATYPE_UINT,       /* _alloc_size */
-                DATATYPE_STRUCT,     /* git_vector_cmp struct */
-                DATATYPE_PTR,        /* void **contents */
-                DATATYPE_UINT,       /* length */
-                DATATYPE_INT,        /* sorted */
-                DATATYPE_STRUCT, /* git_cache struct */
-                42,
-                XXX,
-        DATATYPE_STRUCT,
-        42,
-        XXX,
-        DATATYPE_STRUCT,
-        42,
-        XXX,
-        DATATYPE_PTR,
-        DATATYPE_PTR,
-        DATATYPE_PTR,
-        DATATYPE_PTR,
-        DATATYPE_UCHAR,
-        DATATYPE_UINT
-      ]);
-      return git_repository;
-    }
+const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
+const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
+const int DATATYPE_GIT_OFF_T  = DATATYPE_INT64; // ditto
 
+const int GIT_OID_RAWSZ = 20; // TODO: probe for value 
+
+function int_t[anon]() {
+  return new 'StructView'([DATATYPE_STRUCT, 1, DATATYPE_INT]);
+}
+
+function char_t[anon]() {
+  return new 'StructView'([DATATYPE_STRUCT, 1, DATATYPE_CHAR]);
+}
+
+namespace Git2 {
+
+  function git_branch() {
+    /*
+      struct git_branch {
+	char *remote;
+	char *merge;
+      };
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 2,
+	DATATYPE_PTR,
+	DATATYPE_PTR
+    ]);
+  }
+
+
+  function git_strarray() {
+    /*
+      typedef struct {
+	char **strings;
+	size_t count;
+      } git_strarray;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 2, 
+	DATATYPE_PTR,
+	DATATYPE_SIZE_T
+    ]);
+  }
+
+  function git_config_file() {
+    /*
+      struct git_config_file {
+	struct git_config *cfg;
+
+	int (*open)(struct git_config_file *);
+	int (*get)(struct git_config_file *, const char *key, const char **value);
+	int (*set)(struct git_config_file *, const char *key, const char *value);
+	int (*foreach)(struct git_config_file *, int (*fn)(const char *, void *), void *data);
+	void (*free)(struct git_config_file *);
+      };
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 6,
+	DATATYPE_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR
+    ]);
+  }
+
+  function git_index_time() {
+    /*
+      typedef struct {
+	git_time_t seconds;
+	unsigned int nanoseconds;
+      } git_index_time;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 2,
+	DATATYPE_GIT_TIME_T,
+	DATATYPE_UINT
+    ]);
+  }
+
+  function git_index_entry() {
+    /*
+      typedef struct git_index_entry {
+	git_index_time ctime;
+	git_index_time mtime;
+
+	unsigned int dev;
+	unsigned int ino;
+	unsigned int mode;
+	unsigned int uid;
+	unsigned int gid;
+	git_off_t file_size;
+
+	git_oid oid;
+
+	unsigned short flags;
+	unsigned short flags_extended;
+
+	const char *path;
+      } git_index_entry;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 12,
+	DATATYPE_SIZED, git_index_time().size(), git_index_time().align(),
+	DATATYPE_SIZED, git_index_time().size(), git_index_time().align(),
+	DATATYPE_UINT,
+	DATATYPE_UINT,
+	DATATYPE_UINT,
+	DATATYPE_UINT,
+	DATATYPE_UINT,
+	DATATYPE_GIT_OFF_T,
+	DATATYPE_SIZED, git_oid().size(), git_oid().align(),
+	DATATYPE_USHORT,
+	DATATYPE_USHORT,
+	DATATYPE_PTR
+    ]);
+  }
+
+  function git_index_entry_unmerged() {
+    /*
+      typedef struct git_index_entry_unmerged {
+	unsigned int mode[3];
+	git_oid oid[3];
+	const char *path;
+      } git_index_entry_unmerged;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 3,
+	DATATYPE_SIZED, int_t().size()*3, int_t().align(),
+	DATATYPE_SIZED, git_oid().aligned_size()*2 + git_oid().size(), git_oid().align,
+	DATATYPE_PTR
+    ]);
+  }
+
+  function git_remote_head() {
+    /*
+      struct git_remote_head {
+	git_oid oid;
+	char *name;
+      };
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 2,
+	DATATYPE_SIZED, git_oid().size(), git_oid().align(),
+	DATATYPE_PTR
+    ]);
+  }
+
+  function git_head_array() {
+    /*
+      struct git_headarray {
+	unsigned int len;
+	struct git_remote_head **heads;
+      };
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 2,
+	DATATYPE_UINT,
+	DATATYPE_PTR
+    ]);
+  }
+
+  function git_odb_backend() {
+    /*
+      struct git_odb_backend {
+	git_odb *odb;
+
+	int (* read)(
+	    void **, size_t *, git_otype *,
+	    struct git_odb_backend *,
+	    const git_oid *);
+
+	int (* read_prefix)(
+	    git_oid *,
+	    void **, size_t *, git_otype *,
+	    struct git_odb_backend *,
+	    const git_oid *,
+	    unsigned int);
+
+	int (* read_header)(
+	    size_t *, git_otype *,
+	    struct git_odb_backend *,
+	    const git_oid *);
+
+	int (* write)(
+	    git_oid *,
+	    struct git_odb_backend *,
+	    const void *,
+	    size_t,
+	    git_otype);
+
+	int (* writestream)(
+	    struct git_odb_stream **,
+	    struct git_odb_backend *,
+	    size_t,
+	    git_otype);
+
+	int (* readstream)(
+	    struct git_odb_stream **,
+	    struct git_odb_backend *,
+	    const git_oid *);
+
+	int (* exists)(
+	    struct git_odb_backend *,
+	    const git_oid *);
+
+	void (* free)(struct git_odb_backend *);
+      };
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 9,
+	DATATYPE_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR
+    ]);
+  }
+
+
+  function git_odb_stream() {
+    /*
+      struct git_odb_stream {
+	struct git_odb_backend *backend;
+	int mode;
+
+	int (*read)(struct git_odb_stream *stream, char *buffer, size_t len);
+	int (*write)(struct git_odb_stream *stream, const char *buffer, size_t len);
+	int (*finalize_write)(git_oid *oid_p, struct git_odb_stream *stream);
+	void (*free)(struct git_odb_stream *stream);
+      };
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 6,
+	DATATYPE_PTR,
+	DATATYPE_INT,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR,
+	DATATYPE_FUNC_PTR
+    ]);
+  }
+
+  function git_oid() {
+    /*
+      typedef struct {
+	unsigned char id[GIT_OID_RAWSZ];
+      } git_oid;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 1,
+	DATATYPE_SIZED, char_t().size()*GIT_OID_RAWSZ, char_t().align()
+    ]);
+  }
+
+  function git_time() {
+    /*
+      typedef struct git_time {
+	git_time_t time;
+	int offset;
+      } git_time;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 2,
+	DATATYPE_GIT_TIME_T,
+	DATATYPE_INT
+    ]);
+  }
+
+  function git_signature() {
+    /*
+      typedef struct git_signature {
+	char *name;
+	char *email;
+	git_time when;
+      } git_signature;
+    */
+    return new 'StructView'([ DATATYPE_STRUCT, 3,
+	DATATYPE_PTR,
+	DATATYPE_PTR,
+	DATATYPE_SIZED, git_time().size(), git_time().align()
+    ]);
+  }
 }
