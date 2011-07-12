@@ -8,7 +8,7 @@ function main[main](argv) {
     "description"       : 'Parrot bindings for libgit2 - the linkable git library',
     "authority"         : 'http://github.com/leto',
     "copyright_holder"  : 'Jonathan "Duke" Leto',
-    "keywords"          : ["parrot", "git", "libgit2],
+    "keywords"          : ["parrot", "git", "libgit2"],
     "license_type"      : 'Artistic License 2.0',
     "license_uri"       : 'http://www.perlfoundation.org/artistic_license_2_0',
     "checkout_uri"      : 'git://github.com/leto/parrot-libgit2.git',
@@ -40,15 +40,15 @@ function main[main](argv) {
 
 function setup_stable_libraries(var parrot_libgit2) {
   var libs = [
-    'Git2'
+    'Common'
   ];
 
-  string prefix = "src/";
+  string prefix = "./src/Git2/";
 
   for (string source in libs) {
     string winxed_file = prefix + source + ".winxed";
     string pir_file    = prefix + source + ".pir";
-    string pbc_file    = source + ".pbc";
+    string pbc_file    = prefix + source + ".pbc";
     parrot_libgit2["pir_winxed"][pir_file] = winxed_file;
     parrot_libgit2["pbc_pir"][pbc_file]    = pir_file;
     parrot_libgit2["inst_lib"].push(pbc_file);

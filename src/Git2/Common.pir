@@ -6,7 +6,7 @@
 .sub 'git_repository'
 # Body
 # {
-.annotate 'file', 'Common.winxed'
+.annotate 'file', './src/Git2/Common.winxed'
 .annotate 'line', 5
 # var git_repository: $P1
     root_new $P2, ['parrot';'ResizablePMCArray']
