@@ -15,21 +15,22 @@ function char_t[anon]() {
 }
 
 namespace Git2 {
-
-  function git_branch() {
-    /*
-      struct git_branch {
-	char *remote;
-	char *merge;
-      };
-    */
-    return new 'StructView'([ DATATYPE_STRUCT, 2,
-	DATATYPE_PTR,
-	DATATYPE_PTR
-    ]);
+  class Branch {
+    function Branch() {
+        /*
+        struct git_branch {
+        char *remote;
+        char *merge;
+        };
+        */
+        return new 'StructView'([ DATATYPE_STRUCT, 2,
+        DATATYPE_PTR,
+        DATATYPE_PTR
+        ]);
+    }
   }
 
-
+  class Common {
   function git_strarray() {
     /*
       typedef struct {
@@ -276,5 +277,6 @@ namespace Git2 {
 	DATATYPE_PTR,
 	DATATYPE_SIZED, git_time().size(), git_time().align()
     ]);
+  }
   }
 }
