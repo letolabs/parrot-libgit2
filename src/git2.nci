@@ -32,6 +32,7 @@ i git_config_get_bool p # git_config_get_bool
 i git_config_add_file_ondisk p # git_config_add_file_ondisk
 i git_config_get_int p # git_config_get_int
 i git_config_file__ondisk v # git_config_file__ondisk
+i git_config_delete p # git_config_delete
 i git_config_set_string p # git_config_set_string
 i git_config_open_global p # git_config_open_global
 i git_config_add_file p # git_config_add_file
@@ -39,7 +40,6 @@ i git_config_open_ondisk p # git_config_open_ondisk
 i git_config_find_global p # git_config_find_global
 i git_config_new p # git_config_new
 v git_config_free p # git_config_free
-i git_config_del p # git_config_del
 i git_config_get_long p # git_config_get_long
 i git_config_get_string p # git_config_get_string
 i git_config_set_int p # git_config_set_int
@@ -132,13 +132,14 @@ i git_reference_listall p # git_reference_listall
 i git_reference_packall p # git_reference_packall
 p git_reference_target p # git_reference_target
 i git_reference_foreach p # git_reference_foreach
-i git_remote_ls v # git_remote_ls
-p git_remote_name v # git_remote_name
-v git_remote_fetchspec v # git_remote_fetchspec
 i git_remote_connect v # git_remote_connect
-i git_remote_get v # git_remote_get
 v git_remote_free v # git_remote_free
+p git_remote_name v # git_remote_name
+i git_remote_ls v # git_remote_ls
+v git_remote_fetchspec v # git_remote_fetchspec
+i git_remote_get v # git_remote_get
 p git_remote_url v # git_remote_url
+v git_remote_pushspec v # git_remote_pushspec
 i git_repository_is_empty p # git_repository_is_empty
 i git_repository_open3 ppppp # git_repository_open3
 i git_repository_head_orphan p # git_repository_head_orphan
