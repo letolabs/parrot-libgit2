@@ -22,7 +22,23 @@ return new 'StructView'([ DATATYPE_STRUCT, 3,
 namespace Git2 {
   class Repository {
     function Repository() {
-        return new 'StructView'([ DATATYPE_STRUCT, 9,
+/*
+struct git_repository {
+    git_odb *db;
+
+    git_cache objects;
+    git_refcache references;
+
+    char *path_repository;
+    char *path_index;
+    char *path_odb;
+    char *path_workdir;
+
+    unsigned is_bare:1;
+    unsigned int lru_counter;
+};
+*/
+        var repo = new 'StructView'([ DATATYPE_STRUCT, 9,
             DATATYPE_PTR,
             DATATYPE_SIZED, git_cache.size(), git_cache.align(),
             DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
@@ -33,6 +49,7 @@ namespace Git2 {
             DATATYPE_UINT,
             DATATYPE_UINT
         ]);
+        return repo;
     }
   }
 }

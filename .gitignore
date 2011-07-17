@@ -3,3 +3,4 @@
 core
 *.pbc
 src/Git2/Common.pir
+src/Git2/Repository.pir
