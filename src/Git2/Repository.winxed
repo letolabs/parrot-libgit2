@@ -3,6 +3,11 @@ $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 
+function load[anon,load]() {
+  load_bytecode('./src/git2.pbc');
+  load_bytecode('./src/Git2/Common.pbc');
+}
+
 /* These should go to Cache.winxed and Refcache.winxed */
 function git_cache() {
 return new 'StructView'([ DATATYPE_STRUCT, 3,
