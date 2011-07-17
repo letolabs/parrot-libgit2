@@ -1,7 +1,0 @@
-[package]
-Git2
-
-[lib]
-libgit2.so
-
-[defs]

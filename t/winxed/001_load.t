@@ -1,6 +1,7 @@
 #/usr/bin/env winxed
 
 $load "rosella/test.pbc";
+$load "./src/git2.pbc";
 $load "./src/Git2/Common.pbc";
 
 class Test_git2_repository_open {
