@@ -40,7 +40,8 @@ function main[main](argv) {
 
 function setup_stable_libraries(var parrot_libgit2) {
   var libs = [
-    'Common'
+    'Common',
+    'Repository'
   ];
 
   string prefix = "./src/Git2/";

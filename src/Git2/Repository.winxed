@@ -1,0 +1,38 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
+const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
+
+/* These should go to Cache.winxed and Refcache.winxed */
+function git_cache() {
+return new 'StructView'([ DATATYPE_STRUCT, 3,
+    DATATYPE_PTR,
+    DATATYPE_UINT,
+    DATATYPE_SIZE_T,
+    DATATYPE_PTR
+]);
+}
+function git_refcache() {
+return new 'StructView'([ DATATYPE_STRUCT, 3,
+    DATATYPE_PTR,
+    DATATYPE_PTR,
+    DATATYPE_GIT_TIME_T
+]);
+}
+namespace Git2 {
+  class Repository {
+    function Repository() {
+        return new 'StructView'([ DATATYPE_STRUCT, 9,
+            DATATYPE_PTR,
+            DATATYPE_SIZED, git_cache.size(), git_cache.align(),
+            DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
+            DATATYPE_PTR,
+            DATATYPE_PTR,
+            DATATYPE_PTR,
+            DATATYPE_PTR,
+            DATATYPE_UINT,
+            DATATYPE_UINT
+        ]);
+    }
+  }
+}
