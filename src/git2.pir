@@ -2,319 +2,391 @@
   .local pmc lib, nci
   loadlib lib, 'libgit2.so'
   dlfunc nci, lib, 'git_blob_rawcontent', 'pp'
-  set_global ['Git'], 'git_blob_rawcontent', nci
+  set_global ['Git2';'Raw'], 'git_blob_rawcontent', nci
   dlfunc nci, lib, 'git_blob_create_fromfile', 'ip'
-  set_global ['Git'], 'git_blob_create_fromfile', nci
+  set_global ['Git2';'Raw'], 'git_blob_create_fromfile', nci
   dlfunc nci, lib, 'git_blob_create_frombuffer', 'ip'
-  set_global ['Git'], 'git_blob_create_frombuffer', nci
+  set_global ['Git2';'Raw'], 'git_blob_create_frombuffer', nci
   dlfunc nci, lib, 'git_blob_rawsize', 'ip'
-  set_global ['Git'], 'git_blob_rawsize', nci
+  set_global ['Git2';'Raw'], 'git_blob_rawsize', nci
+  dlfunc nci, lib, 'git_commit_create_v', 'ippvvvvvvv'
+  set_global ['Git2';'Raw'], 'git_commit_create_v', nci
   dlfunc nci, lib, 'git_commit_time', 'pp'
-  set_global ['Git'], 'git_commit_time', nci
+  set_global ['Git2';'Raw'], 'git_commit_time', nci
   dlfunc nci, lib, 'git_commit_id', 'pp'
-  set_global ['Git'], 'git_commit_id', nci
+  set_global ['Git2';'Raw'], 'git_commit_id', nci
   dlfunc nci, lib, 'git_commit_message_short', 'pp'
-  set_global ['Git'], 'git_commit_message_short', nci
+  set_global ['Git2';'Raw'], 'git_commit_message_short', nci
   dlfunc nci, lib, 'git_commit_message', 'pp'
-  set_global ['Git'], 'git_commit_message', nci
+  set_global ['Git2';'Raw'], 'git_commit_message', nci
   dlfunc nci, lib, 'git_commit_parent_oid', 'pp'
-  set_global ['Git'], 'git_commit_parent_oid', nci
+  set_global ['Git2';'Raw'], 'git_commit_parent_oid', nci
   dlfunc nci, lib, 'git_commit_parentcount', 'ip'
-  set_global ['Git'], 'git_commit_parentcount', nci
+  set_global ['Git2';'Raw'], 'git_commit_parentcount', nci
   dlfunc nci, lib, 'git_commit_tree', 'ip'
-  set_global ['Git'], 'git_commit_tree', nci
+  set_global ['Git2';'Raw'], 'git_commit_tree', nci
+  dlfunc nci, lib, 'git_commit_create', 'ippvvvvvvv'
+  set_global ['Git2';'Raw'], 'git_commit_create', nci
   dlfunc nci, lib, 'git_commit_parent', 'ip'
-  set_global ['Git'], 'git_commit_parent', nci
+  set_global ['Git2';'Raw'], 'git_commit_parent', nci
   dlfunc nci, lib, 'git_commit_committer', 'pp'
-  set_global ['Git'], 'git_commit_committer', nci
+  set_global ['Git2';'Raw'], 'git_commit_committer', nci
   dlfunc nci, lib, 'git_commit_time_offset', 'ip'
-  set_global ['Git'], 'git_commit_time_offset', nci
+  set_global ['Git2';'Raw'], 'git_commit_time_offset', nci
   dlfunc nci, lib, 'git_commit_tree_oid', 'pp'
-  set_global ['Git'], 'git_commit_tree_oid', nci
+  set_global ['Git2';'Raw'], 'git_commit_tree_oid', nci
   dlfunc nci, lib, 'git_commit_author', 'pp'
-  set_global ['Git'], 'git_commit_author', nci
-  dlfunc nci, lib, 'git_strarray_free', 'vv'
-  set_global ['Git'], 'git_strarray_free', nci
+  set_global ['Git2';'Raw'], 'git_commit_author', nci
+  dlfunc nci, lib, 'git_strarray_free', 'vp'
+  set_global ['Git2';'Raw'], 'git_strarray_free', nci
   dlfunc nci, lib, 'git_libgit2_version', 'vi'
-  set_global ['Git'], 'git_libgit2_version', nci
+  set_global ['Git2';'Raw'], 'git_libgit2_version', nci
   dlfunc nci, lib, 'git_config_get_bool', 'ip'
-  set_global ['Git'], 'git_config_get_bool', nci
+  set_global ['Git2';'Raw'], 'git_config_get_bool', nci
   dlfunc nci, lib, 'git_config_add_file_ondisk', 'ip'
-  set_global ['Git'], 'git_config_add_file_ondisk', nci
+  set_global ['Git2';'Raw'], 'git_config_add_file_ondisk', nci
   dlfunc nci, lib, 'git_config_get_int', 'ip'
-  set_global ['Git'], 'git_config_get_int', nci
+  set_global ['Git2';'Raw'], 'git_config_get_int', nci
   dlfunc nci, lib, 'git_config_file__ondisk', 'iv'
-  set_global ['Git'], 'git_config_file__ondisk', nci
+  set_global ['Git2';'Raw'], 'git_config_file__ondisk', nci
+  dlfunc nci, lib, 'git_config_delete', 'ip'
+  set_global ['Git2';'Raw'], 'git_config_delete', nci
   dlfunc nci, lib, 'git_config_set_string', 'ip'
-  set_global ['Git'], 'git_config_set_string', nci
+  set_global ['Git2';'Raw'], 'git_config_set_string', nci
   dlfunc nci, lib, 'git_config_open_global', 'ip'
-  set_global ['Git'], 'git_config_open_global', nci
+  set_global ['Git2';'Raw'], 'git_config_open_global', nci
   dlfunc nci, lib, 'git_config_add_file', 'ip'
-  set_global ['Git'], 'git_config_add_file', nci
+  set_global ['Git2';'Raw'], 'git_config_add_file', nci
   dlfunc nci, lib, 'git_config_open_ondisk', 'ip'
-  set_global ['Git'], 'git_config_open_ondisk', nci
+  set_global ['Git2';'Raw'], 'git_config_open_ondisk', nci
   dlfunc nci, lib, 'git_config_find_global', 'ip'
-  set_global ['Git'], 'git_config_find_global', nci
+  set_global ['Git2';'Raw'], 'git_config_find_global', nci
   dlfunc nci, lib, 'git_config_new', 'ip'
-  set_global ['Git'], 'git_config_new', nci
+  set_global ['Git2';'Raw'], 'git_config_new', nci
   dlfunc nci, lib, 'git_config_free', 'vp'
-  set_global ['Git'], 'git_config_free', nci
+  set_global ['Git2';'Raw'], 'git_config_free', nci
   dlfunc nci, lib, 'git_config_get_long', 'ip'
-  set_global ['Git'], 'git_config_get_long', nci
+  set_global ['Git2';'Raw'], 'git_config_get_long', nci
   dlfunc nci, lib, 'git_config_get_string', 'ip'
-  set_global ['Git'], 'git_config_get_string', nci
+  set_global ['Git2';'Raw'], 'git_config_get_string', nci
   dlfunc nci, lib, 'git_config_set_int', 'ip'
-  set_global ['Git'], 'git_config_set_int', nci
+  set_global ['Git2';'Raw'], 'git_config_set_int', nci
   dlfunc nci, lib, 'git_config_set_long', 'ip'
-  set_global ['Git'], 'git_config_set_long', nci
+  set_global ['Git2';'Raw'], 'git_config_set_long', nci
   dlfunc nci, lib, 'git_config_set_bool', 'ip'
-  set_global ['Git'], 'git_config_set_bool', nci
-  dlfunc nci, lib, 'git_config_foreach', 'ip'
-  set_global ['Git'], 'git_config_foreach', nci
+  set_global ['Git2';'Raw'], 'git_config_set_bool', nci
+  dlfunc nci, lib, 'git_config_foreach', 'ivvvvv'
+  set_global ['Git2';'Raw'], 'git_config_foreach', nci
   dlfunc nci, lib, 'git_strerror', 'pi'
-  set_global ['Git'], 'git_strerror', nci
+  set_global ['Git2';'Raw'], 'git_strerror', nci
+  dlfunc nci, lib, 'git_clearerror', 'vv'
+  set_global ['Git2';'Raw'], 'git_clearerror', nci
   dlfunc nci, lib, 'git_lasterror', 'pv'
-  set_global ['Git'], 'git_lasterror', nci
+  set_global ['Git2';'Raw'], 'git_lasterror', nci
   dlfunc nci, lib, 'git_index_entry_stage', 'iv'
-  set_global ['Git'], 'git_index_entry_stage', nci
+  set_global ['Git2';'Raw'], 'git_index_entry_stage', nci
   dlfunc nci, lib, 'git_index_add2', 'ip'
-  set_global ['Git'], 'git_index_add2', nci
+  set_global ['Git2';'Raw'], 'git_index_add2', nci
   dlfunc nci, lib, 'git_index_free', 'vp'
-  set_global ['Git'], 'git_index_free', nci
+  set_global ['Git2';'Raw'], 'git_index_free', nci
   dlfunc nci, lib, 'git_index_get_unmerged_bypath', 'pp'
-  set_global ['Git'], 'git_index_get_unmerged_bypath', nci
+  set_global ['Git2';'Raw'], 'git_index_get_unmerged_bypath', nci
   dlfunc nci, lib, 'git_index_append2', 'ip'
-  set_global ['Git'], 'git_index_append2', nci
+  set_global ['Git2';'Raw'], 'git_index_append2', nci
   dlfunc nci, lib, 'git_index_read', 'ip'
-  set_global ['Git'], 'git_index_read', nci
+  set_global ['Git2';'Raw'], 'git_index_read', nci
   dlfunc nci, lib, 'git_index_find', 'ip'
-  set_global ['Git'], 'git_index_find', nci
+  set_global ['Git2';'Raw'], 'git_index_find', nci
   dlfunc nci, lib, 'git_index_get', 'pp'
-  set_global ['Git'], 'git_index_get', nci
+  set_global ['Git2';'Raw'], 'git_index_get', nci
   dlfunc nci, lib, 'git_index_open', 'ip'
-  set_global ['Git'], 'git_index_open', nci
+  set_global ['Git2';'Raw'], 'git_index_open', nci
   dlfunc nci, lib, 'git_index_write', 'ip'
-  set_global ['Git'], 'git_index_write', nci
+  set_global ['Git2';'Raw'], 'git_index_write', nci
+  dlfunc nci, lib, 'git_index_uniq', 'vp'
+  set_global ['Git2';'Raw'], 'git_index_uniq', nci
   dlfunc nci, lib, 'git_index_add', 'ip'
-  set_global ['Git'], 'git_index_add', nci
+  set_global ['Git2';'Raw'], 'git_index_add', nci
   dlfunc nci, lib, 'git_index_entrycount_unmerged', 'ip'
-  set_global ['Git'], 'git_index_entrycount_unmerged', nci
+  set_global ['Git2';'Raw'], 'git_index_entrycount_unmerged', nci
   dlfunc nci, lib, 'git_index_entrycount', 'ip'
-  set_global ['Git'], 'git_index_entrycount', nci
+  set_global ['Git2';'Raw'], 'git_index_entrycount', nci
   dlfunc nci, lib, 'git_index_append', 'ip'
-  set_global ['Git'], 'git_index_append', nci
+  set_global ['Git2';'Raw'], 'git_index_append', nci
   dlfunc nci, lib, 'git_index_remove', 'ip'
-  set_global ['Git'], 'git_index_remove', nci
+  set_global ['Git2';'Raw'], 'git_index_remove', nci
   dlfunc nci, lib, 'git_index_get_unmerged_byindex', 'pp'
-  set_global ['Git'], 'git_index_get_unmerged_byindex', nci
+  set_global ['Git2';'Raw'], 'git_index_get_unmerged_byindex', nci
   dlfunc nci, lib, 'git_index_clear', 'vp'
-  set_global ['Git'], 'git_index_clear', nci
+  set_global ['Git2';'Raw'], 'git_index_clear', nci
   dlfunc nci, lib, 'git_object__size', 'ip'
-  set_global ['Git'], 'git_object__size', nci
+  set_global ['Git2';'Raw'], 'git_object__size', nci
   dlfunc nci, lib, 'git_object_string2type', 'pv'
-  set_global ['Git'], 'git_object_string2type', nci
-  dlfunc nci, lib, 'git_object_type2string', 'pp'
-  set_global ['Git'], 'git_object_type2string', nci
+  set_global ['Git2';'Raw'], 'git_object_string2type', nci
+  dlfunc nci, lib, 'git_object_lookup_prefix', 'ivpvvv'
+  set_global ['Git2';'Raw'], 'git_object_lookup_prefix', nci
   dlfunc nci, lib, 'git_object_typeisloose', 'ip'
-  set_global ['Git'], 'git_object_typeisloose', nci
-  dlfunc nci, lib, 'git_object_owner', 'pv'
-  set_global ['Git'], 'git_object_owner', nci
-  dlfunc nci, lib, 'git_object_close', 'vp'
-  set_global ['Git'], 'git_object_close', nci
+  set_global ['Git2';'Raw'], 'git_object_typeisloose', nci
   dlfunc nci, lib, 'git_object_type', 'pv'
-  set_global ['Git'], 'git_object_type', nci
+  set_global ['Git2';'Raw'], 'git_object_type', nci
   dlfunc nci, lib, 'git_object_id', 'pv'
-  set_global ['Git'], 'git_object_id', nci
+  set_global ['Git2';'Raw'], 'git_object_id', nci
+  dlfunc nci, lib, 'git_object_type2string', 'pp'
+  set_global ['Git2';'Raw'], 'git_object_type2string', nci
+  dlfunc nci, lib, 'git_object_lookup', 'ivpvv'
+  set_global ['Git2';'Raw'], 'git_object_lookup', nci
+  dlfunc nci, lib, 'git_object_owner', 'pv'
+  set_global ['Git2';'Raw'], 'git_object_owner', nci
+  dlfunc nci, lib, 'git_object_close', 'vp'
+  set_global ['Git2';'Raw'], 'git_object_close', nci
   dlfunc nci, lib, 'git_odb_exists', 'ip'
-  set_global ['Git'], 'git_odb_exists', nci
+  set_global ['Git2';'Raw'], 'git_odb_exists', nci
   dlfunc nci, lib, 'git_odb_object_data', 'pp'
-  set_global ['Git'], 'git_odb_object_data', nci
+  set_global ['Git2';'Raw'], 'git_odb_object_data', nci
   dlfunc nci, lib, 'git_odb_read_prefix', 'ip'
-  set_global ['Git'], 'git_odb_read_prefix', nci
+  set_global ['Git2';'Raw'], 'git_odb_read_prefix', nci
   dlfunc nci, lib, 'git_odb_read', 'ip'
-  set_global ['Git'], 'git_odb_read', nci
+  set_global ['Git2';'Raw'], 'git_odb_read', nci
   dlfunc nci, lib, 'git_odb_object_size', 'ip'
-  set_global ['Git'], 'git_odb_object_size', nci
+  set_global ['Git2';'Raw'], 'git_odb_object_size', nci
   dlfunc nci, lib, 'git_odb_add_alternate', 'ip'
-  set_global ['Git'], 'git_odb_add_alternate', nci
+  set_global ['Git2';'Raw'], 'git_odb_add_alternate', nci
   dlfunc nci, lib, 'git_odb_write', 'ip'
-  set_global ['Git'], 'git_odb_write', nci
+  set_global ['Git2';'Raw'], 'git_odb_write', nci
   dlfunc nci, lib, 'git_odb_object_close', 'vp'
-  set_global ['Git'], 'git_odb_object_close', nci
+  set_global ['Git2';'Raw'], 'git_odb_object_close', nci
+  dlfunc nci, lib, 'git_odb_hashfile', 'ip'
+  set_global ['Git2';'Raw'], 'git_odb_hashfile', nci
   dlfunc nci, lib, 'git_odb_new', 'ip'
-  set_global ['Git'], 'git_odb_new', nci
+  set_global ['Git2';'Raw'], 'git_odb_new', nci
   dlfunc nci, lib, 'git_odb_close', 'vp'
-  set_global ['Git'], 'git_odb_close', nci
+  set_global ['Git2';'Raw'], 'git_odb_close', nci
   dlfunc nci, lib, 'git_odb_read_header', 'ii'
-  set_global ['Git'], 'git_odb_read_header', nci
+  set_global ['Git2';'Raw'], 'git_odb_read_header', nci
   dlfunc nci, lib, 'git_odb_hash', 'ip'
-  set_global ['Git'], 'git_odb_hash', nci
+  set_global ['Git2';'Raw'], 'git_odb_hash', nci
   dlfunc nci, lib, 'git_odb_add_backend', 'ip'
-  set_global ['Git'], 'git_odb_add_backend', nci
+  set_global ['Git2';'Raw'], 'git_odb_add_backend', nci
   dlfunc nci, lib, 'git_odb_open_wstream', 'ip'
-  set_global ['Git'], 'git_odb_open_wstream', nci
+  set_global ['Git2';'Raw'], 'git_odb_open_wstream', nci
   dlfunc nci, lib, 'git_odb_object_id', 'pp'
-  set_global ['Git'], 'git_odb_object_id', nci
+  set_global ['Git2';'Raw'], 'git_odb_object_id', nci
   dlfunc nci, lib, 'git_odb_open', 'ip'
-  set_global ['Git'], 'git_odb_open', nci
+  set_global ['Git2';'Raw'], 'git_odb_open', nci
   dlfunc nci, lib, 'git_odb_object_type', 'pp'
-  set_global ['Git'], 'git_odb_object_type', nci
+  set_global ['Git2';'Raw'], 'git_odb_object_type', nci
   dlfunc nci, lib, 'git_odb_open_rstream', 'ip'
-  set_global ['Git'], 'git_odb_open_rstream', nci
+  set_global ['Git2';'Raw'], 'git_odb_open_rstream', nci
   dlfunc nci, lib, 'git_odb_backend_pack', 'ipvv'
-  set_global ['Git'], 'git_odb_backend_pack', nci
+  set_global ['Git2';'Raw'], 'git_odb_backend_pack', nci
   dlfunc nci, lib, 'git_oid_ncmp', 'iv'
-  set_global ['Git'], 'git_oid_ncmp', nci
+  set_global ['Git2';'Raw'], 'git_oid_ncmp', nci
   dlfunc nci, lib, 'git_oid_fromraw', 'vp'
-  set_global ['Git'], 'git_oid_fromraw', nci
+  set_global ['Git2';'Raw'], 'git_oid_fromraw', nci
   dlfunc nci, lib, 'git_oid_fmt', 'vp'
-  set_global ['Git'], 'git_oid_fmt', nci
+  set_global ['Git2';'Raw'], 'git_oid_fmt', nci
   dlfunc nci, lib, 'git_oid_fromstr', 'ip'
-  set_global ['Git'], 'git_oid_fromstr', nci
+  set_global ['Git2';'Raw'], 'git_oid_fromstr', nci
   dlfunc nci, lib, 'git_oid_cmp', 'iv'
-  set_global ['Git'], 'git_oid_cmp', nci
+  set_global ['Git2';'Raw'], 'git_oid_cmp', nci
   dlfunc nci, lib, 'git_oid_allocfmt', 'pv'
-  set_global ['Git'], 'git_oid_allocfmt', nci
+  set_global ['Git2';'Raw'], 'git_oid_allocfmt', nci
+  dlfunc nci, lib, 'git_oid_fromstrn', 'ip'
+  set_global ['Git2';'Raw'], 'git_oid_fromstrn', nci
   dlfunc nci, lib, 'git_oid_to_string', 'pp'
-  set_global ['Git'], 'git_oid_to_string', nci
+  set_global ['Git2';'Raw'], 'git_oid_to_string', nci
   dlfunc nci, lib, 'git_oid_cpy', 'vp'
-  set_global ['Git'], 'git_oid_cpy', nci
+  set_global ['Git2';'Raw'], 'git_oid_cpy', nci
   dlfunc nci, lib, 'git_oid_pathfmt', 'vp'
-  set_global ['Git'], 'git_oid_pathfmt', nci
-  dlfunc nci, lib, 'git_reference_create_oid_f', 'ip'
-  set_global ['Git'], 'git_reference_create_oid_f', nci
-  dlfunc nci, lib, 'git_reference_rename_f', 'ip'
-  set_global ['Git'], 'git_reference_rename_f', nci
-  dlfunc nci, lib, 'git_reference_set_target', 'ip'
-  set_global ['Git'], 'git_reference_set_target', nci
-  dlfunc nci, lib, 'git_reference_type', 'vp'
-  set_global ['Git'], 'git_reference_type', nci
-  dlfunc nci, lib, 'git_reference_delete', 'ip'
-  set_global ['Git'], 'git_reference_delete', nci
-  dlfunc nci, lib, 'git_reference_set_oid', 'ip'
-  set_global ['Git'], 'git_reference_set_oid', nci
-  dlfunc nci, lib, 'git_reference_oid', 'pp'
-  set_global ['Git'], 'git_reference_oid', nci
-  dlfunc nci, lib, 'git_reference_create_symbolic_f', 'ip'
-  set_global ['Git'], 'git_reference_create_symbolic_f', nci
-  dlfunc nci, lib, 'git_reference_packall', 'ip'
-  set_global ['Git'], 'git_reference_packall', nci
-  dlfunc nci, lib, 'git_reference_target', 'pp'
-  set_global ['Git'], 'git_reference_target', nci
-  dlfunc nci, lib, 'git_reference_foreach', 'ip'
-  set_global ['Git'], 'git_reference_foreach', nci
-  dlfunc nci, lib, 'git_reference_lookup', 'ip'
-  set_global ['Git'], 'git_reference_lookup', nci
+  set_global ['Git2';'Raw'], 'git_oid_pathfmt', nci
+  dlfunc nci, lib, 'git_reflog_write', 'ip'
+  set_global ['Git2';'Raw'], 'git_reflog_write', nci
+  dlfunc nci, lib, 'git_reflog_entrycount', 'ip'
+  set_global ['Git2';'Raw'], 'git_reflog_entrycount', nci
+  dlfunc nci, lib, 'git_reflog_free', 'vp'
+  set_global ['Git2';'Raw'], 'git_reflog_free', nci
+  dlfunc nci, lib, 'git_reflog_read', 'ip'
+  set_global ['Git2';'Raw'], 'git_reflog_read', nci
+  dlfunc nci, lib, 'git_reflog_entry_msg', 'pv'
+  set_global ['Git2';'Raw'], 'git_reflog_entry_msg', nci
+  dlfunc nci, lib, 'git_reflog_entry_oidold', 'pv'
+  set_global ['Git2';'Raw'], 'git_reflog_entry_oidold', nci
+  dlfunc nci, lib, 'git_reflog_entry_oidnew', 'pv'
+  set_global ['Git2';'Raw'], 'git_reflog_entry_oidnew', nci
+  dlfunc nci, lib, 'git_reflog_entry_committer', 'pv'
+  set_global ['Git2';'Raw'], 'git_reflog_entry_committer', nci
+  dlfunc nci, lib, 'git_reflog_entry_byindex', 'vp'
+  set_global ['Git2';'Raw'], 'git_reflog_entry_byindex', nci
   dlfunc nci, lib, 'git_reference_rename', 'ip'
-  set_global ['Git'], 'git_reference_rename', nci
-  dlfunc nci, lib, 'git_reference_resolve', 'ip'
-  set_global ['Git'], 'git_reference_resolve', nci
+  set_global ['Git2';'Raw'], 'git_reference_rename', nci
+  dlfunc nci, lib, 'git_reference_lookup', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_lookup', nci
   dlfunc nci, lib, 'git_reference_owner', 'pp'
-  set_global ['Git'], 'git_reference_owner', nci
-  dlfunc nci, lib, 'git_reference_create_symbolic', 'ip'
-  set_global ['Git'], 'git_reference_create_symbolic', nci
+  set_global ['Git2';'Raw'], 'git_reference_owner', nci
+  dlfunc nci, lib, 'git_reference_resolve', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_resolve', nci
   dlfunc nci, lib, 'git_reference_create_oid', 'ip'
-  set_global ['Git'], 'git_reference_create_oid', nci
+  set_global ['Git2';'Raw'], 'git_reference_create_oid', nci
+  dlfunc nci, lib, 'git_reference_create_symbolic', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_create_symbolic', nci
+  dlfunc nci, lib, 'git_reference_set_target', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_set_target', nci
+  dlfunc nci, lib, 'git_reference_type', 'pp'
+  set_global ['Git2';'Raw'], 'git_reference_type', nci
+  dlfunc nci, lib, 'git_reference_delete', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_delete', nci
+  dlfunc nci, lib, 'git_reference_set_oid', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_set_oid', nci
+  dlfunc nci, lib, 'git_reference_oid', 'pp'
+  set_global ['Git2';'Raw'], 'git_reference_oid', nci
   dlfunc nci, lib, 'git_reference_name', 'pp'
-  set_global ['Git'], 'git_reference_name', nci
-  dlfunc nci, lib, 'git_reference_listall', 'iv'
-  set_global ['Git'], 'git_reference_listall', nci
+  set_global ['Git2';'Raw'], 'git_reference_name', nci
+  dlfunc nci, lib, 'git_reference_listall', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_listall', nci
+  dlfunc nci, lib, 'git_reference_packall', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_packall', nci
+  dlfunc nci, lib, 'git_reference_target', 'pp'
+  set_global ['Git2';'Raw'], 'git_reference_target', nci
+  dlfunc nci, lib, 'git_reference_foreach', 'ip'
+  set_global ['Git2';'Raw'], 'git_reference_foreach', nci
+  dlfunc nci, lib, 'git_remote_connect', 'iv'
+  set_global ['Git2';'Raw'], 'git_remote_connect', nci
+  dlfunc nci, lib, 'git_remote_free', 'vv'
+  set_global ['Git2';'Raw'], 'git_remote_free', nci
+  dlfunc nci, lib, 'git_remote_name', 'pv'
+  set_global ['Git2';'Raw'], 'git_remote_name', nci
+  dlfunc nci, lib, 'git_remote_ls', 'iv'
+  set_global ['Git2';'Raw'], 'git_remote_ls', nci
+  dlfunc nci, lib, 'git_remote_fetchspec', 'vv'
+  set_global ['Git2';'Raw'], 'git_remote_fetchspec', nci
+  dlfunc nci, lib, 'git_remote_get', 'iv'
+  set_global ['Git2';'Raw'], 'git_remote_get', nci
+  dlfunc nci, lib, 'git_remote_url', 'pv'
+  set_global ['Git2';'Raw'], 'git_remote_url', nci
+  dlfunc nci, lib, 'git_remote_pushspec', 'vv'
+  set_global ['Git2';'Raw'], 'git_remote_pushspec', nci
   dlfunc nci, lib, 'git_repository_is_empty', 'ip'
-  set_global ['Git'], 'git_repository_is_empty', nci
+  set_global ['Git2';'Raw'], 'git_repository_is_empty', nci
   dlfunc nci, lib, 'git_repository_open3', 'ippppp'
-  set_global ['Git'], 'git_repository_open3', nci
-  dlfunc nci, lib, 'git_repository_open', 'ip'
-  set_global ['Git'], 'git_repository_open', nci
+  set_global ['Git2';'Raw'], 'git_repository_open3', nci
+  dlfunc nci, lib, 'git_repository_head_orphan', 'ip'
+  set_global ['Git2';'Raw'], 'git_repository_head_orphan', nci
+  dlfunc nci, lib, 'git_repository_open', 'ipp'
+  set_global ['Git2';'Raw'], 'git_repository_open', nci
+  dlfunc nci, lib, 'git_repository_head_detached', 'ip'
+  set_global ['Git2';'Raw'], 'git_repository_head_detached', nci
   dlfunc nci, lib, 'git_repository_database', 'pp'
-  set_global ['Git'], 'git_repository_database', nci
+  set_global ['Git2';'Raw'], 'git_repository_database', nci
   dlfunc nci, lib, 'git_repository_open2', 'ippppp'
-  set_global ['Git'], 'git_repository_open2', nci
+  set_global ['Git2';'Raw'], 'git_repository_open2', nci
   dlfunc nci, lib, 'git_repository_index', 'ip'
-  set_global ['Git'], 'git_repository_index', nci
+  set_global ['Git2';'Raw'], 'git_repository_index', nci
   dlfunc nci, lib, 'git_repository_discover', 'ip'
-  set_global ['Git'], 'git_repository_discover', nci
+  set_global ['Git2';'Raw'], 'git_repository_discover', nci
   dlfunc nci, lib, 'git_repository_is_bare', 'ip'
-  set_global ['Git'], 'git_repository_is_bare', nci
+  set_global ['Git2';'Raw'], 'git_repository_is_bare', nci
   dlfunc nci, lib, 'git_repository_init', 'ip'
-  set_global ['Git'], 'git_repository_init', nci
+  set_global ['Git2';'Raw'], 'git_repository_init', nci
   dlfunc nci, lib, 'git_repository_free', 'vp'
-  set_global ['Git'], 'git_repository_free', nci
+  set_global ['Git2';'Raw'], 'git_repository_free', nci
   dlfunc nci, lib, 'git_repository_config', 'ipppp'
-  set_global ['Git'], 'git_repository_config', nci
+  set_global ['Git2';'Raw'], 'git_repository_config', nci
   dlfunc nci, lib, 'git_repository_path', 'pp'
-  set_global ['Git'], 'git_repository_path', nci
+  set_global ['Git2';'Raw'], 'git_repository_path', nci
   dlfunc nci, lib, 'git_revwalk_new', 'ip'
-  set_global ['Git'], 'git_revwalk_new', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_new', nci
   dlfunc nci, lib, 'git_revwalk_next', 'ip'
-  set_global ['Git'], 'git_revwalk_next', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_next', nci
   dlfunc nci, lib, 'git_revwalk_free', 'vp'
-  set_global ['Git'], 'git_revwalk_free', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_free', nci
   dlfunc nci, lib, 'git_revwalk_hide', 'ip'
-  set_global ['Git'], 'git_revwalk_hide', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_hide', nci
   dlfunc nci, lib, 'git_revwalk_repository', 'pp'
-  set_global ['Git'], 'git_revwalk_repository', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_repository', nci
   dlfunc nci, lib, 'git_revwalk_sorting', 'vp'
-  set_global ['Git'], 'git_revwalk_sorting', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_sorting', nci
   dlfunc nci, lib, 'git_revwalk_push', 'ip'
-  set_global ['Git'], 'git_revwalk_push', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_push', nci
   dlfunc nci, lib, 'git_revwalk_reset', 'vp'
-  set_global ['Git'], 'git_revwalk_reset', nci
+  set_global ['Git2';'Raw'], 'git_revwalk_reset', nci
   dlfunc nci, lib, 'git_signature_now', 'pv'
-  set_global ['Git'], 'git_signature_now', nci
+  set_global ['Git2';'Raw'], 'git_signature_now', nci
   dlfunc nci, lib, 'git_signature_free', 'vp'
-  set_global ['Git'], 'git_signature_free', nci
+  set_global ['Git2';'Raw'], 'git_signature_free', nci
   dlfunc nci, lib, 'git_signature_dup', 'pv'
-  set_global ['Git'], 'git_signature_dup', nci
+  set_global ['Git2';'Raw'], 'git_signature_dup', nci
   dlfunc nci, lib, 'git_signature_new', 'pv'
-  set_global ['Git'], 'git_signature_new', nci
+  set_global ['Git2';'Raw'], 'git_signature_new', nci
+  dlfunc nci, lib, 'git_status_file', 'iv'
+  set_global ['Git2';'Raw'], 'git_status_file', nci
+  dlfunc nci, lib, 'git_status_foreach', 'ip'
+  set_global ['Git2';'Raw'], 'git_status_foreach', nci
+  dlfunc nci, lib, 'git_tag_list_match', 'ivvp'
+  set_global ['Git2';'Raw'], 'git_tag_list_match', nci
   dlfunc nci, lib, 'git_tag_name', 'pp'
-  set_global ['Git'], 'git_tag_name', nci
+  set_global ['Git2';'Raw'], 'git_tag_name', nci
   dlfunc nci, lib, 'git_tag_id', 'pp'
-  set_global ['Git'], 'git_tag_id', nci
-  dlfunc nci, lib, 'git_tag_tagger', 'pp'
-  set_global ['Git'], 'git_tag_tagger', nci
+  set_global ['Git2';'Raw'], 'git_tag_id', nci
   dlfunc nci, lib, 'git_tag_type', 'pp'
-  set_global ['Git'], 'git_tag_type', nci
+  set_global ['Git2';'Raw'], 'git_tag_type', nci
   dlfunc nci, lib, 'git_tag_target', 'ip'
-  set_global ['Git'], 'git_tag_target', nci
-  dlfunc nci, lib, 'git_tag_message', 'pp'
-  set_global ['Git'], 'git_tag_message', nci
+  set_global ['Git2';'Raw'], 'git_tag_target', nci
   dlfunc nci, lib, 'git_tag_target_oid', 'pp'
-  set_global ['Git'], 'git_tag_target_oid', nci
+  set_global ['Git2';'Raw'], 'git_tag_target_oid', nci
+  dlfunc nci, lib, 'git_tag_list', 'ivp'
+  set_global ['Git2';'Raw'], 'git_tag_list', nci
+  dlfunc nci, lib, 'git_tag_delete', 'ipv'
+  set_global ['Git2';'Raw'], 'git_tag_delete', nci
+  dlfunc nci, lib, 'git_tag_tagger', 'pp'
+  set_global ['Git2';'Raw'], 'git_tag_tagger', nci
+  dlfunc nci, lib, 'git_tag_message', 'pp'
+  set_global ['Git2';'Raw'], 'git_tag_message', nci
+  dlfunc nci, lib, 'git_tag_create', 'ippvvvvv'
+  set_global ['Git2';'Raw'], 'git_tag_create', nci
+  dlfunc nci, lib, 'git_tag_create_frombuffer', 'ippvv'
+  set_global ['Git2';'Raw'], 'git_tag_create_frombuffer', nci
+  dlfunc nci, lib, 'git_transport_connect', 'ip'
+  set_global ['Git2';'Raw'], 'git_transport_connect', nci
+  dlfunc nci, lib, 'git_transport_add', 'ip'
+  set_global ['Git2';'Raw'], 'git_transport_add', nci
+  dlfunc nci, lib, 'git_transport_new', 'ip'
+  set_global ['Git2';'Raw'], 'git_transport_new', nci
+  dlfunc nci, lib, 'git_transport_ls', 'ipv'
+  set_global ['Git2';'Raw'], 'git_transport_ls', nci
   dlfunc nci, lib, 'git_treebuilder_insert', 'ip'
-  set_global ['Git'], 'git_treebuilder_insert', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_insert', nci
   dlfunc nci, lib, 'git_treebuilder_clear', 'vp'
-  set_global ['Git'], 'git_treebuilder_clear', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_clear', nci
   dlfunc nci, lib, 'git_tree_entry_type', 'pv'
-  set_global ['Git'], 'git_tree_entry_type', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_type', nci
   dlfunc nci, lib, 'git_tree_entry_byname', 'pp'
-  set_global ['Git'], 'git_tree_entry_byname', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_byname', nci
   dlfunc nci, lib, 'git_tree_entry_id', 'pv'
-  set_global ['Git'], 'git_tree_entry_id', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_id', nci
   dlfunc nci, lib, 'git_tree_entry_byindex', 'pp'
-  set_global ['Git'], 'git_tree_entry_byindex', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_byindex', nci
   dlfunc nci, lib, 'git_treebuilder_free', 'vp'
-  set_global ['Git'], 'git_treebuilder_free', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_free', nci
   dlfunc nci, lib, 'git_tree_entry_attributes', 'iv'
-  set_global ['Git'], 'git_tree_entry_attributes', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_attributes', nci
   dlfunc nci, lib, 'git_tree_entrycount', 'ip'
-  set_global ['Git'], 'git_tree_entrycount', nci
+  set_global ['Git2';'Raw'], 'git_tree_entrycount', nci
   dlfunc nci, lib, 'git_treebuilder_remove', 'ip'
-  set_global ['Git'], 'git_treebuilder_remove', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_remove', nci
   dlfunc nci, lib, 'git_treebuilder_get', 'pp'
-  set_global ['Git'], 'git_treebuilder_get', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_get', nci
   dlfunc nci, lib, 'git_tree_create_fromindex', 'ip'
-  set_global ['Git'], 'git_tree_create_fromindex', nci
+  set_global ['Git2';'Raw'], 'git_tree_create_fromindex', nci
   dlfunc nci, lib, 'git_tree_entry_2object', 'ip'
-  set_global ['Git'], 'git_tree_entry_2object', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_2object', nci
   dlfunc nci, lib, 'git_tree_entry_name', 'pv'
-  set_global ['Git'], 'git_tree_entry_name', nci
+  set_global ['Git2';'Raw'], 'git_tree_entry_name', nci
   dlfunc nci, lib, 'git_treebuilder_filter', 'vp'
-  set_global ['Git'], 'git_treebuilder_filter', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_filter', nci
   dlfunc nci, lib, 'git_tree_id', 'pp'
-  set_global ['Git'], 'git_tree_id', nci
+  set_global ['Git2';'Raw'], 'git_tree_id', nci
   dlfunc nci, lib, 'git_treebuilder_write', 'ip'
-  set_global ['Git'], 'git_treebuilder_write', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_write', nci
   dlfunc nci, lib, 'git_treebuilder_create', 'ip'
-  set_global ['Git'], 'git_treebuilder_create', nci
+  set_global ['Git2';'Raw'], 'git_treebuilder_create', nci
 .end

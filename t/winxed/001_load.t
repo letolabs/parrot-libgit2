@@ -9,6 +9,11 @@ $load "dumper.pbc";
 $include_const 'datatypes.pasm';
 $include_const "iglobals.pasm";
 
+namespace Git2 {
+    class Repository;
+    class Branch;
+}
+
 class Test_git2_repository_open {
 
     function test_new_branch() {
@@ -30,13 +35,14 @@ class Test_git2_repository_open {
     }
 
     function open_repo() {
-        using Git2.Repository.git_repository_open;
+        using Git2.Raw.git_repository_open;
         using cstring;
+
         var repo = new Git2.Repository;
         var rc;
 
         // The following line causes a Null PMC Access
-        git_repository_open(rc, repo, cstring(".git"));
+        rc = git_repository_open(repo, cstring(".git"));
 
         self.assert.equal(rc,0);
     }

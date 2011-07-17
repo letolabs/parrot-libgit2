@@ -1,6 +1,6 @@
 # THIS FILE IS GENERATED, edit ./bin/header2nci.pl to make changes here
 [package]
-Git
+Git2::Raw
 
 [lib]
 
