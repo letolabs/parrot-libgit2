@@ -21,6 +21,15 @@ function cstring(string s) {
 }
 
 namespace Git2 {
+  class Index {
+    function Index() {
+        // TODO: fix struct
+        return new 'StructView'([ DATATYPE_STRUCT, 3,
+            DATATYPE_PTR,
+            DATATYPE_PTR
+            ]);
+    }
+  }
   class Branch {
     function Branch() {
         /*

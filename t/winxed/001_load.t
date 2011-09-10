@@ -11,6 +11,7 @@ $include_const "iglobals.pasm";
 
 namespace Git2 {
     class Repository;
+    class Index;
     class Branch;
 }
 
@@ -41,10 +42,29 @@ class Test_git2_repository_open {
         var repo = new Git2.Repository;
         var rc;
 
-        // The following line causes a Null PMC Access
         rc = git_repository_open(repo, cstring(".git"));
 
         self.assert.equal(rc,0);
+    }
+
+    function repository_index() {
+        using Git2.Raw.git_repository_open;
+        using cstring;
+
+        var repo      = new Git2.Repository;
+        var git_index = new Git2.Index;
+        var rc        = -1;
+
+        git_repository_open(repo, cstring(".git"));
+
+        // this coredumps parrot
+        // rc = git_repository_index(git_index, repo);
+        self.assert.equal(rc,0);
+    }
+
+    function git_index() {
+        var git_index = new Git2.Index;
+        self.assert.instance_of(git_index, 'Git2::Index');
     }
 
 }
