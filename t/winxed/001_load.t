@@ -56,10 +56,14 @@ class Test_git2_repository_open {
         var git_index = new Git2.Index;
         var rc        = -1;
 
+        //self.assert.instance_of(git_index, 'Git2::Index');
+
         git_repository_open(repo, cstring(".git"));
 
         // this coredumps parrot
-        rc = git_repository_index(git_index, repo);
+        rc = git_repository_index(git_index);
+
+        self.assert.instance_of(git_index, 'Git2::Index');
         self.assert.equal(rc,0);
     }
 
