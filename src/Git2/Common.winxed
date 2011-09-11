@@ -23,8 +23,27 @@ function cstring(string s) {
 namespace Git2 {
   class Index {
     function Index() {
-        // TODO: fix struct
+        /*
+        struct git_index {
+            git_repository *repository;
+            char *index_file_path;
+
+            time_t last_modified;
+            git_vector entries;
+
+            unsigned int on_disk:1;
+            git_index_tree *tree;
+
+            git_vector unmerged;
+        };
+        */
+
         return new 'StructView'([ DATATYPE_STRUCT, 3,
+            DATATYPE_PTR,
+            DATATYPE_PTR,
+            DATATYPE_GIT_TIME_T,
+            DATATYPE_PTR,
+            DATATYPE_UINT,
             DATATYPE_PTR,
             DATATYPE_PTR
             ]);

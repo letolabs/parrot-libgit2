@@ -49,6 +49,7 @@ class Test_git2_repository_open {
 
     function repository_index() {
         using Git2.Raw.git_repository_open;
+        using Git2.Raw.git_repository_index;
         using cstring;
 
         var repo      = new Git2.Repository;
@@ -58,7 +59,7 @@ class Test_git2_repository_open {
         git_repository_open(repo, cstring(".git"));
 
         // this coredumps parrot
-        // rc = git_repository_index(git_index, repo);
+        rc = git_repository_index(git_index, repo);
         self.assert.equal(rc,0);
     }
 
