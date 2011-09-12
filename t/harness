@@ -7,5 +7,5 @@ my $testrun := $factory.create();
 my $harness := Rosella::construct(Rosella::Harness);
 my $testview := $harness.default_view();
 $testview.add_run($testrun, 0);
-$harness.run($testrun, $testview);
+$harness.run([$testrun], $testview);
 $testview.show_results();
