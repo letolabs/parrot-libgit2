@@ -1,6 +1,6 @@
 # THIS FILE IS GENERATED, edit ./bin/header2nci.pl to make changes here
 [package]
-Git2::Raw
+Git
 
 [lib]
 
@@ -132,14 +132,13 @@ i git_reference_listall p # git_reference_listall
 i git_reference_packall p # git_reference_packall
 p git_reference_target p # git_reference_target
 i git_reference_foreach p # git_reference_foreach
-i git_remote_connect v # git_remote_connect
-v git_remote_free v # git_remote_free
-p git_remote_name v # git_remote_name
 i git_remote_ls v # git_remote_ls
+p git_remote_name v # git_remote_name
 v git_remote_fetchspec v # git_remote_fetchspec
+i git_remote_connect v # git_remote_connect
 i git_remote_get v # git_remote_get
+v git_remote_free v # git_remote_free
 p git_remote_url v # git_remote_url
-v git_remote_pushspec v # git_remote_pushspec
 i git_repository_is_empty p # git_repository_is_empty
 i git_repository_open3 ppppp # git_repository_open3
 i git_repository_head_orphan p # git_repository_head_orphan
