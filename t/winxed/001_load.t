@@ -19,12 +19,12 @@ class Test_git2_repository_open {
 
     function test_new_branch() {
         var branch  = new Git2.Branch;
-        self.assert.instance_of(branch, 'Git2::Branch');
+        self.assert.instance_of(branch, class Git2.Branch);
     }
 
     function test_new_repo() {
         var repo = new Git2.Repository;
-        self.assert.instance_of(repo, 'Git2::Repository');
+        self.assert.instance_of(repo, class Git2.Repository);
     }
 
     function test_cstring() {
@@ -56,20 +56,21 @@ class Test_git2_repository_open {
         var git_index = new Git2.Index;
         var rc        = -1;
 
-        //self.assert.instance_of(git_index, 'Git2::Index');
+        self.assert.instance_of(git_index, class Git2.Index);
 
+        // We actually want to pass repo.alloc() but Winxed won't let us
+        // This intermittently coredumps Parrot
         git_repository_open(repo, cstring(".git"));
 
-        // this coredumps parrot
         rc = git_repository_index(git_index);
 
-        self.assert.instance_of(git_index, 'Git2::Index');
+        self.assert.instance_of(git_index, class Git2.Index);
         self.assert.equal(rc,0);
     }
 
     function git_index() {
         var git_index = new Git2.Index;
-        self.assert.instance_of(git_index, 'Git2::Index');
+        self.assert.instance_of(git_index, class Git2.Index);
     }
 
 }
