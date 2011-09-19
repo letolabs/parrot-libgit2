@@ -24,9 +24,6 @@ return new 'StructView'([ DATATYPE_STRUCT, 3,
     DATATYPE_GIT_TIME_T
 ]);
 }
-namespace Git2 {
-  class Repository {
-    function Repository() {
 /*
 struct git_repository {
     git_odb *db;
@@ -43,18 +40,21 @@ struct git_repository {
     unsigned int lru_counter;
 };
 */
-        var repo = new 'StructView'([ DATATYPE_STRUCT, 9,
-            DATATYPE_PTR,
-            DATATYPE_SIZED, git_cache.size(), git_cache.align(),
-            DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
-            DATATYPE_PTR,
-            DATATYPE_PTR,
-            DATATYPE_PTR,
-            DATATYPE_PTR,
-            DATATYPE_UINT,
-            DATATYPE_UINT
-        ]);
-        return repo;
+
+class Git2.Repository {
+    var ptr;
+    function Repository() {
+        var repo_sv = new 'StructView'([ DATATYPE_STRUCT, 9,
+                DATATYPE_PTR,
+                DATATYPE_SIZED, git_cache.size(), git_cache.align(),
+                DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
+                DATATYPE_PTR,
+                DATATYPE_PTR,
+                DATATYPE_PTR,
+                DATATYPE_PTR,
+                DATATYPE_UINT,
+                DATATYPE_UINT
+            ]);
+        self.ptr = repo_sv.alloc();
     }
-  }
 }

@@ -36,20 +36,20 @@ class Test_git2_repository_open {
     }
 
     function open_repo() {
-        using Git2.Raw.git_repository_open;
+        using Git2.ptr.git_repository_open;
         using cstring;
 
         var repo = new Git2.Repository;
         var rc;
 
-        rc = git_repository_open(repo, cstring(".git"));
+        rc = git_repository_open(repo.ptr, cstring(".git"));
 
         self.assert.equal(rc,0);
     }
 
     function repository_index() {
-        using Git2.Raw.git_repository_open;
-        using Git2.Raw.git_repository_index;
+        using Git2.ptr.git_repository_open;
+        using Git2.ptr.git_repository_index;
         using cstring;
 
         var repo      = new Git2.Repository;
@@ -58,11 +58,9 @@ class Test_git2_repository_open {
 
         self.assert.instance_of(git_index, class Git2.Index);
 
-        // We actually want to pass repo.alloc() but Winxed won't let us
-        // This intermittently coredumps Parrot
-        git_repository_open(repo, cstring(".git"));
+        git_repository_open(repo.ptr, cstring(".git"));
 
-        rc = git_repository_index(git_index);
+        rc = git_repository_index(git_index.ptr);
 
         self.assert.instance_of(git_index, class Git2.Index);
         self.assert.equal(rc,0);
