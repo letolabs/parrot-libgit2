@@ -40,7 +40,7 @@ class Test_git2_repository_open {
         using Git2.Raw.git_repository_open;
         using cstring;
 
-        var repo = new Git2.Repository;
+        var repo = new Git2.Repository();
 
         var rc = git_repository_open(repo.ptr, cstring(".git"));
 
@@ -54,7 +54,7 @@ class Test_git2_repository_open {
         using Git2.Raw.git_repository_index;
         using cstring;
 
-        var repo      = new Git2.Repository;
+        var repo      = new Git2.Repository();
         var git_index = new Git2.Index;
         var rc        = -1;
 
