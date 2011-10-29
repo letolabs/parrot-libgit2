@@ -10,7 +10,7 @@ function load[anon,load]() {
 
 /* These should go to Cache.winxed and Refcache.winxed */
 function git_cache() {
-return new 'StructView'([ DATATYPE_STRUCT, 3,
+return new 'StructView'([ DATATYPE_STRUCT, 4,
     DATATYPE_PTR,
     DATATYPE_UINT,
     DATATYPE_SIZE_T,
