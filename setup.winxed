@@ -87,4 +87,5 @@ function clean_build_dir() {
     say("unlink " + exe);
     unlink(exe);
   }
+  unlink("src/git2.pbc");
 }
