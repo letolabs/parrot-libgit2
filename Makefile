@@ -6,11 +6,15 @@ build: nci pbclib
 test: build
 	parrot-nqp t/harness
 
-pbclib: src/Git2/Common.winxed src/Git2/Repository.winxed src/git2.pir
+pbclib: src/Git2/*.winxed src/git2.pir
 	winxed -c -o src/Git2/Common.pir src/Git2/Common.winxed
-	parrot -o src/Git2/Common.pbc src/Git2/Common.pir
+	winxed -c -o src/Git2/Cache.pir src/Git2/Cache.winxed
+	winxed -c -o src/Git2/RefCache.pir src/Git2/RefCache.winxed
 	winxed -c -o src/Git2/Repository.pir src/Git2/Repository.winxed
+	parrot -o src/Git2/Common.pbc src/Git2/Common.pir
 	parrot -o src/Git2/Repository.pbc src/Git2/Repository.pir
+	parrot -o src/Git2/Cache.pbc src/Git2/Cache.pir
+	parrot -o src/Git2/RefCache.pbc src/Git2/RefCache.pir
 	parrot -o src/git2.pbc src/git2.pir
 
 nci:

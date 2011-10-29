@@ -6,23 +6,17 @@ const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 function load[anon,load]() {
   load_bytecode('./src/git2.pbc');
   load_bytecode('./src/Git2/Common.pbc');
+  load_bytecode('./src/Git2/Cache.pbc');
+  load_bytecode('./src/Git2/RefCache.pbc');
 }
 
-/* These should go to Cache.winxed and Refcache.winxed */
-function git_cache() {
-return new 'StructView'([ DATATYPE_STRUCT, 4,
-    DATATYPE_PTR,
-    DATATYPE_UINT,
-    DATATYPE_SIZE_T,
-    DATATYPE_PTR
-]);
-}
 function git_refcache() {
-return new 'StructView'([ DATATYPE_STRUCT, 3,
-    DATATYPE_PTR,
-    DATATYPE_PTR,
-    DATATYPE_GIT_TIME_T
-]);
+    var refcache = new 'StructView'([ DATATYPE_STRUCT, 3,
+        DATATYPE_PTR,
+        DATATYPE_PTR,
+        DATATYPE_GIT_TIME_T
+    ]);
+    return refcache;
 }
 /*
 struct git_repository {
@@ -41,9 +35,12 @@ struct git_repository {
 };
 */
 
-class Git2.Repository {
+namespace Git2 {
+  class Repository {
     var ptr;
-    function get_sv() {
+    function Repository() {
+        var git_cache    = new Git2.Cache();
+        var git_refcache = new Git2.RefCache();
         var sv = new 'StructView'([ DATATYPE_STRUCT, 9,
                 DATATYPE_PTR,
                 DATATYPE_SIZED, git_cache.size(), git_cache.align(),
@@ -55,10 +52,7 @@ class Git2.Repository {
                 DATATYPE_UINT,
                 DATATYPE_UINT
             ]);
-        while (1) { yield(sv); }
-    }
-    function Repository() {
-        var sv   = get_sv();
         self.ptr = sv.alloc();
     }
+  }
 }
