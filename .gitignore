@@ -4,3 +4,7 @@ core
 *.pbc
 src/Git2/Common.pir
 src/Git2/Repository.pir
+src/Git2/Cache.pir
+src/Git2/Common.pir
+src/Git2/RefCache.pir
+src/Git2/Repository.pir

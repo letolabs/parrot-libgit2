@@ -1,0 +1,22 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
+const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
+
+namespace Git2 {
+    class Cache {
+        function get_sv() {
+            var sv = new 'StructView'([ DATATYPE_STRUCT, 4,
+                DATATYPE_PTR,
+                DATATYPE_UINT,
+                DATATYPE_SIZE_T,
+                DATATYPE_PTR
+            ]);
+            while (1) { yield(sv); }
+        }
+        var ptr;
+        function Cache() {
+            self.ptr = get_sv().alloc();
+        }
+    }
+}

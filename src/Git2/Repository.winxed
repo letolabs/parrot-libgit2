@@ -10,14 +10,6 @@ function load[anon,load]() {
   load_bytecode('./src/Git2/RefCache.pbc');
 }
 
-function git_refcache() {
-    var refcache = new 'StructView'([ DATATYPE_STRUCT, 3,
-        DATATYPE_PTR,
-        DATATYPE_PTR,
-        DATATYPE_GIT_TIME_T
-    ]);
-    return refcache;
-}
 /*
 struct git_repository {
     git_odb *db;
@@ -37,8 +29,7 @@ struct git_repository {
 
 namespace Git2 {
   class Repository {
-    var ptr;
-    function Repository() {
+    function get_sv() {
         var git_cache    = new Git2.Cache();
         var git_refcache = new Git2.RefCache();
         var sv = new 'StructView'([ DATATYPE_STRUCT, 9,
@@ -52,7 +43,11 @@ namespace Git2 {
                 DATATYPE_UINT,
                 DATATYPE_UINT
             ]);
-        self.ptr = sv.alloc();
+        while (1) { yield(sv); }
+    }
+    var ptr;
+    function Repository() {
+        self.ptr = get_sv().alloc();
     }
   }
 }
