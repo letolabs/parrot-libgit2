@@ -37,6 +37,7 @@ class Test_git2_repository_open {
 
     function open_repo() {
         using Git2.Repository;
+        using Git2.Raw.git_repository_open;
         using cstring;
 
         var repo = new Git2.Repository;
@@ -49,6 +50,8 @@ class Test_git2_repository_open {
     function repository_index() {
         using Git2.Repository;
         using Git2.Index;
+        using Git2.Raw.git_repository_open;
+        using Git2.Raw.git_repository_index;
         using cstring;
 
         var repo      = new Git2.Repository;

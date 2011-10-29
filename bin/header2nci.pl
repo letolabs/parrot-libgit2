@@ -32,8 +32,6 @@ sub process_gmph {
   while(<$header>) {
     chomp;
     next unless m/^GIT_EXTERN/;
-    # note: in the future, we will look for more functions
-    # and not just mpz types
     my $prefix = '(?:_?GIT)';
     # does the line match a C-style declare?
     if ($_ =~ m/^($prefix\S+\((.*?)\))\s+(\S+)\(((\S+)(\);;?)?)?/) {
@@ -54,7 +52,6 @@ sub process_gmph {
       }
       my $method_signature = $definition;
       $method_signature =~ s/\);;?$//;
-
 
       # skip if it's on our blacklist
       next if any { $convenient_name eq $_ } @blacklist;
