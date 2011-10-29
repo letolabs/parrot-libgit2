@@ -3,7 +3,7 @@
 
 .sub 'main' :main
     .include 'test_more.pir'
-    plan(7)
+    plan(8)
 
     load_bytecode "./src/git2.pbc"
     .local pmc lib
@@ -18,7 +18,7 @@
 
 .sub test_git_repo_open
     .param pmc lib
-    .local pmc nci, repo
+    .local pmc nci, repo, gindex
 
     $P0 = get_hll_global ['Git2'], 'git_repository'
 
@@ -40,6 +40,14 @@
     is($I1, 0, "this repo loaded")
     $I1 = isnull repo
     nok($I1, "repo object populated")
+
+    dlfunc nci, lib, 'git_repository_index', $P0
+    isa_ok(nci, 'NCI')
+    $P0 = str_to_cstring("./.git")
+    #($I1, gindex) = nci(gindex, $P0)
+    #free_cstring($P0)
+
+
 .end
 
 .sub str_to_cstring
