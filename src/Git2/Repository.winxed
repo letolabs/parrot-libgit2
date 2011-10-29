@@ -43,8 +43,8 @@ struct git_repository {
 
 class Git2.Repository {
     var ptr;
-    function Repository() {
-        var repo_sv = new 'StructView'([ DATATYPE_STRUCT, 9,
+    function get_sv() {
+        var sv = new 'StructView'([ DATATYPE_STRUCT, 9,
                 DATATYPE_PTR,
                 DATATYPE_SIZED, git_cache.size(), git_cache.align(),
                 DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
@@ -55,6 +55,10 @@ class Git2.Repository {
                 DATATYPE_UINT,
                 DATATYPE_UINT
             ]);
-        self.ptr = repo_sv.alloc();
+        while (1) { yield(sv); }
+    }
+    function Repository() {
+        var sv   = get_sv();
+        self.ptr = sv.alloc();
     }
 }

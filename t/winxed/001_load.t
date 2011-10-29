@@ -36,20 +36,19 @@ class Test_git2_repository_open {
     }
 
     function open_repo() {
-        using Git2.ptr.git_repository_open;
+        using Git2.Repository;
         using cstring;
 
         var repo = new Git2.Repository;
-        var rc;
 
-        rc = git_repository_open(repo.ptr, cstring(".git"));
+        var rc = git_repository_open(repo.ptr, cstring(".git"));
 
         self.assert.equal(rc,0);
     }
 
     function repository_index() {
-        using Git2.ptr.git_repository_open;
-        using Git2.ptr.git_repository_index;
+        using Git2.Repository;
+        using Git2.Index;
         using cstring;
 
         var repo      = new Git2.Repository;
