@@ -55,17 +55,17 @@ class Test_git2_repository_open {
         using cstring;
 
         var repo      = new Git2.Repository();
-        var git_index = new Git2.Index;
-        var rc        = -1;
-
+        var git_index = new Git2.Index();
         self.assert.instance_of(git_index, class Git2.Index);
 
-        git_repository_open(repo.ptr, cstring(".git"));
+        var rc1        = -1;
+        var rc2        = -1;
 
-        rc = git_repository_index(git_index.ptr);
+        rc1 = git_repository_open(repo.ptr, cstring(".git"));
+        self.assert.equal(rc1,0);
 
-        self.assert.instance_of(git_index, class Git2.Index);
-        self.assert.equal(rc,0);
+        rc2 = git_repository_index(git_index.ptr);
+        self.assert.equal(rc2,0);
     }
 
     function git_index() {

@@ -30,8 +30,8 @@ struct git_repository {
 namespace Git2 {
   class Repository {
     function get_sv() {
-        var git_cache    = new Git2.Cache();
-        var git_refcache = new Git2.RefCache();
+        var git_cache    = new Git2.Cache().get_sv();
+        var git_refcache = new Git2.RefCache().get_sv();
         var sv = new 'StructView'([ DATATYPE_STRUCT, 9,
                 DATATYPE_PTR,
                 DATATYPE_SIZED, git_cache.size(), git_cache.align(),
@@ -47,7 +47,7 @@ namespace Git2 {
     }
     var ptr;
     function Repository() {
-        self.ptr = get_sv().alloc();
+        self.ptr = self.get_sv().alloc();
     }
   }
 }

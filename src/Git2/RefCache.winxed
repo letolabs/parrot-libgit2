@@ -15,7 +15,7 @@ namespace Git2 {
         }
         var ptr;
         function RefCache() {
-            self.ptr = get_sv().alloc();
+            self.ptr = self.get_sv().alloc();
         }
     }
 }
