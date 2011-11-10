@@ -40,7 +40,10 @@ function main[main](argv) {
 
 function setup_stable_libraries(var parrot_libgit2) {
   var libs = [
+    'Cache',
     'Common',
+    'Index',
+    'RefCache',
     'Repository'
   ];
 

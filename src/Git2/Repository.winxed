@@ -7,6 +7,7 @@ function load[anon,load]() {
   load_bytecode('./src/git2.pbc');
   load_bytecode('./src/Git2/Common.pbc');
   load_bytecode('./src/Git2/Cache.pbc');
+  load_bytecode('./src/Git2/Index.pbc');
   load_bytecode('./src/Git2/RefCache.pbc');
 }
 
