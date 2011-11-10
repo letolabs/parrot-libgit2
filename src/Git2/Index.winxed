@@ -21,7 +21,7 @@ namespace Git2 {
         };
         */
 
-         var sv = 'StructView'([ DATATYPE_STRUCT, 3,
+         var sv = new 'StructView'([ DATATYPE_STRUCT, 3,
             DATATYPE_PTR,
             DATATYPE_PTR,
             DATATYPE_GIT_TIME_T,
