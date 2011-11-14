@@ -52,6 +52,9 @@ class Test_git2_repository_open {
         using Git2.Index;
         using Git2.Raw.git_repository_open;
         using Git2.Raw.git_repository_index;
+        using Git2.Raw.git_repository_free;
+        using Git2.Raw.git_index_open_inrepo;
+        using Git2.Raw.git_repository_is_bare;
         using cstring;
 
         var repo      = new Git2.Repository();
@@ -61,11 +64,20 @@ class Test_git2_repository_open {
         var rc1        = -1;
         var rc2        = -1;
 
-        rc1 = git_repository_open(repo.ptr, cstring(".git"));
+        // TODO: make slashes portable
+        rc1 = git_repository_open(repo.ptr, cstring("./.git"));
         self.assert.equal(rc1,0);
 
-        rc2 = git_repository_index(git_index.ptr);
+        var gindex = git_index.ptr;
+        var grepo  = repo.ptr;
+
+        rc2 = git_repository_index(gindex);
         self.assert.equal(rc2,0);
+
+        var bool = git_repository_is_bare(repo.ptr);
+        self.assert.equal(bool,0);
+
+        // git_repository_free(repo.ptr);
     }
 
     function git_index() {
