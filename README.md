@@ -5,8 +5,8 @@ languages running on Parrot Virtual Machine.
 
 ## Compiling
 
-You need Parrot VM 3.5.0 or higher to compile parrot-libgit2 . 3.6.0 (when it
-is released) or higher is recommended.
+You need [Parrot VM 3.5.0](http://parrot.org) or higher to compile parrot-libgit2 . 3.6.0
+or higher is recommended.
 
 The language Winxed is included in Parrot >= 3.5.0, and the build system of parrot-libgit2
 uses it. To build parrot-libgit2:
