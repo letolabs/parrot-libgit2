@@ -1,0 +1,25 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2 {
+    class Oid {
+        function get_sv() {
+        /*
+        typedef struct {
+            // raw binary formatted id
+            unsigned char id[GIT_OID_RAWSZ];
+        } git_oid;
+        */
+
+         var sv = new 'StructView'([ DATATYPE_STRUCT, 1,
+            DATATYPE_PTR
+            ]);
+
+            while (1) { yield(sv); }
+        }
+        var ptr;
+        function Index() {
+            self.ptr = self.get_sv().alloc();
+        }
+    }
+}
