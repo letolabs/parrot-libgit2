@@ -90,7 +90,13 @@ class Test_git2_repository_open {
 
     function git_oid() {
         var git_oid = new Git2.Oid();
+        using Git2.Raw.git_oid_fromstr;
         self.assert.instance_of(git_oid, class Git2.Oid);
+
+        var hex = cstring("599955586da1c3ad514f3e65f1081d2012ec862d");
+        var rc1 = -1;
+        rc1 = git_oid_fromstr(git_oid.ptr, hex);
+        self.assert.defined(git_oid);
     }
 
 }
