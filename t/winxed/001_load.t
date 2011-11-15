@@ -3,6 +3,9 @@
 $load "rosella/test.pbc";
 $load "./src/git2.pbc";
 $load "./src/Git2/Common.pbc";
+$load "./src/Git2/Oid.pbc";
+$load "./src/Git2/Cache.pbc";
+$load "./src/Git2/RefCache.pbc";
 $load "./src/Git2/Repository.pbc";
 $load "dumper.pbc";
 
@@ -83,6 +86,11 @@ class Test_git2_repository_open {
     function git_index() {
         var git_index = new Git2.Index;
         self.assert.instance_of(git_index, class Git2.Index);
+    }
+
+    function git_oid() {
+        var git_oid = new Git2.Oid();
+        self.assert.instance_of(git_oid, class Git2.Oid);
     }
 
 }

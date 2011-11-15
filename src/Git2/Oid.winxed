@@ -18,7 +18,7 @@ namespace Git2 {
             while (1) { yield(sv); }
         }
         var ptr;
-        function Index() {
+        function Oid() {
             self.ptr = self.get_sv().alloc();
         }
     }
