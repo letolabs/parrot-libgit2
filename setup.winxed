@@ -68,11 +68,11 @@ function do_test() {
 
 function check_dependencies() {
   var config = getinterp()[IGLOBALS_CONFIG_HASH];
-  // Check if Parrot is > 3.2.0
+  // Check if Parrot is > 3.5.0
   int maj = config['MAJOR'];
   int min = config['MINOR'];
-  if (maj < 3 || (maj == 3 && min < 2)) {
-    die("You need at least Parrot 3.2.0 to use parrot-libgit2");
+  if (maj < 3 || (maj == 3 && min < 5)) {
+    die("You need at least Parrot 3.5.0 to use parrot-libgit2");
   }
   // Check if Parrot has been built/configured with libffi
   int has_libffi = config['has_libffi'];
