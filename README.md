@@ -41,7 +41,7 @@ Those are still manually decribed to the StructView PMC in src/Git2/Common.winxe
 
 This makes it trivial to release a new version of parrot-libgit2 when the
 libgit2 API changes, which it will for the forseable future. Currently, the
-'development' branch of libgit2 is being targetted.
+0.15.0 release of libgit2 is supported.
 
 ## Generating NCI definitions
 
