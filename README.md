@@ -17,11 +17,11 @@ uses it. To build parrot-libgit2:
 
 parrot-libgit2 uses [Rosella](http://whiteknight.github.com/Rosella/) to run
 and implement a test suite. You currently need Rosella installed to run the
-tests. Adding Rosella as a git submodule to parrot-libgit2 is [in the works](https://github.com/letolabs/parrot-libgit2/issues/9).
+tests.
 
-Instructions on compiling and installing Rosella can be found at
+Adding Rosella as a git submodule to parrot-libgit2 is [in the works](https://github.com/letolabs/parrot-libgit2/issues/9).
 
-    https://github.com/Whiteknight/Rosella/blob/master/README.md
+Instructions on compiling and installing Rosella can be found are [here](https://github.com/Whiteknight/Rosella/blob/master/README.md)
 
 Once you have Rosella, run the parrot-libgit2 test suite with:
 
