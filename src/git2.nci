@@ -106,7 +106,7 @@ i git_odb_backend_pack pvvvv # git_odb_backend_pack
 i git_oid_ncmp v # git_oid_ncmp
 v git_oid_fromraw p # git_oid_fromraw
 v git_oid_fmt p # git_oid_fmt
-i git_oid_fromstr p # git_oid_fromstr
+i git_oid_fromstr pp # git_oid_fromstr
 i git_oid_cmp v # git_oid_cmp
 p git_oid_allocfmt v # git_oid_allocfmt
 i git_oid_fromstrn p # git_oid_fromstrn
