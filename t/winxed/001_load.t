@@ -4,6 +4,9 @@ $load "rosella/test.pbc";
 $load "./src/git2.pbc";
 $load "./src/Git2/Common.pbc";
 $load "./src/Git2/Repository.pbc";
+$load "./src/Git2/Odb.pbc";
+$load "./src/Git2/Cache.pbc";
+$load "./src/Git2/RefCache.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';
@@ -55,6 +58,7 @@ class Test_git2_repository_open {
         using Git2.Raw.git_repository_free;
         using Git2.Raw.git_index_open_inrepo;
         using Git2.Raw.git_repository_is_bare;
+        using Git2.Raw.git_repository_database;
         using cstring;
 
         var repo      = new Git2.Repository();
@@ -77,6 +81,10 @@ class Test_git2_repository_open {
         var bool = git_repository_is_bare(repo.ptr);
         self.assert.equal(bool,0);
 
+        var odb = git_repository_database(repo.ptr);
+        self.assert.defined(odb);
+
+        // coredumps inside libgit2
         // git_repository_free(repo.ptr);
     }
 
