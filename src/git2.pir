@@ -185,7 +185,7 @@
   set_global ['Git2';'Raw'], 'git_oid_fromraw', nci
   dlfunc nci, lib, 'git_oid_fmt', 'vp'
   set_global ['Git2';'Raw'], 'git_oid_fmt', nci
-  dlfunc nci, lib, 'git_oid_fromstr', 'ip'
+  dlfunc nci, lib, 'git_oid_fromstr', 'ipp'
   set_global ['Git2';'Raw'], 'git_oid_fromstr', nci
   dlfunc nci, lib, 'git_oid_cmp', 'iv'
   set_global ['Git2';'Raw'], 'git_oid_cmp', nci
