@@ -11,3 +11,4 @@ src/Git2/Repository.pir
 src/Git2/Index.pir
 src/Git2/Oid.pir
 src/Git2/Odb.pir
+rosella

@@ -1,3 +1,6 @@
 [submodule "rosella"]
 	path = rosella
 	url = git://github.com/Whiteknight/Rosella
+[submodule "Rosella"]
+	path = Rosella
+	url = https://github.com/Whiteknight/Rosella.git
