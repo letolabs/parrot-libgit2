@@ -1,5 +1,5 @@
 $include_const "iglobals.pasm";
-using extern "io_ops";
+$loadlib "io_ops";
 
 function main[main](argv) {
   var parrot_libgit2 = {
