@@ -1,0 +1,17 @@
+before_script:
+    - sudo apt-get install liblocal-lib-perl parrot parrot-devel
+    - curl -L http://cpanmin.us | sudo perl - --self-upgrade
+    - perl -Mlocal::lib >> /tmp/local_lib_junk.sh && source /tmp/local_lib_junk.sh
+    - export CI_USER=$USER
+    - sudo chown -R $CI_USER ~/.cpanm ~/perl5
+script: "winxed setup.winxed build && winxed setup.winxed test"
+# branches:
+#   only:
+#     - master
+notifications:
+  recipients:
+    - duke@leto.net
+  email:
+    on_success: change
+    on_failure: always
+#env:
