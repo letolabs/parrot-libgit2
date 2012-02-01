@@ -5,7 +5,7 @@ before_script:
 #    - export CI_USER=$USER
 #    - sudo chown -R $CI_USER ~/.cpanm ~/perl5
     - wget https://nodeload.github.com/parrot/parrot/zipball/RELEASE_4_0_0
-    - tar zxvpf RELEASE_4_0_0
+    - unzip RELEASE_4_0_0
     - cd parrot-parrot*
     - pwd
     - perl Configure.pl --prefix="/tmp/installed_parrot" && make install
