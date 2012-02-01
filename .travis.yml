@@ -9,6 +9,7 @@ before_script:
     - cd parrot-parrot*
     - pwd
     - perl Configure.pl --prefix="/tmp/installed_parrot" && make install
+    - export PATH=/tmp/installed_parrot/bin/:$PATH
 script: "winxed setup.winxed build && winxed setup.winxed test"
 # branches:
 #   only:
