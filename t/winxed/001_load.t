@@ -19,6 +19,7 @@ namespace Git2 {
     class Repository;
     class Index;
     class Branch;
+    class Cache;
 }
 
 class Test_git2_repository_open {
