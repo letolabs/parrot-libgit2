@@ -29,6 +29,11 @@ struct git_repository {
 */
 
 namespace Git2 {
+    class Cache;
+    class RefCache;
+}
+
+namespace Git2 {
   class Repository {
     function get_sv() {
         var git_cache    = new Git2.Cache().get_sv();
