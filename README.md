@@ -3,6 +3,8 @@
 This is library for Parrot Virtual Machine to provide libgit2 bindings to all
 languages running on Parrot Virtual Machine.
 
+[![Build Status](https://secure.travis-ci.org/letolabs/parrot-libgit2.png)](http://travis-ci.org/letolabs/parrot-libgit2)
+
 ## Compiling
 
 You need [Parrot VM](http://parrot.org) 3.5.0 or higher to compile parrot-libgit2 . 3.6.0
