@@ -1,12 +1,19 @@
+# Currently we test against Parrot 4.3.0 and Rosella master
 before_script:
-    - wget https://nodeload.github.com/parrot/parrot/zipball/RELEASE_4_0_0
-    - unzip RELEASE_4_0_0
+    - wget https://nodeload.github.com/parrot/parrot/zipball/RELEASE_4_3_0
+    - unzip RELEASE_4_3_0
     - cd parrot-parrot*
     - pwd
     - perl Configure.pl --prefix="/tmp/installed_parrot" && make install
     - export PATH=/tmp/installed_parrot/bin/:$PATH
     - cd ..
+
+# This setups up the Rosella submodule
+before_install:
+    - git submodule update --init --recursive
+
 script: "winxed setup.winxed build && winxed setup.winxed test"
+
 # branches:
 #   only:
 #     - master
