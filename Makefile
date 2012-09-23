@@ -15,9 +15,9 @@ pbclib: $(git2pbc) src/git2.pbc
 %.pbc: %.pir
 	parrot -o $@ $<
 
-rosella: Rosella/Makefile
-	$(MAKE) -C Rosella build
-	ln -s Rosella/rosella rosella
+rosella: ext/Rosella/Makefile
+	$(MAKE) -C ext/Rosella build
+	ln -s ext/Rosella/rosella rosella
 
 nci: src/git2.nci
 
@@ -27,7 +27,7 @@ src/git2.nci:
 	perl ./bin/header2nci.pl /usr/local/include/git2.h >> src/git2.nci ; \
 	for i in /usr/local/include/git2/*; do  perl ./bin/header2nci.pl $$i >> src/git2.nci ; done
 
-Rosella/Makefile:
+ext/Rosella/Makefile:
 	git submodule init
 	git submodule update
 
