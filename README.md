@@ -7,8 +7,14 @@ languages running on Parrot Virtual Machine.
 
 ## Compiling
 
-You need [Parrot VM](http://parrot.org) 3.5.0 or higher to compile parrot-libgit2 . 3.6.0
+You need [Parrot VM](http://parrot.org) 3.5.0 or higher configured with libffi to compile parrot-libgit2 . 4.6.0
 or higher is recommended.
+
+To see if your Parrot has [libffi](http://sourceware.org/libffi/)
+
+    parrot_config HAS_LIBFFI
+
+You should see a true value. If you see a 0 or empty string, your Parrot is not configured with libffi.
 
 The language [Winxed](http://winxed.org) is included in Parrot >= 3.5.0, and the build system of parrot-libgit2
 uses it. To build parrot-libgit2:
@@ -18,14 +24,9 @@ uses it. To build parrot-libgit2:
 ## Running Tests
 
 parrot-libgit2 uses [Rosella](http://whiteknight.github.com/Rosella/) to run
-and implement a test suite. You currently need Rosella installed to run the
-tests.
+and implement a test suite.
 
-Adding Rosella as a git submodule to parrot-libgit2 is [in the works](https://github.com/letolabs/parrot-libgit2/issues/9).
-
-Instructions on compiling and installing Rosella can be found are [here](https://github.com/Whiteknight/Rosella/blob/master/README.md)
-
-Once you have Rosella, run the parrot-libgit2 test suite with:
+To run the parrot-libgit2 test suite:
 
     winxed setup.winxed test
 
