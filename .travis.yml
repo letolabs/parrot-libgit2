@@ -1,7 +1,7 @@
-# Currently we test against Parrot 4.8.0 and Rosella master
+# Currently we test against Parrot 4.9.0 and Rosella master
 before_script:
-    - wget https://nodeload.github.com/parrot/parrot/zipball/RELEASE_4_8_0
-    - unzip RELEASE_4_8_0
+    - wget https://nodeload.github.com/parrot/parrot/zipball/RELEASE_4_9_0
+    - unzip RELEASE_4_9_0
     - cd parrot-parrot*
     - pwd
     - perl Configure.pl --prefix="/tmp/installed_parrot" && make install
