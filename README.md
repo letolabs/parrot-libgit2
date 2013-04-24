@@ -7,17 +7,18 @@ languages running on Parrot Virtual Machine.
 
 ## Compiling
 
-You need [Parrot VM](http://parrot.org) 3.5.0 or higher configured with libffi to compile parrot-libgit2 . 4.6.0
-or higher is recommended.
+You need [Parrot VM](http://parrot.org) 3.5.0 or higher configured with libffi
+to compile parrot-libgit2 . 5.3.0 or higher is recommended.
 
 To see if your Parrot has [libffi](http://sourceware.org/libffi/)
 
     parrot_config HAS_LIBFFI
 
-You should see a true value. If you see a 0 or empty string, your Parrot is not configured with libffi.
+You should see a true value. If you see a 0 or empty string, your Parrot is not
+configured with libffi.
 
-The language [Winxed](http://winxed.org) is included in Parrot >= 3.5.0, and the build system of parrot-libgit2
-uses it. To build parrot-libgit2:
+The language [Winxed](http://winxed.org) is included in Parrot >= 3.5.0, and
+the build system of parrot-libgit2 uses it. To build parrot-libgit2:
 
     winxed setup.winxed build
 
