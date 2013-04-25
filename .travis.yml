@@ -1,7 +1,7 @@
 before_script:
     - wget https://github.com/parrot/parrot/archive/RELEASE_5_3_0.zip
     - unzip RELEASE*
-    - cd parrot-parrot*
+    - cd parrot-RELEASE*
     - pwd
     - perl Configure.pl --prefix="/tmp/installed_parrot" && make install
     - export PATH=/tmp/installed_parrot/bin/:$PATH
