@@ -17,7 +17,7 @@ To see if your Parrot has [libffi](http://sourceware.org/libffi/)
 You should see a true value. If you see a 0 or empty string, your Parrot is not
 configured with libffi.
 
-The language [Winxed](http://winxed.org) is included in Parrot >= 3.5.0, and
+The language [Winxed](http://winxed.net) is included in Parrot >= 3.5.0, and
 the build system of parrot-libgit2 uses it. To build parrot-libgit2:
 
     winxed setup.winxed build
