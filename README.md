@@ -51,11 +51,20 @@ in by $PARROT/tools/dev/ncidef2pir.pl and a PIR file is generated which allows P
 to call libgit2 C functions from PIR.
 
 This only understands function signature API changes, not datastructure API changes.
-Those are still manually decribed to the StructView PMC in src/Git2/Common.winxed .
+Those are still manually decribed by the StructView PMC in 
+[src/Git2/Common.winxed](https://github.com/letolabs/parrot-libgit2/blob/master/src/Git2/Common.winxed) .
 
 This makes it trivial to release a new version of parrot-libgit2 when the
 libgit2 API changes, which it will for the forseable future. Currently, the
 0.15.0 release of libgit2 is supported.
+
+Current efforts are to support the recent 0.18 stable release. This is currently
+being working on by a GSoC student.
+
+By default, a low-level PIR binding is created for every libgit2 API function, so every release
+of parrot-libgit2 *supports all of libgit2*. In addition to this, a few stubborn humans
+are implementing a higher-level and object-oriented interface in the [Winxed](http://winxed.net)
+programming language (which comes bundled with Parrot since 3.5.0).
 
 ## Generating NCI definitions
 
