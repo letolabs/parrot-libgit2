@@ -63,6 +63,7 @@ There is a script called *header2nci.pl* in bin/ that generates the NCI
 definition file from a libgit2 header file. Example:
 
     perl ./bin/header2nci.pl /usr/local/include/git2/repository.h
+    
 
 This script has some bugs and does not parse all of libgit2 correctly yet.
 TODO: Make header2nci.pl able to parse all libgit2 headers.
@@ -76,3 +77,7 @@ TODO: add this as a custom step to setup.winxed
 ## Contributing
 
 Beer, pull requests and patches welcome! Fork and be merry.
+
+## License
+
+GPLv3. See the LICENSE file for details.
