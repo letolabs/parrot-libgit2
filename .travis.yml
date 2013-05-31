@@ -19,6 +19,7 @@ script: "winxed setup.winxed build && winxed setup.winxed test"
 notifications:
   recipients:
     - duke@leto.net
+    - saurabhgeek92@gmail.com
   email:
     on_success: change
     on_failure: always
