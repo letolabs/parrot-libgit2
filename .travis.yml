@@ -11,7 +11,7 @@ before_script:
 before_install:
     - git submodule update --init --recursive
 
-script: "winxed setup.winxed build && winxed setup.winxed test"
+script: "make rosella && winxed setup.winxed build && winxed setup.winxed test"
 
 # branches:
 #   only:
