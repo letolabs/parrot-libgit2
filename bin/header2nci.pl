@@ -34,13 +34,13 @@ sub process_gmph {
     next unless m/^GIT_EXTERN/;
     my $prefix = '(?:_?GIT)';
     # does the line match a C-style declare?
-    if ($_ =~ m/^($prefix\S+\((.*?)\))\s+(\S+)\(((\S+)(\);;?)?)?/) {
+    if ( $_ =~ m{ \A ( $prefix \w+ \( ([^)]+) \) )  \s+  (\w+)\( ( \s* (\S.+?\S)? (\);;?)? )? \z }msx ) {
       # $1 is the convenient name used everywhere else
       my $convenient_name  = $3;
       my $internal_name    = $3;
       my $return_type      = $2;
 
-      my $definition = $5 ? "$5," : '';
+      my $definition = $5 ? "$5" : '';
       while ((my $following_line = <$header>) !~ m/^$/) {
         chomp $following_line;
 
@@ -52,7 +52,8 @@ sub process_gmph {
       }
       my $method_signature = $definition;
       $method_signature =~ s/\);;?$//;
-
+      $method_signature =~ s/(const|signed|unsigned)//g;
+      $return_type =~ s/(const|signed|unsigned)//g;
       # skip if it's on our blacklist
       next if any { $convenient_name eq $_ } @blacklist;
       $functions{$convenient_name}{'internal_name'} = $internal_name;
@@ -77,11 +78,18 @@ sub process_gmph {
 
 sub process_types {
   my $type = shift;
-  # trim any extra space
-  $type =~ s/^\s+//g;
-  $type =~ s/\s+$//g;
+  if ($type =~ m/(\w+ *(\**))/){
+      $type = $1;
+      # trim any extra space
+      $type =~ s/^\s+//g;
+      $type =~ s/\s+$//g;
+  }
   warn "looking up $type" if $ENV{DEBUG};
   return $mappings{$type} if exists $mappings{$type};
+  # Is it a pointer?
+  if ($2 =~ m/\*+/){
+      return 'p';
+  }
   warn "No extant mapping for '$type'; setting as void";
   return 'v';
 }

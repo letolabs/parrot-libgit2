@@ -2,6 +2,7 @@
 void: v
 # 'i' types
 int: i
+uint32_t: i
 # 'l' types
 unsigned long: l
 long: l
@@ -12,7 +13,8 @@ long int: l
 double: d
 # 'p' types
 # since 't' is deprecated
-char *: p 
+char *: p
+char **: p
 signed long int *: p
 
 # FIXME: size_t is platform dependent

@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 git2pbc := $(patsubst %.winxed,%.pbc,$(wildcard src/Git2/*.winxed))
 
 all: build
@@ -25,7 +26,7 @@ src/git2.nci:
 	echo '# THIS FILE IS GENERATED, edit ./bin/header2nci.pl to make changes here' > src/git2.nci ; \
 	echo "[package]\nGit2::Raw\n\n[lib]\n\nlibgit2.so\n\n[defs]\n" >> src/git2.nci ; \
 	perl ./bin/header2nci.pl /usr/local/include/git2.h >> src/git2.nci ; \
-	for i in /usr/local/include/git2/*; do  perl ./bin/header2nci.pl $$i >> src/git2.nci ; done
+	for i in /usr/include/git2/*; do  perl ./bin/header2nci.pl $$i >> src/git2.nci ; done
 
 Rosella/Makefile:
 	git submodule init
