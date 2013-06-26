@@ -90,8 +90,8 @@ sub process_types {
   if ($2 =~ m/\*+/){
       return 'p';
   }
-  warn "No extant mapping for '$type'; setting as void";
-  return 'v';
+  warn "No extant mapping for '$type'; setting as pmc";
+  return 'p';
 }
 
 sub print_ncidef {

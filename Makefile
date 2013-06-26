@@ -27,7 +27,7 @@ src/git2.nci:
 	echo -e "[package]\nGit2::Raw\n\n[lib]\n\nlibgit2.so\n\n[defs]\n" >> src/git2.nci ; \
 	export LIBGIT2_INSTALL_DIR=`pkg-config --variable=includedir libgit2` ;\
 	perl ./bin/header2nci.pl $$LIBGIT2_INSTALL_DIR/git2/git2.h >> src/git2.nci ; \
-	for i in $$LIBGIT2_INSTALL_DIR/git2/*; do  perl ./bin/header2nci.pl $$i >> src/git2.nci ; done
+	for i in $$LIBGIT2_INSTALL_DIR/git2/*.h; do  perl ./bin/header2nci.pl $$i >> src/git2.nci ; done
 
 Rosella/Makefile:
 	git submodule init
