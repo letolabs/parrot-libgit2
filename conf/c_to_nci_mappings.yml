@@ -1,8 +1,9 @@
 ---
 void: v
+char: c
 # 'i' types
 int: i
-unsigned int: i
+is_bare: i
 # 'l' types
 unsigned long: l
 long: l
@@ -11,66 +12,13 @@ signed long int: l
 long int: l
 # 'd' types
 double: d
-char: p
 # 'p' types
 # since 't' is deprecated
 char *: p
-const void *: p
-const char *: p
-const char *path: p
-const char *git_dir: p
-const char *git_index_file: p
-const char *git_work_tree: p
-const char *git_object_directory: p
-git_odb *object_database: p
-git_odb *: p
-git_reflog: p
-git_transport: p
-git_tree: p
-git_signature: p
-git_config: p
-git_index: p
-git_repository: p
-git_treebuilder: p
-git_reference: p
-git_oid: p
-git_oid *oid: p
-git_odb: p
-git_revwalk: p
-git_object: p
-git_otype: p
-git_commit: p
-git_tag: p
-git_blob: p
-git_tree_entry: p
-git_odb_object: p
-git_strarray: p
-git_rtype: p
-git_repository *: p
-git_repository *repo: p
-git_index_entry *: p
-const git_index_entry_unmerged *: p
-const git_tree_entry *: p
-const git_oid *: p
-const char objects_dir*: p
-git_signature *: p
-git_time_t: p
-git_odb_backend: p
-git_odb_stream: p
-const git_signature *: p
-const char *system_config_path: p
-const char *user_config_path: p
+char **: p
 signed long int *: p
-
-# FIXME: both mp_size_t and mp_exp_t are ints if _CRAY and _CRAYMPP are
-# not defined.  This should be the normal case, but in the future we should
-# have a way to determine this - perhaps a small C program that compiles
-# and outputs the system values like Parrot's Configure steps
-mp_size_t: i
-mp_exp_t: i
-
-# FIXME: size_t is platform dependent, not sure it will always fit
-# inside an 'i' type
-# NOTE: It definitely won't. This is borked.
+# FIXME: size_t is platform dependent
 size_t: i
-
+uint32_t: i
+int32_t: i
+int64_t: i
