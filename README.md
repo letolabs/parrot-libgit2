@@ -58,7 +58,7 @@ This makes it trivial to release a new version of parrot-libgit2 when the
 libgit2 API changes, which it will for the forseable future. Currently, the
 0.15.0 release of libgit2 is supported.
 
-Current efforts are to support the recent 0.18 stable release. This is currently
+Current efforts are to support the recent 0.19 stable release. This is currently
 being working on by a GSoC student.
 
 By default, a low-level PIR binding is created for every libgit2 API function, so every release
