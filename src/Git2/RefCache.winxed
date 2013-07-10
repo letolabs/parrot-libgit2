@@ -3,13 +3,19 @@ $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 
+/*
+typedef struct {
+  git_strmap *packfile;
+  time_t packfile_time;
+} git_refcache;
+*/
+
 namespace Git2 {
     class RefCache {
         function get_sv() {
-            var sv = new 'StructView'([ DATATYPE_STRUCT, 3,
+            var sv = new 'StructView'([ DATATYPE_STRUCT, 2,
                 DATATYPE_PTR,
-                DATATYPE_PTR,
-                DATATYPE_GIT_TIME_T
+                DATATYPE_UINT
             ]);
             while (1) { yield(sv); }
         }

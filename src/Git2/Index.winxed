@@ -3,33 +3,58 @@ $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 
+namespace Git2{
+    class Common;
+}
 namespace Git2 {
     class Index {
         function get_sv() {
         /*
         struct git_index {
-            git_repository *repository;
-            char *index_file_path;
-
-            time_t last_modified;
-            git_vector entries;
-
-            unsigned int on_disk:1;
-            git_index_tree *tree;
-
-            git_vector unmerged;
+	    git_refcount rc;
+            
+	    char *index_file_path;
+            
+	    git_futils_filestamp stamp;
+	    git_vector entries;
+            
+	    unsigned int on_disk:1;
+            
+	    unsigned int ignore_case:1;
+	    unsigned int distrust_filemode:1;
+	    unsigned int no_symlinks:1;
+            
+	    git_tree_cache *tree;
+            
+	    git_vector names;
+	    git_vector reuc;
+            e
+	    git_vector_cmp entries_cmp_path;
+	    git_vector_cmp entries_search;
+	    git_vector_cmp entries_search_path;
+	    git_vector_cmp reuc_search;
         };
         */
-
-         var sv = new 'StructView'([ DATATYPE_STRUCT, 3,
+            var git_refcount = Common.git_refcount();
+            var git_futils_filestamp = Common.git_futils_filestamp();
+            var git_vector = Common.git_vector();
+            var sv = new 'StructView'([ DATATYPE_STRUCT, 15,
+            DATATYPE_SIZED, git_refcount().size(), git_refcount.align(),
             DATATYPE_PTR,
-            DATATYPE_PTR,
-            DATATYPE_GIT_TIME_T,
-            DATATYPE_PTR,
+            DATATYPE_SIZED, git_futils_filestamp.size(), git_futils_filestamp.align(),
+            DATATYPE_SIZED, git_vector.size(), git_vector.align();
+            DATATYPE_UINT,
+            DATATYPE_UINT,
+            DATATYPE_UINT,
             DATATYPE_UINT,
             DATATYPE_PTR,
+            DATATYPE_SIZED, git_vector.size(), git_vector.align();
+            DATATYPE_SIZED, git_vector.size(), git_vector.align();
+            DATATYPE_PTR,
+            DATATYPE_PTR,
+            DATATYPE_PTR,
             DATATYPE_PTR
-            ]);
+           ]);
 
             while (1) { yield(sv); }
         }
