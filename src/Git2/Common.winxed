@@ -318,7 +318,7 @@ namespace Git2 {
       DATATYPE_PTR,
       DATATYPE_SIZE_T,
       DATATYPE_INT
-  )];
+  ]);
   }
   }
 }

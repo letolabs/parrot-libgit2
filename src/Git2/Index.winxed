@@ -42,14 +42,14 @@ namespace Git2 {
             DATATYPE_SIZED, git_refcount().size(), git_refcount.align(),
             DATATYPE_PTR,
             DATATYPE_SIZED, git_futils_filestamp.size(), git_futils_filestamp.align(),
-            DATATYPE_SIZED, git_vector.size(), git_vector.align();
+            DATATYPE_SIZED, git_vector.size(), git_vector.align(),
             DATATYPE_UINT,
             DATATYPE_UINT,
             DATATYPE_UINT,
             DATATYPE_UINT,
             DATATYPE_PTR,
-            DATATYPE_SIZED, git_vector.size(), git_vector.align();
-            DATATYPE_SIZED, git_vector.size(), git_vector.align();
+            DATATYPE_SIZED, git_vector.size(), git_vector.align(),
+            DATATYPE_SIZED, git_vector.size(), git_vector.align(),
             DATATYPE_PTR,
             DATATYPE_PTR,
             DATATYPE_PTR,
