@@ -9,8 +9,8 @@ function main[main](argv) {
     "authority"         : 'http://github.com/leto',
     "copyright_holder"  : 'Jonathan "Duke" Leto',
     "keywords"          : ["parrot", "git", "libgit2"],
-    "license_type"      : 'Artistic License 2.0',
-    "license_uri"       : 'http://www.perlfoundation.org/artistic_license_2_0',
+    "license_type"      : 'GNU General Public License v3',
+    "license_uri"       : 'http://www.gnu.org/licenses/gpl.html',
     "checkout_uri"      : 'git://github.com/leto/parrot-libgit2.git',
     "browser_uri"       : 'git://github.com/leto/parrot-libgit2',
     "project_uri"       : 'git://github.com/leto/parrot-libgit2',
@@ -22,8 +22,10 @@ function main[main](argv) {
     "manifest_includes" : ["README.md", "setup.winxed"]
   };
 
-  if (argv[1] == "test")
+  if (argv[1] == "test"){
+    build_test();
     do_test();
+  }
 
   setup_stable_libraries(parrot_libgit2);
 
@@ -32,6 +34,7 @@ function main[main](argv) {
   using register_step_before;
 
   register_step_before("build", check_dependencies);
+  register_step_before("build", build_nci);
   register_step_before("clean", clean_build_dir);
 
   argv.shift();
@@ -59,6 +62,40 @@ function setup_stable_libraries(var parrot_libgit2) {
     parrot_libgit2["pbc_pir"][pbc_file]    = pir_file;
     parrot_libgit2["inst_lib"].push(pbc_file);
   }
+}
+
+function build_test() {
+  int result;
+  string cmd = "make rosella";
+  ${ spawnw result, cmd};
+}
+
+function build_nci() {
+  var env = new 'Env';
+  string libgit_dir;
+  string cmd = "pkg-config --variable=includedir libgit2 > version";
+  var out;
+  int result;
+  ${ getstdout out};
+  if (env['LIBGIT2_INSTALL_DIR'] == ''){
+    var s = new 'FileHandle';
+    ${ spawnw result, cmd};
+    s.open("./version");      
+    string output = s.readline();
+    libgit_dir = substr(output, 0, length(output) - 1);
+  }
+  else {
+    libgit_dir = env['LIBGIT2_INSTALL_DIR'];
+  }
+  var ncifile = new 'FileHandle';
+  ncifile.open("src/git2.nci", "rw");
+  ncifile.print("# THIS FILE IS GENERATED, edit ./bin/header2nci.pl to make changes here\n");
+  ncifile.print("[package]\nGit2::Raw\n\n[lib]\n\nlibgit2.so\n\n[defs]\n");
+  ncifile.close();
+  string ncigencmd = "perl ./bin/header2nci.pl " + libgit_dir + "/git2.h >> src/git2.nci";
+  ${ spawnw result, ncigencmd};
+  ncigencmd = "for i in `ls " + libgit_dir + "/git2/*.h | sort -d`; do perl ./bin/header2nci.pl $i >> src/git2.nci; done";
+  ${ spawnw result, ncigencmd};
 }
 
 function do_test() {
@@ -93,4 +130,8 @@ function clean_build_dir() {
     unlink(exe);
   }
   unlink("src/git2.pbc");
+  unlink("src/git2.nci");
+  int result;
+  string cmd = "rm -rf rosella";
+  ${ spawnw result, cmd};
 }
