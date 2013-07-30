@@ -15,7 +15,7 @@ namespace Git2 {
         function get_sv() {
             var sv = new 'StructView'([ DATATYPE_STRUCT, 2,
                 DATATYPE_PTR,
-                DATATYPE_UINT
+                DATATYPE_GIT_TIME_T
             ]);
             while (1) { yield(sv); }
         }

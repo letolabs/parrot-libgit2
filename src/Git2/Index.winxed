@@ -3,9 +3,16 @@ $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 
+
+function load[anon,load]() {
+    load_bytecode('./src/git2.pbc');
+    load_bytecode('./src/Git2/Common.pbc');
+}
+
 namespace Git2{
     class Common;
 }
+
 namespace Git2 {
     class Index {
         function get_sv() {
@@ -35,11 +42,12 @@ namespace Git2 {
 	    git_vector_cmp reuc_search;
         };
         */
-            var git_refcount = Common.git_refcount();
-            var git_futils_filestamp = Common.git_futils_filestamp();
-            var git_vector = Common.git_vector();
+            var common = new Common;
+            var git_refcount = common.git_refcount();
+            var git_futils_filestamp = common.git_futils_filestamp();
+            var git_vector = common.git_vector();
             var sv = new 'StructView'([ DATATYPE_STRUCT, 15,
-            DATATYPE_SIZED, git_refcount().size(), git_refcount.align(),
+            DATATYPE_SIZED, git_refcount.size(), git_refcount.align(),
             DATATYPE_PTR,
             DATATYPE_SIZED, git_futils_filestamp.size(), git_futils_filestamp.align(),
             DATATYPE_SIZED, git_vector.size(), git_vector.align(),
@@ -64,3 +72,4 @@ namespace Git2 {
         }
     }
 }
+

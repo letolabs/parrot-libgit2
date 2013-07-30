@@ -49,6 +49,7 @@ function setup_stable_libraries(var parrot_libgit2) {
     'Odb',
     'Oid',
     'RefCache',
+    'AttrCache',
     'Repository'
   ];
 

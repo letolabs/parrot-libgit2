@@ -292,7 +292,7 @@ namespace Git2 {
 	void *owner;
       } git_refcount;
       */
-    return new 'StructView'([ DATATYPE_STRUCT, 2,
+      return new 'StructView'([ DATATYPE_STRUCT, 2,
         DATATYPE_LONG,
 	DATATYPE_PTR
     ]);

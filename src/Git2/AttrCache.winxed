@@ -1,0 +1,79 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
+const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
+const int GIT_FLEX_ARRAY = 1;
+
+/*
+typedef struct {
+int initialized;
+git_pool pool;
+git_strmap *files;	// hash path to git_attr_file of rules
+git_strmap *macros;	// hash name to vector<git_attr_assignment>
+char *cfg_attr_file; // cached value of core.attributesfile
+char *cfg_excl_file; // cached value of core.excludesfile
+} git_attr_cache;
+*/
+
+namespace Git2 {
+class AttrCache{
+    function get_sv() {
+        var sv = new 'StructView'([ DATATYPE_STRUCT, 6,
+                                    DATATYPE_INT,
+                                    DATATYPE_PTR,
+                                    DATATYPE_PTR,
+                                    DATATYPE_PTR,
+                                    DATATYPE_PTR,
+                                    DATATYPE_PTR
+                                  ]);
+        while (1) { yield(sv); }
+    }
+    var ptr;
+    function AttrCache() {
+        self.ptr = self.get_sv().alloc();
+    }
+}
+function git_pool_page() {
+    /*
+    struct git_pool_page {
+        git_pool_page *next;
+        uint32_t size;
+        uint32_t avail;
+        char data[GIT_FLEX_ARRAY];
+    };
+    */
+    var data_arr = new 'FixedPMCArray'(GIT_FLEX_ARRAY);
+    return new 'StructView'([DATATYPE_STRUCT, 4,
+        DATATYPE_PTR,
+        DATATYPE_UINT,
+        DATATYPE_UINT,
+        DATATYPE_SIZED, data_arr.size(), data_arr.align()
+    ]);
+}
+function git_pool() {
+    /*
+      typedef struct {
+      git_pool_page *open; // pages with space left
+      git_pool_page *full; // pages with no space left
+      void *free_list; // optional: list of freed blocks
+      uint32_t item_size; // size of single alloc unit in bytes
+      uint32_t page_size; // size of page in bytes
+      uint32_t items;
+      unsigned has_string_alloc : 1; // was the strdup function used
+      unsigned has_multi_item_alloc : 1; // was items ever > 1 in malloc
+      unsigned has_large_page_alloc : 1; // are any pages > page_size
+      } git_pool;
+    */
+    return new 'StructView'([DATATYPE_STRUCT, 9,
+        DATATYPE_PTR,
+        DATATYPE_PTR,
+        DATATYPE_PTR,
+        DATATYPE_UINT,
+        DATATYPE_UINT,
+        DATATYPE_UINT,
+        DATATYPE_UINT,
+        DATATYPE_UINT,
+        DATATYPE_UINT
+    ]);
+}
+}

@@ -8,7 +8,7 @@ function load[anon,load]() {
   load_bytecode('./src/Git2/Common.pbc');
   load_bytecode('./src/Git2/Cache.pbc');
   load_bytecode('./src/Git2/Index.pbc');
-  load_bytecode('./src/Git2/RefCache.pbc');
+  load_bytecode('./src/Git2/AttrCache.pbc');
 }
 
 /*
@@ -34,21 +34,21 @@ function load[anon,load]() {
 
 namespace Git2 {
     class Cache;
-    class RefCache;
+    class AttrCache;
 }
 
 namespace Git2 {
   class Repository {
     function get_sv() {
         var git_cache    = new Git2.Cache().get_sv();
-        var git_refcache = new Git2.RefCache().get_sv();
+        var git_attr_cache = new Git2.AttrCache().get_sv();
         var sv = new 'StructView'([ DATATYPE_STRUCT, 12,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_SIZED, git_cache.size(), git_cache.align(),
-                DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
+                DATATYPE_SIZED, git_attr_cache.size(), git_attr_cache.align(),
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
