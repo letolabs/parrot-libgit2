@@ -10,6 +10,7 @@ $load "./src/Git2/Repository.pbc";
 $load "./src/Git2/Odb.pbc";
 $load "./src/Git2/Cache.pbc";
 $load "./src/Git2/RefCache.pbc";
+$load "./src/Git2/AttrCache.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';
@@ -63,6 +64,7 @@ class Test_git2_repository_open {
         using Git2.Raw.git_index_open_inrepo;
         using Git2.Raw.git_repository_is_bare;
         using Git2.Raw.git_repository_database;
+        using Git2.Raw.git_repository_is_empty;
         using cstring;
 
         var repo      = new Git2.Repository();
@@ -78,15 +80,18 @@ class Test_git2_repository_open {
 
         var gindex = git_index.ptr;
         var grepo  = repo.ptr;
-
-        rc2 = git_repository_index(gindex);
+        
+        rc2 = git_repository_index(gindex, repo);
         self.assert.equal(rc2,0);
 
-        var bool = git_repository_is_bare(repo.ptr);
+        var bool = git_repository_is_bare(grepo);
         self.assert.equal(bool,0);
 
-        var odb = git_repository_database(repo.ptr);
-        self.assert.defined(odb);
+        var empty = git_repository_is_empty(grepo);
+        self.assert.equal(empty,0);
+
+        //var odb = git_repository_database(repo.ptr);
+        //self.assert.defined(odb);
 
         // coredumps inside libgit2
         // git_repository_free(repo.ptr);

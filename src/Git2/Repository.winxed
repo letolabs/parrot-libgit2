@@ -2,6 +2,7 @@ $include_const 'datatypes.pasm';
 $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
+const int GIT_CVAR_CACHE_MAX = 8;
 
 function load[anon,load]() {
   load_bytecode('./src/git2.pbc');
@@ -52,9 +53,9 @@ namespace Git2 {
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
-                DATATYPE_PTR,
                 DATATYPE_UINT,
-                DATATYPE_UINT
+                DATATYPE_UINT,
+                DATATYPE_INT, GIT_CVAR_CACHE_MAX
             ]);
         while (1) { yield(sv); }
     }
