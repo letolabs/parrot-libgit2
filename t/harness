@@ -3,7 +3,7 @@ my $rosella := pir::load_bytecode__ps('rosella/core.pbc');
 Rosella::initialize_rosella("harness");
 my $harness := Rosella::construct(Rosella::Harness);
 
-# $harness.add_test_dirs("PIR", "t/pir", :recurse(1)).setup_test_run;
+$harness.add_test_dirs("PIR", "t/pir", :recurse(1)).setup_test_run;
 $harness.add_test_dirs("Winxed", "t/winxed", :recurse(1)).setup_test_run;
 
 $harness.run();
