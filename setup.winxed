@@ -97,6 +97,8 @@ function build_nci() {
   ${ spawnw result, ncigencmd};
   ncigencmd = "for i in `ls " + libgit_dir + "/git2/*.h | sort -d`; do perl ./bin/header2nci.pl $i >> src/git2.nci; done";
   ${ spawnw result, ncigencmd};
+  string def2pir = "perl ./bin/ncidef2pir.pl src/git2.nci";
+  ${ spawnw result, def2pir};
 }
 
 function do_test() {

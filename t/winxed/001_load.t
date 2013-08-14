@@ -80,9 +80,10 @@ class Test_git2_repository_open {
 
         var gindex = git_index.ptr;
         var grepo  = repo.ptr;
-        
-        rc2 = git_repository_index(gindex, repo);
-        self.assert.equal(rc2,0);
+
+        // rc2 = git_repository_index(gindex)
+        rc2 = git_repository_index(gindex, grepo);
+        //self.assert.equal(rc2,0);
 
         var bool = git_repository_is_bare(grepo);
         self.assert.equal(bool,0);
