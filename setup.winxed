@@ -99,6 +99,14 @@ function build_nci() {
   ${ spawnw result, ncigencmd};
   string def2pir = "perl ./bin/ncidef2pir.pl src/git2.nci";
   ${ spawnw result, def2pir};
+  def2pir = "perl ./bin/ncidef2pir.pl src/parrotgit.nci";
+  ${ spawnw result, def2pir};
+}
+
+function build_lib(){
+    int result;
+    string compile = "gcc -fPIC -c src/parrotgit.c -lgit2 && gcc -shared -o libparrotgit.so src/parrotgit.o -lgit2";
+    ${spawnw result, compile};
 }
 
 function do_test() {
@@ -134,7 +142,8 @@ function clean_build_dir() {
   }
   unlink("src/git2.pbc");
   unlink("src/git2.nci");
-  int result;
+  unlink("libparrotgit.so");
+  int result = 0;
   string cmd = "rm -rf rosella";
   ${ spawnw result, cmd};
 }
