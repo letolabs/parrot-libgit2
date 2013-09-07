@@ -1,3 +1,3 @@
-[submodule "Rosella"]
-	path = Rosella
+[submodule "ext/Rosella"]
+	path = ext/Rosella
 	url = https://github.com/Whiteknight/Rosella.git
