@@ -1,0 +1,24 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+}
+
+namespace Git2{
+    class Config {
+        var ptr;
+        function Config(){
+        }
+        function get_config(cfg_path){
+            using Git2.Git.get_config;
+            using Git2.Git.get_config_int32;
+            self.ptr = get_config(cstring(cfg_path));
+        }
+        function get_int32(cfg_variable){
+            using Git2.Git.get_config_int32;
+            int j = get_config_int32(self.ptr, cstring(cfg_variable));
+            return j;
+        }
+    }
+}

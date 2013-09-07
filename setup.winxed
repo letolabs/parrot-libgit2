@@ -43,14 +43,23 @@ function main[main](argv) {
 
 function setup_stable_libraries(var parrot_libgit2) {
   var libs = [
+    'Blob',
     'Cache',
+    'Config',
     'Common',
+    'Commit',
     'Index',
     'Odb',
     'Oid',
     'RefCache',
     'AttrCache',
-    'Repository'
+    'Repository',
+    'RevWalk'
+  ];
+
+  var core = [
+      'git2',
+      'parrotgit'
   ];
 
   string prefix = "./src/Git2/";
@@ -63,6 +72,14 @@ function setup_stable_libraries(var parrot_libgit2) {
     parrot_libgit2["pbc_pir"][pbc_file]    = pir_file;
     parrot_libgit2["inst_lib"].push(pbc_file);
   }
+  prefix = "./src/";
+  for(string source in core){
+    string pir_file    = prefix + source + ".pir";
+    string pbc_file    = prefix + source + ".pbc";
+    parrot_libgit2["pbc_pir"][pbc_file]    = pir_file;
+    parrot_libgit2["inst_lib"].push(pbc_file);
+  }
+
 }
 
 function build_test() {
@@ -81,7 +98,7 @@ function build_nci() {
   if (env['LIBGIT2_INSTALL_DIR'] == ''){
     var s = new 'FileHandle';
     ${ spawnw result, cmd};
-    s.open("./version");      
+    s.open("./version");
     string output = s.readline();
     libgit_dir = substr(output, 0, length(output) - 1);
   }
