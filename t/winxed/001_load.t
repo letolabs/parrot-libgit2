@@ -14,10 +14,12 @@ $load "./src/Git2/RevWalk.pbc";
 $load "./src/Git2/Odb.pbc";
 $load "./src/Git2/AttrCache.pbc";
 $load "./src/Git2/Blob.pbc";
+$load "./src/Git2/Remote.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';
 $include_const "iglobals.pasm";
+$loadlib "io_ops";
 
 namespace Git2 {
     class Repository;
@@ -28,6 +30,7 @@ namespace Git2 {
     class Commit;
     class Oid;
     class RevWalk;
+    class Remote;
     class Blob;
 }
 
@@ -218,6 +221,28 @@ class Test_git2_repository_open {
         self.assert.not_null(size);
         blob.free();
         repo.free();
+    }
+
+    function remote(){
+        using Git2.Remote;
+        using Git2.Repository;
+
+        var repo = new Git2.Repository(".");
+        var remote = new Git2.Remote;
+        remote.create_remote(repo, "Test_Remote", "http://testremote/remote.git");
+
+        var url = "http://testurl/url.git";
+        int valid = remote.valid_url(url);
+        self.assert.equal(valid, 1);
+
+        int i = remote.set_url(url);
+        self.assert.equal(i, 0);
+
+        remote.free();
+        //TODO: do this using libgit2. Doesn't seem possible yet.
+        string cmd = "git remote rm Test_Remote";
+        int result;
+        ${spawnw result, cmd};
     }
 }
 function main[main]() {

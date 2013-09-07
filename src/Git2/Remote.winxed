@@ -1,0 +1,56 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+}
+
+namespace Git2{
+    class Remote {
+        var ptr;
+        function Remote(){
+        }
+        function create_remote(repo, name, url){
+            using Git2.Git.remote_create;
+            self.ptr = remote_create(repo.ptr, cstring(name), cstring(url));
+        }
+        //TODO: convert to Parrot string
+        function url(){
+            using Git2.Raw.git_remote_url;
+            var j = git_remote_url(self.ptr);
+            return j;
+        }
+        /*
+         * 1 if valid, 0 if invalid
+         */
+        function valid_url(url){
+            using Git2.Raw.git_remote_valid_url;
+            using cstring;
+            int j = git_remote_valid_url(cstring(url));
+            return j;
+        }
+        /*
+         * 0 or error value
+         */
+        function set_url(url){
+            using Git2.Raw.git_remote_set_url;
+            using cstring;
+            int j = git_remote_set_url(self.ptr, cstring(url));
+            return j;
+        }
+        function pushurl(){
+            using Git2.Raw.git_remote_pushurl;
+            var pushurl = git_remote_pushurl(self.ptr);
+            return pushurl;
+        }
+        function set_pushurl(url){
+            using Git2.Raw.git_remote_set_pushurl;
+            using cstring;
+            int j = git_remote_set_pushurl(self.ptr, cstring(url));
+        }
+        function free(){
+            using Git2.Raw.git_remote_free;
+            git_remote_free(self.ptr);
+        }
+    }
+}

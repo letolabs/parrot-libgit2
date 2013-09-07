@@ -25,4 +25,6 @@
   set_global ['Git2';'Git'], 'new_revwalk', nci
   dlfunc nci, lib, 'blob_lookup', 'ppp'
   set_global ['Git2';'Git'], 'blob_lookup', nci
+  dlfunc nci, lib, 'remote_create', 'pppp'
+  set_global ['Git2';'Git'], 'remote_create', nci
 .end

@@ -18,3 +18,4 @@ p commit_lookup pp
 p parent pi
 p new_revwalk p
 p blob_lookup pp
+p remote_create ppp

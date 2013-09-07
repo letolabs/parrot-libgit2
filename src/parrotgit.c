@@ -103,3 +103,19 @@ int get_config_int32(git_config * config, char * cfg_variable){
     git_config_get_int32(&j, config, cfg_variable);
     return j;
 }
+
+git_remote * remote_create(git_repository *repo, char *name, char * url){
+    git_remote * remote;
+    int ret;
+    ret = git_remote_create(&remote, repo, name, url);
+    if (ret == GIT_EINVALIDSPEC){
+	fprintf(stderr, "Invalid spec\n");
+    }
+    else if (ret == GIT_EEXISTS){
+	fprintf(stderr, "Remote Exists");
+    }
+    else if (ret < 0){
+	fprintf(stderr, "Error creating remote");
+    }
+    return remote;
+}
