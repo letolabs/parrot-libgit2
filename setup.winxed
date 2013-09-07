@@ -35,6 +35,7 @@ function main[main](argv) {
 
   register_step_before("build", check_dependencies);
   register_step_before("build", build_nci);
+  register_step_before("build", build_lib);
   register_step_before("clean", clean_build_dir);
 
   argv.shift();
