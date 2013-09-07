@@ -1,0 +1,49 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2 {
+    class Commit {
+        var ptr;
+        function Commit() {
+        }
+        function commit_lookup(repo, oid){
+            using Git2.Git.commit_lookup;            
+
+            self.ptr = commit_lookup(repo.ptr, oid.ptr);
+        }
+        function commit_time(){
+            using Git2.Raw.git_commit_time;
+            int ctime = git_commit_time(self.ptr);
+            return ctime;
+        }
+        // TODO convert to Parrot strings
+        function message(){
+            using Git2.Raw.git_commit_message;
+            var message = git_commit_message(self.ptr);
+            return message;
+        }
+        function author(){
+            using Git2.Raw.git_commit_author;
+            var author = git_commit_author(self.ptr);
+            return author;
+        }
+        function commiter(){
+            using Git2.Raw.git_commit_committer;
+            var commiter = git_commit_committer(self.ptr);
+            return commiter;            
+        }
+        function parentcount(){
+            using Git2.Raw.git_commit_parentcount;
+            int parentcount = git_commit_parentcount(self.ptr);
+            return parentcount;
+        }
+        function parent(p){
+            using Git2.Raw.git_commit_parent;
+            using Git2.Git2.parent;
+            var parent_commit = new Git2.Commit();
+            var parent_ptr = parent(self.ptr, p);
+            parent_commit.ptr = parent_ptr;
+            return parent_commit;
+        }
+    }
+}
