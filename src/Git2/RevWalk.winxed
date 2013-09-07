@@ -1,0 +1,29 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2 {
+    class RevWalk {
+        var ptr;
+        var oid;
+        function RevWalk() {
+        }
+        function init(repo){
+            using Git2.Git.new_revwalk;
+            self.ptr = new_revwalk(repo.ptr);
+        }
+        function push(oid){
+            using Git2.Raw.git_revwalk_push;
+            self.oid = oid;
+            git_revwalk_push(self.ptr, oid.ptr);
+        }
+        function next(){
+            using Git2.Raw.git_revwalk_next;
+            int next = git_revwalk_next(self.oid.ptr, self.ptr);
+            return next;
+        }
+        function free(){
+            using Git2.Raw.git_revwalk_free;
+            git_revwalk_free(self.ptr);
+        }
+    }
+}
