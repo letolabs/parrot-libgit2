@@ -5,11 +5,11 @@ const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 const int GIT_CVAR_CACHE_MAX = 8;
 
 function load[anon,load]() {
-  load_bytecode('./src/git2.pbc');
-  load_bytecode('./src/Git2/Common.pbc');
-  load_bytecode('./src/Git2/Cache.pbc');
+  //load_bytecode('./src/git2.pbc');
+  //load_bytecode('./src/Git2/Common.pbc');
+  //load_bytecode('./src/Git2/Cache.pbc');
   load_bytecode('./src/Git2/Index.pbc');
-  load_bytecode('./src/Git2/AttrCache.pbc');
+  //load_bytecode('./src/Git2/AttrCache.pbc');
 }
 
 /*
@@ -43,13 +43,15 @@ namespace Git2 {
     function get_sv() {
         var git_cache    = new Git2.Cache().get_sv();
         var git_attr_cache = new Git2.AttrCache().get_sv();
-        var sv = new 'StructView'([ DATATYPE_STRUCT, 12,
+        var sv = new 'StructView'([ DATATYPE_STRUCT, 14,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_SIZED, git_cache.size(), git_cache.align(),
                 DATATYPE_SIZED, git_attr_cache.size(), git_attr_cache.align(),
+                DATATYPE_PTR,
+                DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
@@ -62,6 +64,24 @@ namespace Git2 {
     var ptr;
     function Repository() {
         self.ptr = self.get_sv().alloc();
+    }
+    /*
+     * Initialize repo with path
+     */
+    function init_repo(x) {
+        using Git2.Git.open_repo;
+        self.ptr = open_repo(cstring(x));
+    }
+    /*
+     * Free repo
+     */
+    function free(){
+        using Git2.Raw.git_repository_free;
+        var bool = git_repository_free(self.ptr);
+        return bool;
+    }
+    function get_pointer(){
+        return self.ptr;
     }
   }
 }

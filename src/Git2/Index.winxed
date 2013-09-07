@@ -6,6 +6,7 @@ const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 
 function load[anon,load]() {
     load_bytecode('./src/git2.pbc');
+    load_bytecode('./src/parrotgit.pbc');
     load_bytecode('./src/Git2/Common.pbc');
 }
 
@@ -24,7 +25,7 @@ namespace Git2 {
             
 	    git_futils_filestamp stamp;
 	    git_vector entries;
-            
+
 	    unsigned int on_disk:1;
             
 	    unsigned int ignore_case:1;
@@ -69,6 +70,29 @@ namespace Git2 {
         var ptr;
         function Index() {
             self.ptr = self.get_sv().alloc();
+        }
+        /*
+         * Set index from repo
+         */
+        function set_index(repo){
+            using Git2.Git.repo_index;
+            self.ptr = repo_index(repo);
+        }
+        /*
+         * Get Entrycount
+         */
+        function get_entrycount(){
+            using Git2.Raw.git_index_entrycount;
+            int ecount;
+            ecount = git_index_entrycount(self.ptr);
+            return ecount;
+        }
+        /*
+         * Free index
+         */
+        function free(){
+            using Git2.Raw.git_index_free;
+            git_index_free(self.ptr);
         }
     }
 }
