@@ -3,11 +3,23 @@ $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
 
+/*
+typedef struct {
+	git_cached_obj **nodes;
+	git_mutex lock;
+
+	unsigned int lru_count;
+	size_t size_mask;
+	git_cached_obj_freeptr free_obj;
+} git_cache;
+*/
+
 namespace Git2 {
     class Cache {
         function get_sv() {
-            var sv = new 'StructView'([ DATATYPE_STRUCT, 4,
+            var sv = new 'StructView'([ DATATYPE_STRUCT, 5,
                 DATATYPE_PTR,
+                DATATYPE_UINT, // TODO: Probe for git threads support
                 DATATYPE_UINT,
                 DATATYPE_SIZE_T,
                 DATATYPE_PTR

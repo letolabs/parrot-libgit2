@@ -21,5 +21,10 @@ namespace Git2 {
         function Oid() {
             self.ptr = self.get_sv().alloc();
         }
+        function oid_from_str(hex){
+            using Git2.Raw.git_oid_fromstr;
+            using cstring;
+            int rc = git_oid_fromstr(self.ptr, cstring(hex));
+        }
     }
 }

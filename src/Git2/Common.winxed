@@ -285,6 +285,40 @@ namespace Git2 {
 	DATATYPE_SIZED, git_time().size(), git_time().align()
     ]);
   }
+  function git_refcount() {
+      /*
+      typedef struct {
+        git_atomic refcount;
+	void *owner;
+      } git_refcount;
+      */
+      return new 'StructView'([ DATATYPE_STRUCT, 2,
+        DATATYPE_LONG,
+	DATATYPE_PTR
+    ]);
   }
-
+  function git_futils_filestamp() {
+      /*
+      typedef struct {
+	git_time_t mtime;
+	git_off_t  size;
+	unsigned int ino;
+      } git_futils_filestamp;
+      */
+    return new 'StructView'([ DATATYPE_STRUCT, 3,
+        DATATYPE_GIT_TIME_T,
+        DATATYPE_GIT_OFF_T,
+        DATATYPE_UINT
+   ]);
+  }
+  function git_vector() {
+      return new 'StructView'([DATATYPE_STRUCT, 5,
+      DATATYPE_SIZE_T,
+      DATATYPE_PTR,
+      DATATYPE_PTR,
+      DATATYPE_SIZE_T,
+      DATATYPE_INT
+  ]);
+  }
+  }
 }

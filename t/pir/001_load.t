@@ -9,7 +9,7 @@
     .local pmc lib
 
     # TODO: don't hardcode this
-    loadlib lib, '/usr/local/lib/libgit2.so'
+    loadlib lib, '/usr/lib/libgit2.so'
     isa_ok(lib, 'ParrotLibrary')
     ok(1,"Loaded git2.pbc")
 

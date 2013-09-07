@@ -2,58 +2,86 @@ $include_const 'datatypes.pasm';
 $include_const "iglobals.pasm";
 const int DATATYPE_SIZE_T = DATATYPE_LONG; // TODO: probe for appropriate type
 const int DATATYPE_GIT_TIME_T = DATATYPE_INT64; // TODO: probe for support
+const int GIT_CVAR_CACHE_MAX = 8;
 
 function load[anon,load]() {
-  load_bytecode('./src/git2.pbc');
-  load_bytecode('./src/Git2/Common.pbc');
-  load_bytecode('./src/Git2/Cache.pbc');
+  //load_bytecode('./src/git2.pbc');
+  //load_bytecode('./src/Git2/Common.pbc');
+  //load_bytecode('./src/Git2/Cache.pbc');
   load_bytecode('./src/Git2/Index.pbc');
-  load_bytecode('./src/Git2/RefCache.pbc');
+  //load_bytecode('./src/Git2/AttrCache.pbc');
 }
 
 /*
-struct git_repository {
-    git_odb *db;
+  struct git_repository {
+  git_odb *_odb;
+  git_refdb *_refdb;
+  git_config *_config;
+  git_index *_index;
 
-    git_cache objects;
-    git_refcache references;
+  git_cache objects;
+  git_attr_cache attrcache;
+  git_strmap *submodules;
 
-    char *path_repository;
-    char *path_index;
-    char *path_odb;
-    char *path_workdir;
+  char *path_repository;
+  char *workdir;
 
-    unsigned is_bare:1;
-    unsigned int lru_counter;
-};
+  unsigned is_bare:1;
+  unsigned int lru_counter;
+
+  git_cvar_value cvar_cache[GIT_CVAR_CACHE_MAX];
+  };
 */
 
 namespace Git2 {
     class Cache;
-    class RefCache;
+    class AttrCache;
 }
 
 namespace Git2 {
   class Repository {
     function get_sv() {
         var git_cache    = new Git2.Cache().get_sv();
-        var git_refcache = new Git2.RefCache().get_sv();
-        var sv = new 'StructView'([ DATATYPE_STRUCT, 9,
+        var git_attr_cache = new Git2.AttrCache().get_sv();
+        var sv = new 'StructView'([ DATATYPE_STRUCT, 14,
+                DATATYPE_PTR,
+                DATATYPE_PTR,
+                DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_SIZED, git_cache.size(), git_cache.align(),
-                DATATYPE_SIZED, git_refcache.size(), git_refcache.align(),
+                DATATYPE_SIZED, git_attr_cache.size(), git_attr_cache.align(),
+                DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_PTR,
                 DATATYPE_UINT,
-                DATATYPE_UINT
+                DATATYPE_UINT,
+                DATATYPE_INT, GIT_CVAR_CACHE_MAX
             ]);
         while (1) { yield(sv); }
     }
     var ptr;
     function Repository() {
         self.ptr = self.get_sv().alloc();
+    }
+    /*
+     * Initialize repo with path
+     */
+    function init_repo(x) {
+        using Git2.Git.open_repo;
+        self.ptr = open_repo(cstring(x));
+    }
+    /*
+     * Free repo
+     */
+    function free(){
+        using Git2.Raw.git_repository_free;
+        var bool = git_repository_free(self.ptr);
+        return bool;
+    }
+    function get_pointer(){
+        return self.ptr;
     }
   }
 }

@@ -1,0 +1,24 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2 {
+    class Blob {
+        function Blob() {        
+        }
+        var ptr;
+        function lookup(repo, oid) {
+            using Git2.Git.blob_lookup;
+            using Git2.Raw.git_blob_rawsize;
+            self.ptr = blob_lookup(repo.ptr, oid.ptr);
+        }
+        function raw_content(){
+            using Git2.Raw.git_blob_rawcontent;
+            var raw = git_blob_rawcontent(self.ptr);
+        }
+        function raw_size(){
+            using Git2.Raw.git_blob_rawsize;
+            int rawsize = git_blob_rawsize(self.ptr);
+            return rawsize;
+        }
+    }
+}

@@ -43,13 +43,23 @@ function main[main](argv) {
 
 function setup_stable_libraries(var parrot_libgit2) {
   var libs = [
+    'Blob',
     'Cache',
+    'Config',
     'Common',
+    'Commit',
     'Index',
     'Odb',
     'Oid',
     'RefCache',
-    'Repository'
+    'AttrCache',
+    'Repository',
+    'RevWalk'
+  ];
+
+  var core = [
+      'git2',
+      'parrotgit'
   ];
 
   string prefix = "./src/Git2/";
@@ -62,6 +72,14 @@ function setup_stable_libraries(var parrot_libgit2) {
     parrot_libgit2["pbc_pir"][pbc_file]    = pir_file;
     parrot_libgit2["inst_lib"].push(pbc_file);
   }
+  prefix = "./src/";
+  for(string source in core){
+    string pir_file    = prefix + source + ".pir";
+    string pbc_file    = prefix + source + ".pbc";
+    parrot_libgit2["pbc_pir"][pbc_file]    = pir_file;
+    parrot_libgit2["inst_lib"].push(pbc_file);
+  }
+
 }
 
 function build_test() {
@@ -80,7 +98,7 @@ function build_nci() {
   if (env['LIBGIT2_INSTALL_DIR'] == ''){
     var s = new 'FileHandle';
     ${ spawnw result, cmd};
-    s.open("./version");      
+    s.open("./version");
     string output = s.readline();
     libgit_dir = substr(output, 0, length(output) - 1);
   }
@@ -96,6 +114,16 @@ function build_nci() {
   ${ spawnw result, ncigencmd};
   ncigencmd = "for i in `ls " + libgit_dir + "/git2/*.h | sort -d`; do perl ./bin/header2nci.pl $i >> src/git2.nci; done";
   ${ spawnw result, ncigencmd};
+  string def2pir = "perl ./bin/ncidef2pir.pl src/git2.nci";
+  ${ spawnw result, def2pir};
+  def2pir = "perl ./bin/ncidef2pir.pl src/parrotgit.nci";
+  ${ spawnw result, def2pir};
+}
+
+function build_lib(){
+    int result;
+    string compile = "gcc -fPIC -c src/parrotgit.c -lgit2 && gcc -shared -o libparrotgit.so src/parrotgit.o -lgit2";
+    ${spawnw result, compile};
 }
 
 function do_test() {
@@ -131,7 +159,8 @@ function clean_build_dir() {
   }
   unlink("src/git2.pbc");
   unlink("src/git2.nci");
-  int result;
+  unlink("libparrotgit.so");
+  int result = 0;
   string cmd = "rm -rf rosella";
   ${ spawnw result, cmd};
 }

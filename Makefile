@@ -10,8 +10,8 @@ test: rosella
 	winxed setup.winxed test
 
 rosella: Rosella/Makefile
-	$(MAKE) -C Rosella build
-	ln -s Rosella/rosella rosella
+	$(MAKE) -C ext/Rosella build
+	ln -s ext/Rosella/rosella rosella
 
 Rosella/Makefile:
 	git submodule init
