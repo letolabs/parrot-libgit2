@@ -2,15 +2,34 @@
 #include <stdio.h>
 #include <string.h>
 
-git_repository * open_repo(char * dir)
-{
-  git_repository *repo = NULL;
-  int ret;
-  ret = git_repository_open_ext(&repo, dir, 0, NULL);
-  if (ret < 0){
-      fprintf(stderr, "Error opening repository\n");
-  }
-  return repo;
+git_repository * open_repo(char * dir){
+    git_repository *repo = NULL;
+    int ret;
+    ret = git_repository_open_ext(&repo, dir, 0, NULL);
+    if (ret < 0){
+	fprintf(stderr, "Error opening repository\n");
+    }
+    return repo;
+}
+
+git_repository * init_repository(char * dir){
+    git_repository *repo;
+    int ret;
+    ret = git_repository_init(&repo, dir, 0);
+    if (ret < 0){
+	fprintf(stderr, "Error initializing repository\n");
+    }
+    return repo;
+}
+
+git_repository * init_repository2(char * dir, unsigned bare){
+    git_repository *repo;
+    int ret;
+    ret = git_repository_init(&repo, dir, bare);
+    if (ret < 0){
+	fprintf(stderr, "Error initializing repository\n");
+    }
+    return repo;
 }
 
 git_index * repo_index(git_repository * repo){
@@ -35,20 +54,20 @@ git_reference * repo_head(git_repository * repo){
 
 git_config * get_config(char * config_path){
     git_config * config;
-    int error = 0;
-    error = git_config_open_ondisk(&config, config_path);
-    if (error < 0){
-	fprintf(stderr, "Error getting config file");
+    int ret = 0;
+    ret = git_config_open_ondisk(&config, config_path);
+    if (ret < 0){
+	fprintf(stderr, "Error getting config file\n");
     }
     return config;
 }
 
 git_commit * commit_lookup(git_repository * repo, git_oid * oid){
-    int err;
+    int ret;
     git_commit * commit;
-    err = git_commit_lookup(&commit, repo, oid);
-    if (err < 0){
-	fprintf(stderr, "Error looking up commit");
+    ret = git_commit_lookup(&commit, repo, oid);
+    if (ret < 0){
+	fprintf(stderr, "Error looking up commit\n");
     }
     return commit;
 }

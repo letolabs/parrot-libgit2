@@ -65,12 +65,49 @@ namespace Git2 {
     function Repository() {
         self.ptr = self.get_sv().alloc();
     }
+    function Repository(x){
+        using Git2.Git.open_repo;
+        self.ptr = open_repo(cstring(x));
+    }
     /*
      * Initialize repo with path
      */
     function init_repo(x) {
-        using Git2.Git.open_repo;
-        self.ptr = open_repo(cstring(x));
+        using Git2.Raw.git_repository_init;
+        using Git2.Git.init_repository;
+        self.ptr = init_repository(cstring(x));
+    }
+    function init_repo(x, bare) {
+        using Git2.Raw.git_repository_init;
+        using Git2.Git.init_repository2;
+        self.ptr = init_repository2(cstring(x), bare);
+    }
+    function clone(path, url){
+        //TODO
+    }
+    /*
+     *  Check if shallow - 1 if shallow, 0 otherwise
+     */
+    function is_shallow() {
+        using Git2.Raw.git_repository_is_shallow;
+        int x = git_repository_is_shallow(self.ptr);
+        return x;
+    }
+    /*
+     * Check if bare - 1 if bare, 0 otherwise
+     */
+    function is_bare() {
+        using Git2.Raw.git_repository_is_bare;
+        int x = git_repository_is_bare(self.ptr);
+        return x;
+    }
+    /*
+     * Check if empty - 1 if empty, 0 if it isn't, error code on corrupt repos
+     */
+    function is_empty() {
+        using Git2.Raw.git_repository_is_empty;
+        int x = git_repository_is_empty(self.ptr);
+        return x;
     }
     /*
      * Free repo
@@ -80,6 +117,41 @@ namespace Git2 {
         var bool = git_repository_free(self.ptr);
         return bool;
     }
+    /*
+     * Get Path.
+     * TODO: convert to parrot string
+     */
+    function path(){
+        using Git2.Raw.git_repository_path;
+        var path = git_repository_path(self.ptr);
+        return path;
+    }
+    /*
+     * Set head - 0 on success, error code otherwise
+     */
+    function set_head(refname){
+        using cstring;
+        using Git2.Raw.git_repository_set_head;
+        using Git2.Raw.git_reference_is_valid_name;
+        int rc = git_reference_is_valid_name(cstring(refname));
+        if (rc == 0) {
+            print("Invalid Reference Name\n");
+            return -1;
+        }
+        rc = git_repository_set_head(self.ptr, cstring(refname));
+        return rc;
+    }
+    /*
+     * 1 if head is detached, 0 if its not, error code otherwise
+     */
+    function is_detached(){
+        using Git2.Raw.git_repository_head_detached;
+        int rc = git_repository_head_detached(self.ptr);
+        return rc;
+    }
+    /*
+     * Get pointer
+     */
     function get_pointer(){
         return self.ptr;
     }

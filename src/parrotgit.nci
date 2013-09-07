@@ -7,6 +7,8 @@ libparrotgit.so
 
 [defs]
 p open_repo p
+p init_repository p
+p init_repository2 pi
 p repo_index p
 p repo_head p
 p branchname p

@@ -82,9 +82,15 @@ NCI defs are automatically generated during setup.
 Opening a repository:
 
     using Git2.Repository;
-    var repo = new Git2.Repository();
-    repo.init_repo("/path/to/repository");
+    var repo = new Git2.Repository("/path/to/repository");
+    ...
+    repo.free();
 
+Creating a repository:
+
+    using Git2.Repository;
+    var repo = new Git2.Repository;
+    repo.init("/path/to/repository");
     repo.free();
 
 Using the index:
@@ -92,9 +98,8 @@ Using the index:
     using Git2.Repository;
     using Git2.Index;
 
-    var repo = new Git2.Repository();
+    var repo = new Git2.Repository("/path/to/repository");
     var git_index = new Git2.Index();
-    repo.init("/path/to/repository");
 
     git_index.set_index(repo.ptr);
     int ecount = git_index.get_entrycount();
@@ -128,8 +133,7 @@ Getting Commit Data:
     using Git2.Repository;
     using Git2.Oid;
 
-    var repo = new Git2.Repository();
-    repo.init_repo(".");
+    var repo = new Git2.Repository(".");
 
     var hex = "e1380b1f60babf677921c4a9b5e92acda0b15e18";
     var git_oid = new Git2.Oid();
@@ -141,6 +145,7 @@ Getting Commit Data:
     int ctime = commit1.commit_time();
     int parentcount = commit1.parentcount();
 
+    commit1.free();
     repo.free()
 
 Revision Walking:
@@ -151,9 +156,8 @@ You can traverse the DAG(Directed Acyclic Graph) created by the parent pointers.
     using Git2.Oid;
     using Git2.Commit;
 
-    var repo = new Git2.Repository();
-    repo.init_repo(".");
-
+    var repo = new Git2.Repository(".");
+    
     var hex = "e1380b1f60babf677921c4a9b5e92acda0b15e18";
     var git_oid = new Git2.Oid();
     git_oid.oid_from_str(hex);
@@ -167,6 +171,7 @@ You can traverse the DAG(Directed Acyclic Graph) created by the parent pointers.
         commit1.commit_lookup(repo, rev_walk.oid);
         int parentcount = commit1.parentcount();
         print(parentcount + " ");
+        commit1.free();
     }
     rev_walk.free();
     repo.free();
@@ -177,8 +182,7 @@ Blobs:
     using Git2.Oid;
     using Git2.Blob;
 
-    var repo = new Git2.Repository();
-    repo.init_repo(".");
+    var repo = new Git2.Repository(".");
 
     var hex = "a556bfd051e6cd09844eda9ccb372f37629f5385";
     var git_oid = new Git2.Oid();
@@ -189,6 +193,7 @@ Blobs:
 
     var size = blob.raw_size();
     print(size);
+    blob.free();
     repo.free();
 
 ## Contributing

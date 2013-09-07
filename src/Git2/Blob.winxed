@@ -20,5 +20,9 @@ namespace Git2 {
             int rawsize = git_blob_rawsize(self.ptr);
             return rawsize;
         }
+        function free(){
+            using Git2.Raw.git_blob_free;
+            git_blob_free(self.ptr);
+        }
     }
 }

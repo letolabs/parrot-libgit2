@@ -2,15 +2,31 @@ $include_const 'datatypes.pasm';
 $include_const "iglobals.pasm";
 
 namespace Git2 {
+    class Oid;
+}
+
+namespace Git2 {
     class Commit {
         var ptr;
         function Commit() {
         }
+        function Commit(repo, hex){
+            using Git2.Oid;
+            using Git2.Git.commit_lookup;
+            var git_oid = new Git2.Oid();
+            git_oid.oid_from_str(hex);
+            self.ptr = commit_lookup(repo.ptr, git_oid.ptr);
+        }
+        /*
+         * Look up commit by oid
+         */
         function commit_lookup(repo, oid){
-            using Git2.Git.commit_lookup;            
-
+            using Git2.Git.commit_lookup;
             self.ptr = commit_lookup(repo.ptr, oid.ptr);
         }
+        /*
+         * return commit_time
+         */
         function commit_time(){
             using Git2.Raw.git_commit_time;
             int ctime = git_commit_time(self.ptr);
@@ -22,28 +38,60 @@ namespace Git2 {
             var message = git_commit_message(self.ptr);
             return message;
         }
+        /*
+         * Return author of commit
+         */
         function author(){
             using Git2.Raw.git_commit_author;
             var author = git_commit_author(self.ptr);
             return author;
         }
+        /*
+         * Return commiter of commit
+         */
         function commiter(){
             using Git2.Raw.git_commit_committer;
             var commiter = git_commit_committer(self.ptr);
-            return commiter;            
+            return commiter;
         }
+        /*
+         * Return number of parents of commit
+         */
         function parentcount(){
             using Git2.Raw.git_commit_parentcount;
             int parentcount = git_commit_parentcount(self.ptr);
             return parentcount;
         }
+        /*
+         * Return pth parent of commit
+         */
         function parent(p){
             using Git2.Raw.git_commit_parent;
-            using Git2.Git2.parent;
+            using Git2.Git.parent;
             var parent_commit = new Git2.Commit();
             var parent_ptr = parent(self.ptr, p);
             parent_commit.ptr = parent_ptr;
             return parent_commit;
+        }
+        /*
+         * Returns positive or negative time offset from UTC
+         */
+        function commit_time_offset(){
+            using Git2.Raw.git_commit_time_offset;
+            int offset = git_commit_time_offset(self.ptr);
+            return offset;
+        }
+        /*
+         * Return Commit Message encoding
+         */
+        function encoding(){
+            using Git2.Raw.git_commit_message_encoding;
+            var encoding = git_commit_message_encoding(self.ptr);
+            return encoding;
+        }
+        function free(){
+            using Git2.Raw.git_commit_free;
+            git_commit_free(self.ptr);
         }
     }
 }

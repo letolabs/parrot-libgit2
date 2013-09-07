@@ -54,28 +54,40 @@ class Test_git2_repository_open {
         using Git2.Repository;
         using Git2.Raw.git_repository_open;
         using cstring;
-
-        var repo = new Git2.Repository();
-
-        // TODO: get proper error return value here. Currently error printing is deferred to the C wrapper
-        repo.init_repo(".");
+        // TODO: get proper error return value here. Currently error printing is
+        // deferred to the C wrapper
+        var repo = new Git2.Repository(".");
     }
 
     function repository_index() {
         using Git2.Repository;
         using Git2.Index;
-        using cstring;
 
-        var repo = new Git2.Repository();
+        // TODO: slashes portable
+        var repo = new Git2.Repository(".");
         var git_index = new Git2.Index();
 
         var rc1        = -1;
         var rc2        = -1;
-        var bool       = -1;
+        var rc3        = -1;
+        var rc4        = -1;
 
-        // TODO: make slashes portable
-        repo.init_repo(".");
+        rc1 = repo.is_empty();
+        self.assert.equal(rc1, 0);
 
+        rc2 = repo.is_bare();
+        self.assert.equal(rc2, 0);
+
+        rc3 = repo.is_shallow();
+        self.assert.equal(rc3, 0);
+
+        //Make sure you want to set head.
+        //rc4 = repo.set_head("refs/heads/master");
+        //self.assert.equal(rc4, 0);
+
+        rc4 = repo.is_detached();
+        self.assert.equal(rc4, 0);
+        
         git_index.set_index(repo.ptr);
 
         int ecount = git_index.get_entrycount();
@@ -86,14 +98,20 @@ class Test_git2_repository_open {
         repo.free();
     }
 
+    function create_repo(){
+        using Git2.Repository;
+        
+        var repo = new Repository;
+        var rc1 = repo.init_repo("/tmp/test");
+        repo.free();
+    }
+
     function show_branch(){
         using Git2.Git.repo_head;
         using Git2.Raw.git_reference_name;
         using Git2.Git.branchname;
         using cstring;
-        var repo = new Git2.Repository();
-
-        repo.init_repo(".");
+        var repo = new Git2.Repository(".");
         string str = string(cstring("x"));
         print(str);
         repo.free();
@@ -130,21 +148,28 @@ class Test_git2_repository_open {
         using Git2.Repository;
         using Git2.Oid;
 
-        var repo = new Git2.Repository();
-        repo.init_repo(".");
+        var repo = new Git2.Repository(".");
 
         var hex = "e1380b1f60babf677921c4a9b5e92acda0b15e18";
-        var git_oid = new Git2.Oid();
-        git_oid.oid_from_str(hex);
-
-        var commit1 = new Git2.Commit();
-        commit1.commit_lookup(repo, git_oid);
-
+        
+        var commit1 = new Git2.Commit(repo, hex);
+        
         int ctime = commit1.commit_time();
+        
+        int offset = commit1.commit_time_offset();
+        self.assert.not_null(offset);
 
         int parentcount = commit1.parentcount();
         self.assert.not_null(parentcount);
 
+        for(int i = 0; i < parentcount; i++){
+            var parent_commit = new Git2.Commit;
+            parent_commit = commit1.parent(i);
+            int pcount2 = parent_commit.parentcount();
+            self.assert.not_null(pcount2);
+            parent_commit.free();
+        }
+        commit1.free();
         repo.free();
     }
 
@@ -154,8 +179,7 @@ class Test_git2_repository_open {
         using Git2.Oid;
         using Git2.Commit;
 
-        var repo = new Git2.Repository();
-        repo.init_repo(".");
+        var repo = new Git2.Repository(".");
 
         var hex = "e1380b1f60babf677921c4a9b5e92acda0b15e18";
         var git_oid = new Git2.Oid();
@@ -170,6 +194,7 @@ class Test_git2_repository_open {
             commit1.commit_lookup(repo, rev_walk.oid);
             int parentcount = commit1.parentcount();
             self.assert.not_null(parentcount);
+            commit1.free();
         }
         rev_walk.free();
         repo.free();
@@ -180,8 +205,7 @@ class Test_git2_repository_open {
         using Git2.Oid;
         using Git2.Blob;
 
-        var repo = new Git2.Repository();
-        repo.init_repo(".");
+        var repo = new Git2.Repository(".");
 
         var hex = "a556bfd051e6cd09844eda9ccb372f37629f5385";
         var git_oid = new Git2.Oid();
@@ -192,9 +216,9 @@ class Test_git2_repository_open {
 
         var size = blob.raw_size();
         self.assert.not_null(size);
+        blob.free();
         repo.free();
     }
-
 }
 function main[main]() {
     using Rosella.Test.test;

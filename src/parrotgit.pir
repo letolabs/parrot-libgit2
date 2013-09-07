@@ -3,6 +3,10 @@
   loadlib lib, 'libparrotgit.so'
   dlfunc nci, lib, 'open_repo', 'pp'
   set_global ['Git2';'Git'], 'open_repo', nci
+  dlfunc nci, lib, 'init_repository', 'pp'
+  set_global ['Git2';'Git'], 'init_repository', nci
+  dlfunc nci, lib, 'init_repository2', 'ppi'
+  set_global ['Git2';'Git'], 'init_repository2', nci
   dlfunc nci, lib, 'repo_index', 'pp'
   set_global ['Git2';'Git'], 'repo_index', nci
   dlfunc nci, lib, 'repo_head', 'pp'
