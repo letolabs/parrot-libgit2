@@ -112,10 +112,28 @@ git_remote * remote_create(git_repository *repo, char *name, char * url){
 	fprintf(stderr, "Invalid spec\n");
     }
     else if (ret == GIT_EEXISTS){
-	fprintf(stderr, "Remote Exists");
+	fprintf(stderr, "Remote Exists.\n");
     }
     else if (ret < 0){
-	fprintf(stderr, "Error creating remote");
+	fprintf(stderr, "Error creating remote.\n");
     }
     return remote;
+}
+
+git_object * revparse_single(git_repository * repo, char * spec){
+    git_object * object;
+    int ret = git_revparse_single(&object, repo, spec);
+    if (ret == GIT_ENOTFOUND){
+	fprintf(stderr, "Not found.\n");
+    }
+    else if(ret == GIT_EAMBIGUOUS){
+	fprintf(stderr, "Ambiguous.\n");
+    }
+    else if(ret == GIT_EINVALIDSPEC){
+	fprintf(stderr, "Invalid Spec.\n");
+    }
+    else if(ret < 0){
+	fprintf(stderr, "Error finding object.\n");
+    }
+    return object;
 }

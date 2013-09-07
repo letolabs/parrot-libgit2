@@ -15,6 +15,7 @@ $load "./src/Git2/Odb.pbc";
 $load "./src/Git2/AttrCache.pbc";
 $load "./src/Git2/Blob.pbc";
 $load "./src/Git2/Remote.pbc";
+$load "./src/Git2/RevParse.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';
@@ -221,6 +222,16 @@ class Test_git2_repository_open {
         self.assert.not_null(size);
         blob.free();
         repo.free();
+    }
+
+    function rev_parse(){
+        using Git2.RevParse.rev_parse_single;
+
+        var repo = new Git2.Repository(".");
+        var spec = "HEAD^";
+
+        var obj = Git2.rev_parse_single(repo, spec);
+        self.assert.defined(obj);
     }
 
     function remote(){

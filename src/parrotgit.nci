@@ -19,3 +19,4 @@ p parent pi
 p new_revwalk p
 p blob_lookup pp
 p remote_create ppp
+p revparse_single pp

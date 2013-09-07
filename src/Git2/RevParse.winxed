@@ -1,0 +1,15 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+}
+
+namespace Git2{
+    function rev_parse_single(repo, spec){
+        //TODO: depends on revparse_single to deal with errors
+        using Git2.Git.revparse_single;
+        var object = revparse_single(repo.ptr, cstring(spec));
+        return object;
+    }
+}

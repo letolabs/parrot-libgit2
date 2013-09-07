@@ -27,4 +27,6 @@
   set_global ['Git2';'Git'], 'blob_lookup', nci
   dlfunc nci, lib, 'remote_create', 'pppp'
   set_global ['Git2';'Git'], 'remote_create', nci
+  dlfunc nci, lib, 'revparse_single', 'ppp'
+  set_global ['Git2';'Git'], 'revparse_single', nci
 .end
