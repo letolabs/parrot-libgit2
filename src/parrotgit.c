@@ -84,20 +84,3 @@ int get_config_int32(git_config * config, char * cfg_variable){
     git_config_get_int32(&j, config, cfg_variable);
     return j;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
