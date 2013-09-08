@@ -4,6 +4,7 @@ $load "rosella/test.pbc";
 $load "./src/git2.pbc";
 $load "./src/Git2/Common.pbc";
 $load "./src/Git2/Repository.pbc";
+$load "./src/Git2/Cache.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';

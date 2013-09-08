@@ -11,7 +11,10 @@ test: rosella
 
 rosella: Rosella/Makefile
 	$(MAKE) -C ext/Rosella build
-	ln -s ext/Rosella/rosella rosella
+	if [ ! -L rosella ]; \
+	then \
+	  ln -s ext/Rosella/rosella rosella ; \
+	fi
 
 Rosella/Makefile:
 	git submodule init
