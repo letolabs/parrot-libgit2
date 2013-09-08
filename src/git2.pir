@@ -495,6 +495,32 @@
   set_global ['Git2';'Raw'], 'git_packbuilder_new', nci
   dlfunc nci, lib, 'git_packbuilder_insert_tree', 'ipp'
   set_global ['Git2';'Raw'], 'git_packbuilder_insert_tree', nci
+  dlfunc nci, lib, 'git_pathspec_match_diff', 'ippip'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_diff', nci
+  dlfunc nci, lib, 'git_pathspec_match_list_free', 'vp'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_list_free', nci
+  dlfunc nci, lib, 'git_pathspec_match_tree', 'ippip'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_tree', nci
+  dlfunc nci, lib, 'git_pathspec_matches_path', 'ipip'
+  set_global ['Git2';'Raw'], 'git_pathspec_matches_path', nci
+  dlfunc nci, lib, 'git_pathspec_match_list_failed_entry', 'ppi'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_list_failed_entry', nci
+  dlfunc nci, lib, 'git_pathspec_match_list_failed_entrycount', 'ip'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_list_failed_entrycount', nci
+  dlfunc nci, lib, 'git_pathspec_match_index', 'ippip'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_index', nci
+  dlfunc nci, lib, 'git_pathspec_new', 'ipp'
+  set_global ['Git2';'Raw'], 'git_pathspec_new', nci
+  dlfunc nci, lib, 'git_pathspec_match_workdir', 'ippip'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_workdir', nci
+  dlfunc nci, lib, 'git_pathspec_match_list_diff_entry', 'ppi'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_list_diff_entry', nci
+  dlfunc nci, lib, 'git_pathspec_match_list_entrycount', 'ip'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_list_entrycount', nci
+  dlfunc nci, lib, 'git_pathspec_match_list_entry', 'ppi'
+  set_global ['Git2';'Raw'], 'git_pathspec_match_list_entry', nci
+  dlfunc nci, lib, 'git_pathspec_free', 'vp'
+  set_global ['Git2';'Raw'], 'git_pathspec_free', nci
   dlfunc nci, lib, 'git_push_update_tips', 'ip'
   set_global ['Git2';'Raw'], 'git_push_update_tips', nci
   dlfunc nci, lib, 'git_push_status_foreach', 'ipippp'
