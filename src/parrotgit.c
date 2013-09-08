@@ -78,10 +78,10 @@ git_commit * parent(git_commit * commit, int p){
     return parent;
 }
 
-char * branchname(git_repository * repo){
+const char * branchname(git_repository * repo){
     git_reference * head;
     head = repo_head(repo);
-    char * branchname;
+    const char * branchname;
     branchname = git_reference_name(head);
     return branchname;
 }

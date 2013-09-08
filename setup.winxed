@@ -125,7 +125,7 @@ function build_nci() {
 
 function build_lib(){
     int result;
-    string compile = "gcc -fPIC -c src/parrotgit.c -lgit2 && gcc -shared -o libparrotgit.so src/parrotgit.o -lgit2";
+    string compile = "gcc -fPIC -c src/parrotgit.c -o src/parrotgit.o -lgit2 && gcc -shared -o libparrotgit.so src/parrotgit.o -lgit2";
     ${spawnw result, compile};
 }
 
