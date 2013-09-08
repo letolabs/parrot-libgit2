@@ -37,6 +37,8 @@ function main[main](argv) {
   register_step_before("build", build_nci);
   register_step_before("build", build_lib);
   register_step_before("clean", clean_build_dir);
+  register_step_before("install", install_clib);
+  register_step_before("uninstall", uninstall_clib);
 
   argv.shift();
   setup(argv, parrot_libgit2);
@@ -91,6 +93,35 @@ function build_test() {
   int result;
   string cmd = "make rosella";
   ${ spawnw result, cmd};
+}
+
+function install_clib(){
+    //TODO use pkg-config
+    var env = new 'Env';
+    string parrotgitdir;
+    if (env['LIBPARROTGIT_INSTALL_DIR'] == ''){
+        parrotgitdir = "/usr/local/lib/";
+    }
+    else{
+        parrotgitdir = env['LIBPARROTGIT_INSTALL_DIR'];
+    }
+    string cmd = "cp libparrotgit.so " + parrotgitdir;
+    int result;
+    ${spawnw result, cmd};
+}
+
+function uninstall_clib(){
+    var env = new 'Env';
+    string parrotgitdir;
+    if (env['LIBPARROTGIT_INSTALL_DIR'] == ''){
+        parrotgitdir = "/usr/local/lib/";
+    }
+    else{
+        parrotgitdir = env['LIBPARROTGIT_INSTALL_DIR'];
+    }
+    string filename = parrotgitdir + "libparrotgit.so";
+    int result;
+    unlink(filename);
 }
 
 function build_nci() {
