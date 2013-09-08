@@ -25,6 +25,7 @@ namespace Git2 {
             using Git2.Raw.git_oid_fromstr;
             using cstring;
             int rc = git_oid_fromstr(self.ptr, cstring(hex));
+            return rc;
         }
     }
 }

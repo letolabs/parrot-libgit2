@@ -1,0 +1,20 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+}
+
+namespace Git2{
+    class Object {
+        var ptr;
+        function Object(repo, oid){
+            using Git2.Git.object_lookup;
+            self.ptr = object_lookup(repo.ptr, oid.ptr);
+        }
+        function free(){
+            using Git2.Raw.git_object_free;
+            git_object_free(self.ptr);
+        }
+    }
+}

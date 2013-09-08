@@ -1,0 +1,39 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+}
+
+namespace Git2{
+    class Tag {
+        var ptr;
+        function Tag(){
+        }
+        function create_lightweight(oid, repo, name, target){
+            using Git2.Raw.git_tag_create_lightweight;
+            using cstring;
+            int ret = git_tag_create_lightweight(oid.ptr, repo.ptr, cstring(name), target.ptr, 0);
+            if (ret < 0){
+                print("Error creating tag.\n");
+            }
+            return ret;
+        }
+        function lookup(repo, oid){
+            using Git2.Git.tag_lookup;
+            self.ptr = tag_lookup(repo.ptr, oid.ptr);
+        }
+        function free(){
+            using Git2.Raw.git_tag_free;
+            git_tag_free(self.ptr);
+        }
+        function delete(repo, name){
+            using Git2.Raw.git_tag_delete;
+            int ret = git_tag_delete(repo.ptr, cstring(name));
+            if (ret < 0){
+                print("Error deleting tag");
+            }
+            return ret;
+        }
+    }
+}

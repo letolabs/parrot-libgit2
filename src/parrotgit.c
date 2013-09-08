@@ -137,3 +137,23 @@ git_object * revparse_single(git_repository * repo, char * spec){
     }
     return object;
 }
+
+git_object * object_lookup(git_repository * repo, const git_oid * oid){
+    git_object * object;
+    int ret;
+    ret = git_object_lookup(&object, repo, oid, GIT_OBJ_ANY);
+    if (ret < 0){
+	fprintf(stderr, "Error looking up object.\n");
+    }
+    return object;
+}
+
+git_tag * tag_lookup(git_repository * repo, const git_oid * oid){
+    git_tag * tag;
+    int ret;
+    ret = git_tag_lookup(&tag, repo, oid);
+    if (ret < 0){
+	fprintf(stderr, "Error in tag lookup: % d\n", ret);
+    }
+    return tag;
+}

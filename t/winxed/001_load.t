@@ -16,6 +16,8 @@ $load "./src/Git2/AttrCache.pbc";
 $load "./src/Git2/Blob.pbc";
 $load "./src/Git2/Remote.pbc";
 $load "./src/Git2/RevParse.pbc";
+$load "./src/Git2/Object.pbc";
+$load "./src/Git2/Tag.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';
@@ -33,6 +35,8 @@ namespace Git2 {
     class RevWalk;
     class Remote;
     class Blob;
+    class Object;
+    class Tag;
 }
 
 class Test_git2_repository_open {
@@ -254,6 +258,31 @@ class Test_git2_repository_open {
         string cmd = "git remote rm Test_Remote";
         int result;
         ${spawnw result, cmd};
+    }
+
+    function git_tag(){
+        using Git2.Oid;
+        using Git2.Tag;
+        using Git2.Repository;
+        using Git2.Object;
+
+        var repo = new Git2.Repository(".");
+
+        var hex = "e1380b1f60babf677921c4a9b5e92acda0b15e18";
+        var git_oid = new Git2.Oid();
+        int ret = git_oid.oid_from_str(hex);
+
+        var obj = new Git2.Object(repo, git_oid);
+
+        var target_oid = new Git2.Oid();
+        var name = "Test_Tag";
+
+        var tag = new Git2.Tag();
+        int rc1 = tag.create_lightweight(target_oid, repo, name, obj);
+        self.assert.equal(rc1, 0);
+
+        rc1 = tag.delete(repo, name);
+        self.assert.equal(rc1, 0);
     }
 }
 function main[main]() {
