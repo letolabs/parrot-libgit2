@@ -114,6 +114,17 @@ class Test_git2_repository_open {
         repo.free();
     }
 
+    function clone_repo(){
+        using Git2.Repository;
+
+        var repo = new Repository;
+        repo.clone("https://github.com/letolabs/parrot-libgit2.git", "/tmp/parrot");
+        int rc1 = repo.is_empty();
+        self.assert.equal(rc1, 0);
+        repo.free();
+        //TODO: remove cloned directory
+    }
+
     function show_branch(){
         using Git2.Git.repo_head;
         using Git2.Raw.git_reference_name;
@@ -134,12 +145,12 @@ class Test_git2_repository_open {
         self.assert.equal(j, 0);
     }
 
-    function git_index() {
+    function index() {
         var git_index = new Git2.Index;
         self.assert.instance_of(git_index, class Git2.Index);
     }
 
-    function git_oid() {
+    function oid() {
         using Git2.Oid;
 
         var git_oid = new Git2.Oid();
@@ -151,7 +162,7 @@ class Test_git2_repository_open {
         self.assert.defined(git_oid);
     }
 
-    function git_commit(){
+    function commit(){
         using Git2.Commit;
         using Git2.Repository;
         using Git2.Oid;

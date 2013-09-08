@@ -33,4 +33,6 @@
   set_global ['Git2';'Git'], 'object_lookup', nci
   dlfunc nci, lib, 'tag_lookup', 'ppp'
   set_global ['Git2';'Git'], 'tag_lookup', nci
+  dlfunc nci, lib, 'clone', 'ppp'
+  set_global ['Git2';'Git'], 'clone', nci
 .end

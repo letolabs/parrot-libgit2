@@ -153,7 +153,20 @@ git_tag * tag_lookup(git_repository * repo, const git_oid * oid){
     int ret;
     ret = git_tag_lookup(&tag, repo, oid);
     if (ret < 0){
-	fprintf(stderr, "Error in tag lookup: % d\n", ret);
+	fprintf(stderr, "Error in tag lookup.\n");
     }
     return tag;
+}
+
+git_repository * clone(const char * url, const char * path){
+    // Clone options not supported for now.
+    git_repository *cloned_repo = NULL;
+    int ret;
+    ret = git_clone(&cloned_repo, url, path, NULL);
+    if (ret < 0){
+	const git_error *err = giterr_last();
+	if (err) printf("ERROR %d: %s\n", err->klass, err->message);
+	else printf("ERROR %d: no detailed info\n", ret);
+    }
+    return cloned_repo;
 }
