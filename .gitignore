@@ -2,14 +2,7 @@
 *.sw?
 core
 *.pbc
-src/Git2/Common.pir
-src/Git2/Repository.pir
-src/Git2/Cache.pir
-src/Git2/Common.pir
-src/Git2/RefCache.pir
-src/Git2/Repository.pir
-src/Git2/Index.pir
-src/Git2/Oid.pir
-src/Git2/Odb.pir
-rosella
+src/Git2/*.pir
+ext/Rosella
 tags
+src/*.o
