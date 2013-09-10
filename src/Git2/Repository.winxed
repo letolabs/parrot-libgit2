@@ -82,8 +82,9 @@ namespace Git2 {
         using Git2.Git.init_repository2;
         self.ptr = init_repository2(cstring(x), bare);
     }
-    function clone(path, url){
-        //TODO
+    function clone(url, path){
+        using Git2.Git.clone;
+        self.ptr = clone(cstring(url), cstring(path));
     }
     /*
      *  Check if shallow - 1 if shallow, 0 otherwise
@@ -117,13 +118,10 @@ namespace Git2 {
         var bool = git_repository_free(self.ptr);
         return bool;
     }
-    /*
-     * Get Path.
-     * TODO: convert to parrot string
-     */
     function path(){
         using Git2.Raw.git_repository_path;
-        var path = git_repository_path(self.ptr);
+        var cpath = git_repository_path(self.ptr);
+        string path = atos(cpath);
         return path;
     }
     /*

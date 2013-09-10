@@ -58,6 +58,16 @@ class Test_git2_repository_open {
         self.assert.defined(str,"cstring is defined");
     }
 
+    function test_atos(){
+        string s = "foo";
+        string r;
+
+        var x = cstring(s);
+        r = atos(x);
+
+        self.assert.equal(r, "foo");
+    }
+
     function open_repo() {
         using Git2.Repository;
         using Git2.Raw.git_repository_open;
@@ -109,20 +119,21 @@ class Test_git2_repository_open {
     function create_repo(){
         using Git2.Repository;
         
-        var repo = new Repository;
+        var repo = new Git2.Repository();
         var rc1 = repo.init_repo("/tmp/test");
+        string path = repo.path();
+        self.assert.equal(path, "/tmp/test/.git/");
         repo.free();
     }
 
     function clone_repo(){
         using Git2.Repository;
 
-        var repo = new Repository;
+        var repo = new Git2.Repository();
         repo.clone("https://github.com/letolabs/parrot-libgit2.git", "/tmp/parrot");
-        int rc1 = repo.is_empty();
-        self.assert.equal(rc1, 0);
-        repo.free();
-        //TODO: remove cloned directory
+        var ptr = repo.get_pointer();
+        self.assert.defined(ptr, "Repository not cloned.");
+
     }
 
     function show_branch(){
