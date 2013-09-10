@@ -20,6 +20,11 @@ function cstring(string s) {
     return str_to_cstring(getinterp(), s);
 }
 
+function atos(var x) {
+    var cstring_to_str = dlfunc(null, 'Parrot_str_new', 'Sppi');
+    return cstring_to_str(getinterp(), x, 0);
+}
+
 namespace Git2 {
 
   class Branch {
