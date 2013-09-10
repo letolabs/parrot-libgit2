@@ -130,9 +130,14 @@ class Test_git2_repository_open {
         using Git2.Repository;
 
         var repo = new Git2.Repository();
+        print("Cloning repository...\n");
         repo.clone("https://github.com/letolabs/parrot-libgit2.git", "/tmp/parrot");
         var ptr = repo.get_pointer();
         self.assert.defined(ptr, "Repository not cloned.");
+
+        string cmd = "rm -rf /tmp/parrot";
+        int result;
+        ${spawnw result, cmd};
 
     }
 
@@ -188,6 +193,9 @@ class Test_git2_repository_open {
         
         int offset = commit1.commit_time_offset();
         self.assert.not_null(offset);
+
+        string message1 = commit1.message();
+        self.assert.equal(message1, "NCI updates for libgit2 0.19\n");
 
         int parentcount = commit1.parentcount();
         self.assert.not_null(parentcount);

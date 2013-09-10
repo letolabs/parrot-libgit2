@@ -32,10 +32,10 @@ namespace Git2 {
             int ctime = git_commit_time(self.ptr);
             return ctime;
         }
-        // TODO convert to Parrot strings
         function message(){
             using Git2.Raw.git_commit_message;
-            var message = git_commit_message(self.ptr);
+            var cmessage = git_commit_message(self.ptr);
+            string message = atos(cmessage);
             return message;
         }
         /*
@@ -86,7 +86,8 @@ namespace Git2 {
          */
         function encoding(){
             using Git2.Raw.git_commit_message_encoding;
-            var encoding = git_commit_message_encoding(self.ptr);
+            var cencoding = git_commit_message_encoding(self.ptr);
+            string encoding = atos(cencoding);
             return encoding;
         }
         function free(){
