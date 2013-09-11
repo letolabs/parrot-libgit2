@@ -14,6 +14,7 @@ $load "./src/Git2/RevWalk.pbc";
 $load "./src/Git2/Odb.pbc";
 $load "./src/Git2/AttrCache.pbc";
 $load "./src/Git2/Blob.pbc";
+$load "./src/Git2/Reference.pbc";
 $load "./src/Git2/Remote.pbc";
 $load "./src/Git2/RevParse.pbc";
 $load "./src/Git2/Object.pbc";
@@ -141,14 +142,24 @@ class Test_git2_repository_open {
 
     }
 
-    function show_branch(){
+    function reference_test(){
         using Git2.Git.repo_head;
         using Git2.Raw.git_reference_name;
         using Git2.Git.branchname;
+        using Git2.Reference;
         using cstring;
+        
         var repo = new Git2.Repository(".");
-        string str = string(cstring("x"));
-        print(str);
+        var name = "HEAD";
+        
+        var ref = new Git2.Reference(repo, name);
+        int type = ref.reference_type();
+        self.assert.equal(type, 2);
+
+        string ref_name = ref.reference_symbolic_target();
+        self.assert.defined(ref_name);
+        
+        ref.free();
         repo.free();
     }
 

@@ -170,3 +170,19 @@ git_repository * clone(const char * url, const char * path){
     }
     return cloned_repo;
 }
+
+git_reference * reference_lookup(git_repository * repo, const char * name){
+    git_reference * ref;
+    int ret;
+    ret = git_reference_lookup(&ref, repo, name);
+    if (ret == GIT_ENOTFOUND){
+	fprintf(stderr, "Reference not found\n");
+    }
+    else if (ret == GIT_EINVALIDSPEC){
+	fprintf(stderr, "Invalid spec.\n");
+    }
+    else if (ret < 0){
+	fprintf(stderr, "Error looking up reference\n");
+    }
+    return ref;
+}

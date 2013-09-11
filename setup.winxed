@@ -58,6 +58,7 @@ function setup_stable_libraries(var parrot_libgit2) {
     'RefCache',
     'AttrCache',
     'Repository',
+    'Reference',
     'Remote',
     'RevParse',
     'RevWalk',

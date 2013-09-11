@@ -1,0 +1,48 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2 {
+    class Oid;
+}
+
+namespace Git2 {
+    class Reference {
+        var ptr;
+        function Reference() {
+        }
+        function Reference(repo, name){
+            using Git2.Git.reference_lookup;
+            self.ptr = reference_lookup(repo.ptr, cstring(name));
+        }
+        /*
+         * Returns 1 for direct ref, 2 for symbolic ref
+         */
+        function reference_type(){
+            using Git2.Raw.git_reference_type;
+            int type = git_reference_type(self.ptr);
+            return type;
+        }
+        /*
+         * Get OID pointed by direct reference
+         */
+        function reference_target(){
+            using Git2.Raw.git_reference_target;
+            var oid = git_reference_target(self.ptr);
+            return oid;
+        }
+        /*
+         * Get full name to a reference
+         */
+        function reference_symbolic_target(){
+            using Git2.Raw.git_reference_symbolic_target;
+            var cstring = git_reference_symbolic_target(self.ptr);
+
+            string refname = atos(cstring);
+            return refname;
+        }
+        function free(){
+            using Git2.Raw.git_reference_free;
+            git_reference_free(self.ptr);
+        }
+    }
+}
