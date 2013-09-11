@@ -22,3 +22,4 @@ size_t: i
 uint32_t: i
 int32_t: i
 int64_t: i
+git_ref_t: i
