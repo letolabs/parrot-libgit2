@@ -104,6 +104,19 @@ int get_config_int32(git_config * config, char * cfg_variable){
     return j;
 }
 
+const char * get_config_string(git_config * config, char * cfg_variable){
+    const char * cfgstring;
+    int ret;
+    ret = git_config_get_string(&cfgstring, config, cfg_variable);
+    if(ret < 0){
+	const git_error *err = giterr_last();
+	if (err) printf("ERROR %d: %s\n", err->klass, err->message);
+	else printf("ERROR %d: no detailed info\n", ret);
+    }
+    printf("%s\n", cfgstring);
+    return cfgstring;
+}
+
 git_remote * remote_create(git_repository *repo, char *name, char * url){
     git_remote * remote;
     int ret;

@@ -33,6 +33,7 @@ namespace Git2 {
     class Config;
     class Commit;
     class Oid;
+    class Reference;
     class RevWalk;
     class Remote;
     class Blob;

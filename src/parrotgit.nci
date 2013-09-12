@@ -14,6 +14,7 @@ p repo_head p
 p branchname p
 p get_config p
 i get_config_int32 pp
+p get_config_string pp
 p commit_lookup pp
 p parent pi
 p new_revwalk p

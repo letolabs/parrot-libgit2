@@ -20,5 +20,12 @@ namespace Git2{
             int j = get_config_int32(self.ptr, cstring(cfg_variable));
             return j;
         }
+        function get_string(cfg_variable){
+            using Git2.Git.get_config_string;
+            using cstring;
+            var cstr = get_config_string(self.ptr, cstring(cfg_variable));
+            string str = atos(cstr);
+            return str;
+        }
     }
 }

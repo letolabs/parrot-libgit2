@@ -17,6 +17,8 @@
   set_global ['Git2';'Git'], 'get_config', nci
   dlfunc nci, lib, 'get_config_int32', 'ipp'
   set_global ['Git2';'Git'], 'get_config_int32', nci
+  dlfunc nci, lib, 'get_config_string', 'ppp'
+  set_global ['Git2';'Git'], 'get_config_string', nci
   dlfunc nci, lib, 'commit_lookup', 'ppp'
   set_global ['Git2';'Git'], 'commit_lookup', nci
   dlfunc nci, lib, 'parent', 'ppi'
