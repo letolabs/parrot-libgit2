@@ -199,3 +199,15 @@ git_reference * reference_lookup(git_repository * repo, const char * name){
     }
     return ref;
 }
+
+git_tree * tree_lookup(git_repository * repo, const git_oid * id){
+    git_tree * tree;
+    int ret;
+    ret = git_tree_lookup(&tree, repo, id);
+    if (ret < 0){
+	const git_error *err = giterr_last();
+	if (err) printf("ERROR %d: %s\n", err->klass, err->message);
+	else printf("ERROR %d: no detailed info\n", ret);
+    }
+    return tree;
+}

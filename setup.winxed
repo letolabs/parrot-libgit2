@@ -62,7 +62,9 @@ function setup_stable_libraries(var parrot_libgit2) {
     'Remote',
     'RevParse',
     'RevWalk',
-    'Tag'
+    'Tag',
+    'Tree',
+    'TreeIndex'
   ];
 
   var core = [

@@ -25,3 +25,4 @@ p object_lookup pp
 p tag_lookup pp
 p clone pp
 p reference_lookup pp
+p tree_lookup pp

@@ -1,0 +1,26 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+}
+
+namespace Git2 {
+    class Tree {
+        var ptr;
+        function Tree() {
+        }
+        function lookup(repo, oid){
+            using Git2.Git.tree_lookup;
+            self.ptr = tree_lookup(repo.ptr, oid.ptr);
+        }
+        /*
+         * Get entrycount
+         */
+        function entrycount(){
+            using Git2.Raw.git_tree_entrycount;
+            int count = git_tree_entrycount(self.ptr);
+            return count;
+        }
+    }
+}

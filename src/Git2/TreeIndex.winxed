@@ -1,0 +1,46 @@
+$include_const 'datatypes.pasm';
+$include_const "iglobals.pasm";
+
+namespace Git2{
+    class Common;
+    class Object;
+}
+
+namespace Git2{
+    class TreeIndex{
+        var ptr;
+        function TreeIndex(){
+        }
+        /*
+         * Get entry by index
+         */
+        function byindex(tree, idx){
+            using Git2.Raw.git_tree_entry_byindex;
+            self.ptr = git_tree_entry_byindex(tree.ptr, idx);
+        }
+        /*
+         * Get entry by name
+         */
+        function byname(tree, name){
+            using Git2.Raw.git_tree_entry_byname;
+            self.ptr = git_tree_entry_byname(tree.ptr, cstring(name));
+        }
+        /*
+         * Get name of entry
+         */
+        function name(){
+            using Git2.Raw.git_tree_entry_name;
+            var cstr = git_tree_entry_name(self.ptr);
+            string str = atos(cstr);
+            return str;
+        }
+        function to_object(repo){
+            using Git2.Object;
+            using Git2.Raw.git_tree_entry_to_object;
+
+            var obj = new Object();
+            git_tree_entry_to_object(obj.ptr, repo.ptr, self.ptr);
+            return obj;
+        }
+    }
+}

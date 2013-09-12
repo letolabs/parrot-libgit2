@@ -19,6 +19,8 @@ $load "./src/Git2/Remote.pbc";
 $load "./src/Git2/RevParse.pbc";
 $load "./src/Git2/Object.pbc";
 $load "./src/Git2/Tag.pbc";
+$load "./src/Git2/Tree.pbc";
+$load "./src/Git2/TreeIndex.pbc";
 $load "dumper.pbc";
 
 $include_const 'datatypes.pasm';
@@ -39,6 +41,8 @@ namespace Git2 {
     class Blob;
     class Object;
     class Tag;
+    class Tree;
+    class TreeIndex;
 }
 
 class Test_git2_repository_open {
@@ -325,6 +329,29 @@ class Test_git2_repository_open {
 
         rc1 = tag.delete(repo, name);
         self.assert.equal(rc1, 0);
+    }
+
+    function tree(){
+        using Git2.Tree;
+        using Git2.TreeIndex;
+        using Git2.Repository;
+
+        var repo = new Git2.Repository(".");
+        var tree = new Git2.Tree();
+        var oid = new Git2.Oid();
+        var hex = "556d8f5741abf8728fce8cdb0e1f764bce7dc8a2";
+        oid.oid_from_str(hex);
+        tree.lookup(repo, oid);
+
+        int count = tree.entrycount();
+        self.assert.not_null(count);
+
+        var entry = new Git2.TreeIndex();
+        entry.byindex(tree, 0);
+        string name = entry.name();
+        self.assert.defined(name);
+
+        repo.free();
     }
 }
 function main[main]() {
