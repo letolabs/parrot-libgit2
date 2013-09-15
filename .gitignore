@@ -6,3 +6,4 @@ src/Git2/*.pir
 ext/Rosella
 tags
 src/*.o
+libparrot.so
