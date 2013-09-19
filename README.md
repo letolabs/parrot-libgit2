@@ -79,6 +79,8 @@ NCI defs are automatically generated during setup.
 
 ## How to use the high-level Winxed bindings:
 
+These are small snippets of code that show how the high level bindings to Winxed can be used. The bindings are basically wrappers around the plumbing functions provided by libgit2 and don't contain much porcelain stuff, though that can be built around these bindings. [Chapter 9 of Pro Git](progit.org/book/ch9-0.html) is a good reference for git internals.
+
 Opening a repository:
 
     using Git2.Repository;
@@ -91,6 +93,13 @@ Creating a repository:
     using Git2.Repository;
     var repo = new Git2.Repository;
     repo.init("/path/to/repository");
+    repo.free();
+
+Cloning a repository:
+
+    using Git2.Repository;
+    var repo = new Git2.Repository;
+    repo.clone("https://github.com/letolabs/parrot-libgit2.git", "/tmp/parrot-libgit2");
     repo.free();
 
 Using the index:
@@ -129,7 +138,7 @@ Getting an object from SHA1 hash:
 
 Getting Commit Data:
 
-    using Git2.Commit
+    using Git2.Commit;
     using Git2.Repository;
     using Git2.Oid;
 
@@ -147,6 +156,18 @@ Getting Commit Data:
 
     commit1.free();
     repo.free()
+
+Dealing with references:
+
+    using Git2.Repository;
+    using Git2.Reference;
+    var repo = new Git2.Repository(".");
+    var name = "HEAD";
+
+    var ref = new Git2.Reference(repo, name);
+    int type = ref.reference_type();
+    string ref_name = ref.reference_symbolic_target();
+
 
 Revision Walking:
 You can traverse the DAG(Directed Acyclic Graph) created by the parent pointers.
@@ -195,6 +216,26 @@ Blobs:
     print(size);
     blob.free();
     repo.free();
+
+Trees and TreeIndex:
+
+    using Git2.Tree;
+    using Git2.TreeIndex;
+    using Git2.Repository;
+
+    var repo = new Git2.Repository(".");
+    var tree = new Git2.Tree();
+    var oid = new Git2.Oid();
+    var hex = "556d8f5741abf8728fce8cdb0e1f764bce7dc8a2";
+    oid.oid_from_str(hex);
+    tree.lookup(repo, oid);
+
+    int count = tree.entrycount();
+
+    var entry = new Git2.TreeIndex();
+    entry.byindex(tree, 0);
+    string name = entry.name();
+
 
 ## Contributing
 
