@@ -7,3 +7,4 @@ ext/Rosella
 tags
 src/*.o
 libparrot.so
+version
