@@ -79,7 +79,7 @@ NCI defs are automatically generated during setup.
 
 ## How to use the high-level Winxed bindings:
 
-These are small snippets of code that show how the high level bindings to Winxed can be used. The bindings are basically wrappers around the plumbing functions provided by libgit2 and don't contain much porcelain stuff, though that can be built around these bindings. [Chapter 9 of Pro Git](progit.org/book/ch9-0.html) is a good reference for git internals.
+These are small snippets of code that show how the high level bindings to Winxed can be used. The bindings are basically wrappers around the plumbing functions provided by libgit2 and don't contain much porcelain stuff, though that can be built around these bindings. [Chapter 9 of Pro Git](http://progit.org/book/ch9-0.html) is a good reference for git internals.
 
 Opening a repository:
 
