@@ -1,11 +1,10 @@
+language: "c"
+
 before_script:
-    - wget https://github.com/parrot/parrot/archive/RELEASE_5_3_0.zip
-    - unzip RELEASE*
-    - cd parrot-RELEASE*
-    - pwd
-    - perl Configure.pl --prefix="/tmp/installed_parrot" && make install
-    - export PATH=/tmp/installed_parrot/bin/:$PATH
-    - cd ..
+    - ./.travis.sh
+
+env:
+    - LIBGIT2=~/libgit2/_install/ LD_LIBRARY_PATH=~/libgit2/_install/lib:/tmp/installed_parrot/lib
 
 # This sets up the Rosella submodule
 before_install:
@@ -23,4 +22,3 @@ notifications:
   email:
     on_success: change
     on_failure: always
-#env:
