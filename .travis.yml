@@ -1,6 +1,7 @@
 language: "c"
 
 before_script:
+    - sudo apt-get install cmake libffi-dev libicu-dev llvm-dev
     - ./.travis.sh
 
 env:
