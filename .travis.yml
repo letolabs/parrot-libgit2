@@ -1,15 +1,15 @@
 language: "c"
 
-before_script:
+# This sets up the Rosella submodule
+before_install:
+    - git submodule update --init --recursive
     - sudo apt-get install cmake libffi-dev libicu-dev llvm-dev
     - ./.travis.sh
 
 env:
     - LIBGIT2=~/libgit2/_install/ LD_LIBRARY_PATH=~/libgit2/_install/lib:/tmp/installed_parrot/lib
 
-# This sets up the Rosella submodule
-before_install:
-    - git submodule update --init --recursive
+before_script:
 
 script: "make rosella && winxed setup.winxed build && winxed setup.winxed test"
 
